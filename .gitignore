@@ -22,3 +22,10 @@ logs/
 # OS
 Thumbs.db
 .DS_Store
+
+# clean-code audit state
+.clean/
+
+# scratch/debug scripts
+*.cjs
+

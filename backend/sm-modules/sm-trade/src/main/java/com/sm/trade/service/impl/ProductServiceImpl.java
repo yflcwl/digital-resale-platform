@@ -11,6 +11,7 @@ import com.sm.common.mybatis.core.page.PageQuery;
 import com.sm.common.mybatis.core.page.TableDataInfo;
 import com.sm.common.satoken.utils.LoginHelper;
 import com.sm.trade.constant.ProductStatus;
+import com.sm.trade.domain.Brand;
 import com.sm.trade.domain.Category;
 import com.sm.trade.domain.Product;
 import com.sm.trade.domain.ProductBrowse;
@@ -29,11 +30,13 @@ import com.sm.trade.service.IBrandService;
 import com.sm.trade.service.IProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商品Service业务层处理
@@ -56,10 +59,12 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public TableDataInfo<ProductVo> queryOnSalePage(ProductBo bo, PageQuery pageQuery) {
         LambdaQueryWrapper<Product> lqw = buildOnSaleWrapper(bo);
-        // 默认最新发布在前;price 排序由前端传 orderByColumn=price&isAsc 控制(PageQuery 自动处理)
-        lqw.orderByDesc(Product::getCreateTime);
+        // 前端未指定排序时默认最新发布在前;指定了(如 price)则交给 PageQuery
+        if (StringUtils.isBlank(pageQuery.getOrderByColumn())) {
+            lqw.orderByDesc(Product::getCreateTime);
+        }
         Page<ProductVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
-        fillCategoryBrandName(result.getRecords());
+        fillCategoryName(result.getRecords());
         return TableDataInfo.build(result);
     }
 
@@ -84,7 +89,7 @@ public class ProductServiceImpl implements IProductService {
         lqw.like(StringUtils.isNotBlank(bo.getTitle()), Product::getTitle, bo.getTitle());
         lqw.orderByDesc(Product::getCreateTime);
         Page<ProductVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
-        fillCategoryBrandName(result.getRecords());
+        fillCategoryName(result.getRecords());
         return TableDataInfo.build(result);
     }
 
@@ -101,8 +106,8 @@ public class ProductServiceImpl implements IProductService {
         Category category = categoryService.selectById(product.getCategoryId());
         vo.setCategoryName(category == null ? null : category.getName());
         if (product.getBrandId() != null) {
-            vo.setBrandName(brandService.selectById(product.getBrandId()) == null
-                ? null : brandService.selectById(product.getBrandId()).getName());
+            Brand brand = brandService.selectById(product.getBrandId());
+            vo.setBrandName(brand == null ? null : brand.getName());
         }
         SellerInfoVo seller = userProfileMapper.selectSellerInfo(product.getSellerId());
         if (seller != null) {
@@ -256,7 +261,12 @@ public class ProductServiceImpl implements IProductService {
         favorite.setUserId(userId);
         favorite.setProductId(productId);
         favorite.setCreateTime(new Date());
-        favoriteMapper.insert(favorite);
+        try {
+            favoriteMapper.insert(favorite);
+        } catch (DuplicateKeyException e) {
+            // 并发重复收藏:唯一约束兜底,视为幂等成功
+            return;
+        }
         incrementFavoriteCount(productId, 1);
     }
 
@@ -289,7 +299,7 @@ public class ProductServiceImpl implements IProductService {
         List<ProductVo> records = List.of();
         if (!productIds.isEmpty()) {
             records = baseMapper.selectVoList(Wrappers.<Product>lambdaQuery().in(Product::getId, productIds));
-            fillCategoryBrandName(records);
+            fillCategoryName(records);
         }
         return new TableDataInfo<>(records, favoritePage.getTotal());
     }
@@ -306,19 +316,23 @@ public class ProductServiceImpl implements IProductService {
             return List.of();
         }
         List<ProductVo> records = baseMapper.selectVoList(Wrappers.<Product>lambdaQuery().in(Product::getId, productIds));
-        fillCategoryBrandName(records);
+        fillCategoryName(records);
         return records;
     }
 
-    private void fillCategoryBrandName(List<ProductVo> records) {
+    private void fillCategoryName(List<ProductVo> records) {
         if (records == null || records.isEmpty()) {
             return;
         }
-        records.forEach(vo -> {
-            Category category = categoryService.selectById(vo.getCategoryId());
-            if (category != null) {
-                vo.setCategoryName(category.getName());
-            }
-        });
+        List<Long> categoryIds = records.stream()
+            .map(ProductVo::getCategoryId)
+            .filter(java.util.Objects::nonNull)
+            .distinct()
+            .toList();
+        if (categoryIds.isEmpty()) {
+            return;
+        }
+        Map<Long, String> nameMap = categoryService.selectNameMap(categoryIds);
+        records.forEach(vo -> vo.setCategoryName(nameMap.get(vo.getCategoryId())));
     }
 }

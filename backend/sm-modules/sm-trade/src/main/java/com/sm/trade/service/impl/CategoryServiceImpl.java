@@ -10,7 +10,9 @@ import com.sm.trade.service.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +38,15 @@ public class CategoryServiceImpl implements ICategoryService {
     @Override
     public Category selectById(Long id) {
         return baseMapper.selectById(id);
+    }
+
+    @Override
+    public Map<Long, String> selectNameMap(Collection<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Map.of();
+        }
+        return baseMapper.selectBatchIds(ids).stream()
+            .collect(Collectors.toMap(Category::getId, Category::getName, (a, b) -> a));
     }
 
     private List<CategoryVo> buildTree(List<CategoryVo> list) {

@@ -22,4 +22,9 @@ public interface ICategoryService {
      * 根据ID查询分类
      */
     Category selectById(Long id);
+
+    /**
+     * 批量查询分类名称(id → name)
+     */
+    java.util.Map<Long, String> selectNameMap(java.util.Collection<Long> ids);
 }
