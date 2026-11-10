@@ -1,6 +1,7 @@
 package com.sm.trade.domain.vo;
 
 import com.sm.trade.domain.Order;
+import io.github.linpeilie.annotations.AutoMapper;
 import com.sm.trade.domain.OrderStatusLog;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@AutoMapper(target = Order.class)
 public class OrderVo extends Order {
 
     @Serial

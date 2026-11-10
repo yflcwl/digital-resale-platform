@@ -1,5 +1,6 @@
 package com.sm.trade.controller;
 
+import cn.dev33.satoken.annotation.SaIgnore;
 import com.sm.common.core.domain.R;
 import com.sm.trade.domain.vo.BrandVo;
 import com.sm.trade.service.IBrandService;
@@ -26,6 +27,7 @@ public class BrandController {
     /**
      * 品牌列表(可按分类筛选)
      */
+    @SaIgnore
     @GetMapping("/list")
     public R<List<BrandVo>> list(@RequestParam(required = false) Long categoryId) {
         return R.ok(brandService.selectList(categoryId));

@@ -1,5 +1,6 @@
 package com.sm.trade.controller;
 
+import cn.dev33.satoken.annotation.SaIgnore;
 import com.sm.common.core.domain.R;
 import com.sm.trade.domain.vo.CategoryVo;
 import com.sm.trade.service.ICategoryService;
@@ -25,6 +26,7 @@ public class CategoryController {
     /**
      * 分类树
      */
+    @SaIgnore
     @GetMapping("/tree")
     public R<List<CategoryVo>> tree() {
         return R.ok(categoryService.selectTree());

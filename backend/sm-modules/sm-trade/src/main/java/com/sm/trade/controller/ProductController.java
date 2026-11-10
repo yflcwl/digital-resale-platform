@@ -1,6 +1,7 @@
 package com.sm.trade.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaIgnore;
 import com.sm.common.core.domain.R;
 import com.sm.common.core.validate.AddGroup;
 import com.sm.common.core.validate.EditGroup;
@@ -41,6 +42,7 @@ public class ProductController {
     /**
      * 在售商品分页(匿名可浏览)
      */
+    @SaIgnore
     @GetMapping("/page")
     public TableDataInfo<ProductVo> page(@Validated(QueryGroup.class) ProductBo bo, PageQuery pageQuery) {
         return productService.queryOnSalePage(bo, pageQuery);
@@ -49,6 +51,7 @@ public class ProductController {
     /**
      * 商品详情(匿名可浏览)
      */
+    @SaIgnore
     @GetMapping("/{id}")
     public R<ProductVo> detail(@PathVariable @NotNull(message = "商品ID不能为空") Long id) {
         return R.ok(productService.queryDetail(id));
