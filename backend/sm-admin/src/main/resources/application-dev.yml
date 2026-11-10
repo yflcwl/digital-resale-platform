@@ -281,3 +281,7 @@ rocketmq:
   producer:
     group: sm-producer
     send-message-timeout: 3000
+
+# 开发环境关闭图形验证码：便于本地联调与自动化截图；生产配置 application-prod.yml 不受影响
+captcha:
+  enable: false
