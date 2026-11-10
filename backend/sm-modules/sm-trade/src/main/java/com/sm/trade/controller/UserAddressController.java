@@ -4,6 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.sm.common.core.domain.R;
 import com.sm.trade.domain.UserAddress;
 import com.sm.trade.service.IUserAddressService;
+import com.sm.trade.util.AddressParser;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 收货地址Controller(用户端)
@@ -40,6 +42,14 @@ public class UserAddressController {
         return R.ok(addressService.selectMyList());
     }
 
+    /**
+     * 整段地址智能识别(姓名/电话/省市区/详细地址)
+     */
+    @SaCheckLogin
+    @PostMapping("/parse")
+    public R<AddressParser.Result> parse(@RequestBody Map<String, String> body) {
+        return R.ok(AddressParser.parse(body.get("text")));
+    }
     /**
      * 新增地址
      */

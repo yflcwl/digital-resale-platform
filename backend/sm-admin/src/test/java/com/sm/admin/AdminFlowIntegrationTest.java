@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * 管理后台集成测试
  *
  * 前置条件同其余集成测试(测试环境需关闭验证码与接口加密)。
- * 覆盖:仪表盘统计、商品管理(强制下架/恢复)、分类增删、品牌增删、订单查询、质检报告查阅、普通用户越权拦截。
+ * 覆盖:仪表盘统计、商品管理(强制下架/恢复)、分类增删、品牌字典、订单查询、质检报告查阅、普通用户越权拦截。
  */
 @Tag("dev")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
@@ -136,24 +136,15 @@ class AdminFlowIntegrationTest {
 
     @Test
     @Order(4)
-    void categoryAndBrandCrud() {
+    void categoryAndBrandDict() {
         // 分类树
         Map<String, Object> tree = call(adminToken, HttpMethod.GET, "/admin/category/tree", null);
         assertTrue(((List<?>) tree.get("data")).size() > 0, "分类树应有数据");
 
-        // 新增品牌 → 删除品牌
-        Map<String, Object> add = call(adminToken, HttpMethod.POST, "/admin/brand",
-            Map.of("name", "测试品牌X", "sort", 99, "status", "0"));
-        assertEquals(200, ((Number) add.get("code")).intValue(), "新增品牌应成功: " + add.get("msg"));
-        tempBrandId = toLong(add.get("data"));
-        assertTrue(tempBrandId > 0);
-
-        Map<String, Object> edit = call(adminToken, HttpMethod.PUT, "/admin/brand",
-            Map.of("id", tempBrandId, "name", "测试品牌Y", "sort", 98, "status", "0"));
-        assertEquals(200, ((Number) edit.get("code")).intValue(), "修改品牌应成功");
-
-        Map<String, Object> del = call(adminToken, HttpMethod.DELETE, "/admin/brand/" + tempBrandId, null);
-        assertEquals(200, ((Number) del.get("code")).intValue(), "删除品牌应成功");
+        // 品牌已迁移至字典管理(系统管理 -> 字典管理 -> product_brand)
+        Map<String, Object> brandDict = call(adminToken, HttpMethod.GET, "/system/dict/data/type/product_brand", null);
+        assertEquals(200, ((Number) brandDict.get("code")).intValue(), "品牌字典应可访问: " + brandDict.get("msg"));
+        assertTrue(((List<?>) brandDict.get("data")).size() > 0, "品牌字典应有数据");
     }
 
     @Test

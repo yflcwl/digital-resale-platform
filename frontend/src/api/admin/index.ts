@@ -1,7 +1,7 @@
 import request from '@/utils/request';
 import { AxiosPromise } from 'axios';
 import { TableDataInfo } from '@/types/global';
-import { BrandVO, CategoryTreeVO, OrderVO, ProductVO } from '@/api/trade/types';
+import { CategoryTreeVO, OrderVO, ProductVO } from '@/api/trade/types';
 
 /* ---------- 仪表盘 ---------- */
 
@@ -53,24 +53,6 @@ export const adminEditCategory = (data: Record<string, any>): AxiosPromise<void>
 
 export const adminDelCategory = (id: number | string): AxiosPromise<void> => {
   return request({ url: `/admin/category/${id}`, method: 'delete' });
-};
-
-/* ---------- 品牌 ---------- */
-
-export const adminBrandList = (categoryId?: number | string): AxiosPromise<BrandVO[]> => {
-  return request({ url: '/admin/brand/list', method: 'get', params: { categoryId } });
-};
-
-export const adminAddBrand = (data: Record<string, any>): AxiosPromise<number> => {
-  return request({ url: '/admin/brand', method: 'post', data });
-};
-
-export const adminEditBrand = (data: Record<string, any>): AxiosPromise<void> => {
-  return request({ url: '/admin/brand', method: 'put', data });
-};
-
-export const adminDelBrand = (id: number | string): AxiosPromise<void> => {
-  return request({ url: `/admin/brand/${id}`, method: 'delete' });
 };
 
 /* ---------- 订单 ---------- */

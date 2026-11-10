@@ -113,7 +113,7 @@ class InspectionFlowIntegrationTest {
         Map<String, Object> body = Map.of(
             "title", title,
             "categoryId", 11,
-            "brandId", 1,
+            "brandName", "苹果",
             "price", 2999,
             "conditionSelf", "GOOD",
             "description", "智能质检集成测试商品",

@@ -29,8 +29,6 @@ public class ProductVo extends Product {
     /** 分类名称 */
     private String categoryName;
 
-    /** 品牌名称 */
-    private String brandName;
 
     /** 卖家昵称 */
     private String sellerNickname;

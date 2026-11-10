@@ -30,6 +30,18 @@
 
     <el-dialog v-model="dialogVisible" :title="form.id ? '编辑地址' : '新增地址'" width="520px" append-to-body>
       <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="智能识别">
+          <div class="parse-box">
+            <el-input
+              v-model="smartText"
+              type="textarea"
+              :rows="2"
+              placeholder="粘贴一整段地址,自动识别,如:张三 13800000000 四川省成都市高新区天府大道100号"
+              maxlength="300"
+            />
+            <el-button type="primary" plain :loading="parsing" style="margin-top: 8px" @click="handleParse">识别并填充</el-button>
+          </div>
+        </el-form-item>
         <el-form-item label="收货人" prop="receiver">
           <el-input v-model="form.receiver" placeholder="请输入收货人姓名" />
         </el-form-item>
@@ -61,7 +73,7 @@
 
 <script setup name="Address" lang="ts">
 import { onMounted, reactive, ref } from 'vue';
-import { listAddress, addAddress, editAddress, delAddress, setDefaultAddress } from '@/api/trade/address';
+import { listAddress, addAddress, editAddress, delAddress, setDefaultAddress, parseAddress } from '@/api/trade/address';
 import { AddressForm, AddressVO } from '@/api/trade/types';
 import { pcaTextArr } from 'element-china-area-data';
 import { ElMessage, ElMessageBox, FormInstance, FormRules } from 'element-plus';
@@ -73,6 +85,8 @@ const list = ref<AddressVO[]>([]);
 const formRef = ref<FormInstance>();
 const regionOptions = pcaTextArr;
 const regionValue = ref<string[]>([]);
+const smartText = ref('');
+const parsing = ref(false);
 
 const form = reactive<AddressForm>({
   receiver: '',
@@ -88,6 +102,44 @@ const rules: FormRules = {
   phone: [{ required: true, message: '请输入联系电话', trigger: 'blur' }],
   province: [{ required: true, message: '请选择所在地区', trigger: 'change' }],
   detail: [{ required: true, message: '请输入详细地址', trigger: 'blur' }]
+};
+
+const handleParse = async () => {
+  if (!smartText.value.trim()) {
+    ElMessage.warning('请先粘贴地址文字');
+    return;
+  }
+  parsing.value = true;
+  try {
+    const res = await parseAddress(smartText.value.trim());
+    const r = res.data || {};
+    if (r.receiver) form.receiver = r.receiver;
+    if (r.phone) form.phone = r.phone;
+    if (r.province) form.province = r.province;
+    if (r.city) form.city = r.city;
+    if (r.district) form.district = r.district;
+    if (r.detail) form.detail = r.detail;
+
+    // 尝试按名称回填省市区级联选择器
+    const matchRegion = (province?: string, city?: string, district?: string) => {
+      const p = pcaTextArr.find((x: any) => x.label === province);
+      if (!p) return [];
+      const c = (p as any).children?.find((x: any) => x.label === city);
+      if (!c) return [province];
+      const d = c.children?.find((x: any) => x.label === district);
+      return d ? [province, city, district] : [province, city];
+    };
+    regionValue.value = matchRegion(r.province, r.city, r.district) as string[];
+
+    const filled = [r.receiver, r.phone, r.province, r.city, r.detail].filter(Boolean).length;
+    if (filled === 0) {
+      ElMessage.warning('未能识别出有效信息,请手动填写');
+    } else {
+      ElMessage.success('识别完成,请核对信息' + (regionValue.value.length < 3 ? '并确认地区' : ''));
+    }
+  } finally {
+    parsing.value = false;
+  }
 };
 
 const handleRegionChange = (val: string[] | null) => {

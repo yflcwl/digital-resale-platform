@@ -11,7 +11,6 @@ import com.sm.common.mybatis.core.page.PageQuery;
 import com.sm.common.mybatis.core.page.TableDataInfo;
 import com.sm.common.satoken.utils.LoginHelper;
 import com.sm.trade.constant.ProductStatus;
-import com.sm.trade.domain.Brand;
 import com.sm.trade.domain.Category;
 import com.sm.trade.domain.Product;
 import com.sm.trade.domain.ProductBrowse;
@@ -26,7 +25,6 @@ import com.sm.trade.mapper.ProductImageMapper;
 import com.sm.trade.mapper.ProductMapper;
 import com.sm.trade.mapper.UserProfileMapper;
 import com.sm.trade.service.ICategoryService;
-import com.sm.trade.service.IBrandService;
 import com.sm.trade.service.IProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +52,6 @@ public class ProductServiceImpl implements IProductService {
     private final ProductBrowseMapper browseMapper;
     private final UserProfileMapper userProfileMapper;
     private final ICategoryService categoryService;
-    private final IBrandService brandService;
 
     @Override
     public TableDataInfo<ProductVo> queryOnSalePage(ProductBo bo, PageQuery pageQuery) {
@@ -73,7 +70,7 @@ public class ProductServiceImpl implements IProductService {
         lqw.eq(Product::getStatus, ProductStatus.ON_SALE);
         lqw.like(StringUtils.isNotBlank(bo.getTitle()), Product::getTitle, bo.getTitle());
         lqw.eq(bo.getCategoryId() != null, Product::getCategoryId, bo.getCategoryId());
-        lqw.eq(bo.getBrandId() != null, Product::getBrandId, bo.getBrandId());
+        lqw.eq(StringUtils.isNotBlank(bo.getBrandName()), Product::getBrandName, bo.getBrandName());
         lqw.eq(StringUtils.isNotBlank(bo.getConditionSelf()), Product::getConditionSelf, bo.getConditionSelf());
         lqw.eq(StringUtils.isNotBlank(bo.getQualityGrade()), Product::getQualityGrade, bo.getQualityGrade());
         lqw.ge(bo.getPriceMin() != null, Product::getPrice, bo.getPriceMin());
@@ -105,10 +102,6 @@ public class ProductServiceImpl implements IProductService {
             .orderByAsc(ProductImage::getSort)));
         Category category = categoryService.selectById(product.getCategoryId());
         vo.setCategoryName(category == null ? null : category.getName());
-        if (product.getBrandId() != null) {
-            Brand brand = brandService.selectById(product.getBrandId());
-            vo.setBrandName(brand == null ? null : brand.getName());
-        }
         SellerInfoVo seller = userProfileMapper.selectSellerInfo(product.getSellerId());
         if (seller != null) {
             vo.setSellerNickname(seller.getNickname());
@@ -326,7 +319,7 @@ public class ProductServiceImpl implements IProductService {
         lqw.like(StringUtils.isNotBlank(bo.getTitle()), Product::getTitle, bo.getTitle());
         lqw.eq(StringUtils.isNotBlank(bo.getStatus()), Product::getStatus, bo.getStatus());
         lqw.eq(bo.getCategoryId() != null, Product::getCategoryId, bo.getCategoryId());
-        lqw.eq(bo.getBrandId() != null, Product::getBrandId, bo.getBrandId());
+        lqw.eq(StringUtils.isNotBlank(bo.getBrandName()), Product::getBrandName, bo.getBrandName());
         lqw.eq(bo.getSellerId() != null, Product::getSellerId, bo.getSellerId());
         lqw.orderByDesc(Product::getCreateTime);
         Page<ProductVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);

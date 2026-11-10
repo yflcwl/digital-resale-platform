@@ -18,8 +18,8 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-select v-model="queryParams.brandId" placeholder="全部品牌" clearable style="width: 150px">
-            <el-option v-for="b in brandList" :key="b.id" :label="b.name" :value="b.id" />
+          <el-select v-model="queryParams.brandName" placeholder="全部品牌" clearable style="width: 150px">
+            <el-option v-for="b in brandDict" :key="b.value" :label="b.label" :value="b.value" />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -84,9 +84,9 @@
 import { getCurrentInstance, onMounted, reactive, ref, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { listCategoryTree } from '@/api/trade/category';
-import { listBrand } from '@/api/trade/brand';
 import { listOnSaleProduct } from '@/api/trade/product';
-import { ProductQuery, ProductVO, CategoryTreeVO, BrandVO } from '@/api/trade/types';
+import { getDicts } from '@/api/system/dict/data';
+import { ProductQuery, ProductVO, CategoryTreeVO } from '@/api/trade/types';
 
 const { proxy } = getCurrentInstance() as any;
 const { product_condition: conditionDict } = toRefs<any>(proxy?.useDict('product_condition'));
@@ -96,7 +96,7 @@ const loading = ref(false);
 const total = ref(0);
 const productList = ref<ProductVO[]>([]);
 const categoryOptions = ref<CategoryTreeVO[]>([]);
-const brandList = ref<BrandVO[]>([]);
+const brandDict = ref<{ label: string; value: string }[]>([]);
 const categoryValue = ref<number[]>([]);
 const orderBy = ref('');
 const cascaderProps = { value: 'id', label: 'name', checkStrictly: true, emitPath: true };
@@ -127,16 +127,20 @@ const loadCategory = async () => {
   categoryOptions.value = res.data;
 };
 
-const handleCategoryChange = (val: number[]) => {
-  queryParams.categoryId = val && val.length ? val[val.length - 1] : undefined;
-  queryParams.brandId = undefined;
-  if (queryParams.categoryId) {
-    listBrand(queryParams.categoryId).then((res) => {
-      brandList.value = res.data;
-    });
-  } else {
-    brandList.value = [];
+/** 品牌字典(匿名访问字典接口可能 401,失败时降级隐藏品牌筛选) */
+const loadBrandDict = async () => {
+  try {
+    const res = await getDicts('product_brand');
+    brandDict.value = res.data.map((d: any) => ({ label: d.dictLabel, value: d.dictValue }));
+  } catch {
+    brandDict.value = [];
   }
+};
+
+const handleCategoryChange = () => {
+  const val = categoryValue.value;
+  queryParams.categoryId = val && val.length ? val[val.length - 1] : undefined;
+  queryParams.brandName = undefined;
   handleQuery();
 };
 
@@ -148,12 +152,11 @@ const handleQuery = () => {
 const resetQuery = () => {
   queryParams.title = undefined;
   queryParams.categoryId = undefined;
-  queryParams.brandId = undefined;
+  queryParams.brandName = undefined;
   queryParams.conditionSelf = undefined;
   queryParams.priceMin = undefined;
   queryParams.priceMax = undefined;
   categoryValue.value = [];
-  brandList.value = [];
   orderBy.value = '';
   handleQuery();
 };
@@ -171,6 +174,7 @@ const goDetail = (item: ProductVO) => {
 
 onMounted(() => {
   loadCategory();
+  loadBrandDict();
   getList();
 });
 </script>

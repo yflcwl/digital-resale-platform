@@ -53,3 +53,14 @@ export const setDefaultAddress = (id: number | string): AxiosPromise<void> => {
     method: 'post'
   });
 };
+
+/**
+ * 整段地址智能识别
+ */
+export const parseAddress = (text: string): AxiosPromise<{ receiver?: string; phone?: string; province?: string; city?: string; district?: string; detail?: string }> => {
+  return request({
+    url: '/trade/address/parse',
+    method: 'post',
+    data: { text }
+  });
+};

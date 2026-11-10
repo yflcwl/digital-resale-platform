@@ -33,8 +33,11 @@ public class Product extends BaseEntity {
     /** 分类ID */
     private Long categoryId;
 
-    /** 品牌ID */
+    /** 品牌ID(历史字段,已迁移为 brandName) */
     private Long brandId;
+
+    /** 品牌名称(字典 product_brand) */
+    private String brandName;
 
     /** 商品标题 */
     private String title;

@@ -14,12 +14,6 @@ export interface CategoryTreeVO {
 /**
  * 品牌 VO
  */
-export interface BrandVO {
-  id: number;
-  name: string;
-  logo?: string;
-  sort: number;
-}
 
 /**
  * 商品图片
@@ -38,7 +32,7 @@ export interface ProductVO {
   id: number;
   sellerId: number;
   categoryId: number;
-  brandId?: number;
+  brandName?: string;
   title: string;
   description?: string;
   price: number;
@@ -52,7 +46,6 @@ export interface ProductVO {
   createTime?: string;
   images?: ProductImageVO[];
   categoryName?: string;
-  brandName?: string;
   sellerNickname?: string;
   sellerAvatar?: string;
   sellerRating?: number;
@@ -68,8 +61,8 @@ export interface ProductQuery {
   orderByColumn?: string;
   isAsc?: string;
   title?: string;
+  brandName?: string;
   categoryId?: number;
-  brandId?: number;
   conditionSelf?: string;
   qualityGrade?: string;
   priceMin?: number;
@@ -85,7 +78,7 @@ export interface ProductForm {
   title: string;
   description?: string;
   categoryId: number;
-  brandId?: number;
+  brandName?: string;
   price: number;
   originalPrice?: number;
   conditionSelf?: string;

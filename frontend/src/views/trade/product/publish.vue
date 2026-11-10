@@ -19,8 +19,8 @@
           />
         </el-form-item>
         <el-form-item label="品牌">
-          <el-select v-model="form.brandId" placeholder="请选择品牌" clearable style="width: 100%">
-            <el-option v-for="b in brandList" :key="b.id" :label="b.name" :value="b.id" />
+          <el-select v-model="form.brandName" placeholder="请选择品牌" clearable filterable style="width: 100%">
+            <el-option v-for="b in brandDict" :key="b.value" :label="b.label" :value="b.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="售价" prop="price">
@@ -54,13 +54,14 @@
 import { getCurrentInstance, onMounted, reactive, ref, toRefs } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { listCategoryTree } from '@/api/trade/category';
-import { listBrand } from '@/api/trade/brand';
 import { getProduct, publishProduct, editProduct } from '@/api/trade/product';
-import { ProductForm, CategoryTreeVO, BrandVO } from '@/api/trade/types';
+import { ProductForm, CategoryTreeVO } from '@/api/trade/types';
+import { ElMessage, FormInstance, FormRules } from 'element-plus';
 
 const { proxy } = getCurrentInstance() as any;
-const { product_condition: conditionDict } = toRefs<any>(proxy?.useDict('product_condition'));
-import { ElMessage, FormInstance, FormRules } from 'element-plus';
+const { product_condition: conditionDict, product_brand: brandDict } = toRefs<any>(
+  proxy?.useDict('product_condition', 'product_brand')
+);
 
 const route = useRoute();
 const router = useRouter();
@@ -68,7 +69,6 @@ const isEdit = ref(false);
 const submitting = ref(false);
 const formRef = ref<FormInstance>();
 const categoryOptions = ref<CategoryTreeVO[]>([]);
-const brandList = ref<BrandVO[]>([]);
 const categoryValue = ref<number[]>([]);
 
 const form = reactive<ProductForm>({
@@ -88,13 +88,6 @@ const rules: FormRules = {
 
 const handleCategoryChange = (val: number[]) => {
   form.categoryId = val && val.length ? val[val.length - 1] : 0;
-  form.brandId = undefined;
-  brandList.value = [];
-  if (form.categoryId) {
-    listBrand(form.categoryId).then((res) => {
-      brandList.value = res.data;
-    });
-  }
 };
 
 const submit = async () => {
@@ -130,17 +123,12 @@ onMounted(async () => {
     form.title = detail.title;
     form.description = detail.description;
     form.categoryId = detail.categoryId;
-    form.brandId = detail.brandId;
+    form.brandName = detail.brandName;
     form.price = detail.price;
     form.originalPrice = detail.originalPrice;
     form.conditionSelf = detail.conditionSelf;
     form.images = (detail.images || []).map((i) => i.url);
     categoryValue.value = [detail.categoryId];
-    if (detail.categoryId) {
-      listBrand(detail.categoryId).then((res) => {
-        brandList.value = res.data;
-      });
-    }
   }
 });
 </script>
