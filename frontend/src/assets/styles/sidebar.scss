@@ -71,12 +71,6 @@
     box-shadow: var(--sm-shadow-3);
   }
 
-  /* logo 与菜单之间加一道细线，避免两个蓝色块贴在一起 */
-  .sidebar-container .sidebar-logo-container {
-    border-bottom: 1px solid var(--sm-line-soft);
-    margin-bottom: 4px;
-  }
-
   .scrollbar-wrapper {
     overflow-x: hidden !important;
   }
@@ -92,7 +86,7 @@
   }
 
   .sidebar-container.has-logo .el-scrollbar {
-    height: calc(100% - 66px);
+    height: calc(100% - 62px);
     flex: 1;
     min-height: 0;
   }
@@ -101,7 +95,8 @@
     display: none;
   }
 
-  a {
+  /* 菜单链接铺满整行；logo 链接要用 flex 排版，必须排除，否则会被压成块级 */
+  a:not(.sidebar-logo-link) {
     display: inline-block;
     width: 100%;
     overflow: hidden;

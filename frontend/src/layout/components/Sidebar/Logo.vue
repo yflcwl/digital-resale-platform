@@ -38,9 +38,10 @@ defineProps({
 
 <style lang="scss" scoped>
 .sidebar-logo-container {
-  height: 64px;
-  flex-shrink: 0;
-  padding: 0 14px;
+  height: 62px;
+  flex: 0 0 62px;
+  /* 顶部留内边距，方块避开轨道圆角 */
+  padding: 12px 0 0;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -48,30 +49,31 @@ defineProps({
   .sidebar-logo-link {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     width: 100%;
-    height: 100%;
+    height: 44px;
+    padding: 0;
     text-decoration: none;
   }
 
-  /* 洋葱标识：圆角方砖 + 线条洋葱，带底部厚度呼应按钮的实体感 */
+  /* 洋葱标识 */
   .logo-mark {
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    border-radius: 12px;
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
     background: var(--sm-brand);
     color: #fff;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 0 var(--sm-brand-deep);
     transition: transform var(--sm-dur) var(--sm-ease);
   }
 
   .onion-icon {
-    width: 23px;
-    height: 23px;
+    width: 22px;
+    height: 22px;
     display: block;
   }
 
@@ -83,6 +85,7 @@ defineProps({
     display: flex;
     flex-direction: column;
     min-width: 0;
+    overflow: hidden;
     line-height: 1.15;
   }
 
@@ -101,15 +104,18 @@ defineProps({
     color: var(--sm-stone);
     white-space: nowrap;
   }
+}
 
-  &.collapse {
-    padding: 0;
-    justify-content: center;
+/* 收起态：只留方块，整行居中 */
+.sidebar-logo-container.collapse .sidebar-logo-link {
+  gap: 0;
+  justify-content: center;
+}
 
-    .sidebar-logo-link {
-      justify-content: center;
-      gap: 0;
-    }
-  }
+/* 展开态：方块居左，文字跟在右侧 */
+.sidebar-logo-container:not(.collapse) .sidebar-logo-link {
+  justify-content: flex-start;
+  padding: 0 12px;
+  box-sizing: border-box;
 }
 </style>
