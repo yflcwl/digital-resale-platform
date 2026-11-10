@@ -96,9 +96,9 @@ insert into sm_product (seller_id, category_id, brand_id, title, description, pr
 (1, 81, 19, '罗技 MX Master 3S 无线鼠标',         '办公旗舰鼠标,手感极佳,功能正常,外观 9 成新。',                                                         399,  699,  'GOOD',      'A', 'ON_SALE', 58,  4,  null, '0', 103, 1, now() - interval '10 day'),
 (1, 82, 20, '安克 65W 氮化镓充电器 + 数据线',     '出差旅行必备,双口输出,全新未拆封,买多了出两个。',                                                     89,   169,  'EXCELLENT', 'S', 'ON_SALE', 102, 7,  null, '0', 103, 1, now() - interval '1 day');
 
--- ============ 商品图片(演示用占位图) ============
+-- ============ 商品图片(本地演示图:前端 public/product/{n}.jpg) ============
 insert into sm_product_image (product_id, url, sort, is_main, create_time)
-select id, 'https://picsum.photos/seed/sm' || id || '/600/600', 0, '1', now()
+select id, '/product/' || (row_number() over (order by id)) || '.jpg', 0, '1', now()
 from sm_product where status = 'ON_SALE';
 
 -- ============ 序列归位(避免后续插入主键冲突) ============
