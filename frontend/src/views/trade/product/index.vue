@@ -24,7 +24,7 @@
         </el-form-item>
         <el-form-item>
           <el-select v-model="queryParams.conditionSelf" placeholder="全部成色" clearable style="width: 150px">
-            <el-option v-for="c in conditionSelfOptions" :key="c.value" :label="c.label" :value="c.value" />
+            <el-option v-for="c in conditionDict" :key="c.value" :label="c.label" :value="c.value" />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -81,12 +81,15 @@
 </template>
 
 <script setup name="Market" lang="ts">
-import { onMounted, reactive, ref } from 'vue';
+import { getCurrentInstance, onMounted, reactive, ref, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { listCategoryTree } from '@/api/trade/category';
 import { listBrand } from '@/api/trade/brand';
 import { listOnSaleProduct } from '@/api/trade/product';
-import { conditionSelfOptions, ProductQuery, ProductVO, CategoryTreeVO, BrandVO } from '@/api/trade/types';
+import { ProductQuery, ProductVO, CategoryTreeVO, BrandVO } from '@/api/trade/types';
+
+const { proxy } = getCurrentInstance() as any;
+const { product_condition: conditionDict } = toRefs<any>(proxy?.useDict('product_condition'));
 
 const router = useRouter();
 const loading = ref(false);

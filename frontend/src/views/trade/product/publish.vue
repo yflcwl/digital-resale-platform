@@ -31,7 +31,7 @@
         </el-form-item>
         <el-form-item label="新旧程度">
           <el-select v-model="form.conditionSelf" placeholder="请选择新旧程度" style="width: 200px">
-            <el-option v-for="c in conditionSelfOptions" :key="c.value" :label="c.label" :value="c.value" />
+            <el-option v-for="c in conditionDict" :key="c.value" :label="c.label" :value="c.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="商品描述">
@@ -51,12 +51,15 @@
 </template>
 
 <script setup name="ProductPublish" lang="ts">
-import { onMounted, reactive, ref } from 'vue';
+import { getCurrentInstance, onMounted, reactive, ref, toRefs } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { listCategoryTree } from '@/api/trade/category';
 import { listBrand } from '@/api/trade/brand';
 import { getProduct, publishProduct, editProduct } from '@/api/trade/product';
-import { conditionSelfOptions, ProductForm, CategoryTreeVO, BrandVO } from '@/api/trade/types';
+import { ProductForm, CategoryTreeVO, BrandVO } from '@/api/trade/types';
+
+const { proxy } = getCurrentInstance() as any;
+const { product_condition: conditionDict } = toRefs<any>(proxy?.useDict('product_condition'));
 import { ElMessage, FormInstance, FormRules } from 'element-plus';
 
 const route = useRoute();

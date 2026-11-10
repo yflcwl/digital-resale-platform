@@ -109,15 +109,18 @@
 </template>
 
 <script setup name="ProductDetail" lang="ts">
-import { onMounted, ref } from 'vue';
+import { getCurrentInstance, onMounted, ref, toRefs } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getProduct, favoriteProduct, cancelFavoriteProduct } from '@/api/trade/product';
 import { createOrder } from '@/api/trade/order';
 import { openConversation } from '@/api/message/chat';
 import { getProductReport } from '@/api/inspection';
 import { listAddress } from '@/api/trade/address';
-import { AddressVO, conditionSelfOptions, ProductVO } from '@/api/trade/types';
+import { AddressVO, ProductVO } from '@/api/trade/types';
 import { ElMessage } from 'element-plus';
+
+const { proxy } = getCurrentInstance() as any;
+const { product_condition: conditionDict } = toRefs<any>(proxy?.useDict('product_condition'));
 
 const route = useRoute();
 const router = useRouter();
@@ -157,7 +160,7 @@ const goBack = () => {
 };
 
 const conditionSelfLabel = (val?: string) => {
-  return conditionSelfOptions.find((c) => c.value === val)?.label || val || '-';
+  return conditionDict.value?.find((c: any) => c.value === val)?.label || val || '-';
 };
 
 const handleFavorite = async () => {

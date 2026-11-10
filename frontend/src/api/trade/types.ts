@@ -92,15 +92,7 @@ export interface ProductForm {
   images: string[];
 }
 
-/**
- * 新旧程度选项
- */
-export const conditionSelfOptions = [
-  { label: '99新(EXCELLENT)', value: 'EXCELLENT' },
-  { label: '95新(GOOD)', value: 'GOOD' },
-  { label: '9成新(FAIR)', value: 'FAIR' },
-  { label: '8成新及以下(POOR)', value: 'POOR' }
-];
+
 
 /**
  * 商品状态选项
