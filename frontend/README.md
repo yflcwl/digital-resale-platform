@@ -21,7 +21,3 @@ pnpm dev
 ```bash
 pnpm build:prod
 ```
-
-## 致谢
-
-本项目基于 [RuoYi-Vue-Plus](https://gitee.com/dromara/RuoYi-Vue-Plus) 配套前端 plus-ui(MIT License)构建,感谢原作者与社区的贡献。
