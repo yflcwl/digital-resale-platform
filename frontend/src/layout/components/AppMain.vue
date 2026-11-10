@@ -53,25 +53,25 @@ function addIframe() {
 
 <style lang="scss" scoped>
 .app-main {
-  /* 50= navbar  50  */
-  min-height: calc(100vh - 50px);
+  /* 60 = navbar */
+  min-height: calc(100vh - var(--sm-navbar-h));
   width: 100%;
   position: relative;
   overflow: hidden;
 }
 
 .fixed-header + .app-main {
-  padding-top: 50px;
+  padding-top: var(--sm-navbar-h);
 }
 
 .hasTagsView {
   .app-main {
-    /* 84 = navbar + tags-view = 50 + 34 */
-    min-height: calc(100vh - 84px);
+    /* 102 = navbar + tags-view = 60 + 42 */
+    min-height: calc(100vh - var(--sm-navbar-h) - var(--sm-tagsview-h));
   }
 
   .fixed-header + .app-main {
-    padding-top: 84px;
+    padding-top: calc(var(--sm-navbar-h) + var(--sm-tagsview-h));
   }
 }
 </style>
@@ -81,19 +81,5 @@ function addIframe() {
   .fixed-header {
     padding-right: 6px;
   }
-}
-
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: var(--el-fill-color-lighter);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--el-text-color-placeholder);
-  border-radius: 999px;
 }
 </style>

@@ -258,7 +258,7 @@ watch(
     margin-right: 10px;
 
     &:hover {
-      background: var(--sm-cream-deep);
+      background: var(--sm-bg-2);
       transform: translateY(-1px);
     }
 
@@ -321,8 +321,8 @@ watch(
         cursor: pointer;
 
         &:hover {
-          background: var(--sm-tomato-soft);
-          color: var(--sm-tomato);
+          background: var(--sm-brand-soft);
+          color: var(--sm-brand);
           transform: translateY(-2px);
         }
 
@@ -356,7 +356,7 @@ watch(
 
           &:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 0 2px var(--sm-paper), 0 0 0 3.5px var(--sm-tomato);
+            box-shadow: 0 0 0 2px var(--sm-paper), 0 0 0 3.5px var(--sm-brand);
           }
         }
 
@@ -367,7 +367,7 @@ watch(
           bottom: -4px;
           font-size: 11px;
           background: var(--sm-ink);
-          color: var(--sm-cream);
+          color: var(--sm-bg);
           border-radius: var(--sm-r-pill);
           width: 16px;
           height: 16px;

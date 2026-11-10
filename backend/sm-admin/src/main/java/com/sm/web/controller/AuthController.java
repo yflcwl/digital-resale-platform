@@ -107,7 +107,7 @@ public class AuthController {
         Long userId = LoginHelper.getUserId();
         scheduledExecutorService.schedule(() -> {
             SseMessageDto dto = new SseMessageDto();
-            dto.setMessage(DateUtils.getTodayHour(new Date()) + "好，欢迎登录 二手数码交易平台后台管理系统");
+            dto.setMessage(DateUtils.getTodayHour(new Date()) + "好，欢迎回到 洋葱二手智能平台");
             dto.setUserIds(List.of(userId));
             SseMessageUtils.publishMessage(dto);
         }, 5, TimeUnit.SECONDS);

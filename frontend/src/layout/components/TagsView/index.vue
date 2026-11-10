@@ -240,81 +240,98 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .tags-view-container {
-  height: 34px;
+  height: var(--sm-tagsview-h);
   width: 100%;
-  background-color: var(--el-bg-color);
-  border-top: none;
-  border-bottom: 1px solid var(--el-border-color-lighter);
+  background-color: transparent;
+  border: none;
   box-shadow: none;
+
   .tags-view-wrapper {
     .tags-view-item {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       position: relative;
       cursor: pointer;
-      height: 26px;
-      line-height: 25px;
-      background-color: var(--el-bg-color);
-      border: 1px solid var(--el-border-color-light);
-      color: #495060;
-      padding: 0 8px;
-      font-size: 12px;
-      margin-left: 5px;
-      margin-top: 4px;
-      border-radius: var(--app-radius-md);
-      transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      height: 30px;
+      line-height: 1;
+      background-color: transparent;
+      border: 1.5px solid transparent;
+      color: var(--sm-stone);
+      padding: 0 14px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-left: 4px;
+      margin-top: 6px;
+      border-radius: var(--sm-r-pill);
+      transition:
+        transform var(--sm-dur) var(--sm-ease),
+        box-shadow var(--sm-dur) var(--sm-ease),
+        background-color var(--sm-dur) ease,
+        color var(--sm-dur) ease;
+
       &:hover {
-        color: var(--el-color-primary);
-        border-color: var(--el-color-primary-light-5);
-        box-shadow: var(--app-shadow-sm);
+        color: var(--sm-ink);
+        background-color: var(--sm-bg-2);
         transform: translateY(-1px);
       }
+
       &:first-of-type {
-        margin-left: 15px;
+        margin-left: 4px;
       }
+
       &:last-of-type {
-        margin-right: 15px;
+        margin-right: 12px;
       }
+
+      /* 选中 = 红色实体键，底部留厚度 */
       &.active {
-        background-color: var(--tags-view-active-bg);
+        background-color: var(--sm-brand);
         color: #fff;
-        border-color: var(--tags-view-active-border-color);
-        &::before {
-          content: '';
-          background: rgba(255, 255, 255, 0.7);
-          display: inline-block;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          position: relative;
-          margin-right: 5px;
+        border-color: var(--sm-brand);
+        box-shadow: 0 2px 0 var(--sm-brand-deep);
+
+        &:hover {
+          color: #fff;
+          background-color: #e2482f;
         }
       }
     }
   }
-  .tags-view-item.active.has-icon::before {
+
+  /* 去掉若依那个小圆点装饰 */
+  .tags-view-item.active::before {
     content: none !important;
   }
+
   .tags-view-item-title {
     margin-left: 4px;
-    margin-right: 3px;
+    margin-right: 2px;
   }
+
   .contextmenu {
     margin: 0;
-    background: var(--el-bg-color);
+    background: var(--sm-paper);
     z-index: 3000;
     position: absolute;
     list-style-type: none;
-    padding: 5px 0;
-    border-radius: var(--app-radius-md);
-    font-size: 12px;
-    font-weight: 400;
-    box-shadow: var(--app-shadow-md);
+    padding: 6px;
+    border-radius: var(--sm-r-md);
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid var(--sm-line);
+    box-shadow: var(--sm-shadow-2);
+
     li {
       margin: 0;
-      padding: 7px 16px;
+      padding: 8px 14px;
       cursor: pointer;
+      border-radius: var(--sm-r-xs);
+      color: var(--sm-ink-2);
+      transition: all var(--sm-dur) var(--sm-ease);
+
       &:hover {
-        background: var(--el-fill-color-light);
+        background: var(--sm-brand-soft);
+        color: var(--sm-brand);
       }
     }
   }
@@ -326,23 +343,24 @@ onMounted(() => {
 .tags-view-wrapper {
   .tags-view-item {
     .el-icon-close {
-      width: 16px;
-      height: 16px;
-      vertical-align: 2px;
-      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+      border-radius: var(--sm-r-pill);
       text-align: center;
-      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition: all var(--sm-dur) var(--sm-ease);
       transform-origin: 100% 50%;
       &:before {
-        transform: scale(0.6);
+        transform: scale(0.62);
         display: inline-block;
         vertical-align: -3px;
       }
       &:hover {
-        background-color: #b4bccc;
-        color: #fff;
-        width: 12px !important;
-        height: 12px !important;
+        background-color: rgba(255, 255, 255, 0.28);
+        color: inherit;
+        width: 18px !important;
+        height: 18px !important;
+        transform: rotate(90deg);
       }
     }
   }

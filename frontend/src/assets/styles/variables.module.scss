@@ -1,14 +1,14 @@
 // 全局SCSS变量
 :root {
-  --menuBg: #1f2d3d;
-  --menuColor: #bfcbd9;
-  --menuActiveText: #f4f4f5;
-  --menuHover: #263445;
+  --menuBg: #ffffff;
+  --menuColor: #33475e;
+  --menuActiveText: #2b9cf0;
+  --menuHover: #eef6ff;
 
-  --subMenuBg: #1f2d3d;
-  --subMenuActiveText: #f4f4f5;
-  --subMenuHover: #001528;
-  --subMenuTitleHover: #293444;
+  --subMenuBg: #ffffff;
+  --subMenuActiveText: #2b9cf0;
+  --subMenuHover: #eef6ff;
+  --subMenuTitleHover: #eef6ff;
 
   // 菜单栏缩进
   --el-menu-base-level-padding: 12px;
@@ -48,17 +48,17 @@
 }
 
 html.dark {
-  --menuBg: #1d1e1f;
-  --menuColor: #bfcbd9;
-  --menuActiveText: #f4f4f5;
-  --menuHover: #171819;
+  --menuBg: #131f2c;
+  --menuColor: #c8d9ec;
+  --menuActiveText: #eaf3fd;
+  --menuHover: #1c2b3c;
 
-  --subMenuBg: #1d1e1f;
-  --subMenuActiveText: #f4f4f5;
-  --subMenuHover: #171819;
-  --subMenuTitleHover: #171819;
+  --subMenuBg: #131f2c;
+  --subMenuActiveText: #eaf3fd;
+  --subMenuHover: #1c2b3c;
+  --subMenuTitleHover: #1c2b3c;
 
-  --fixedHeaderBg: #171819;
+  --fixedHeaderBg: #1c2b3c;
   --tableHeaderBg: var(--el-bg-color);
   --tableHeaderTextColor: var(--el-text-color);
 
@@ -327,11 +327,11 @@ $base-menu-color: var(--menuColor);
 $base-menu-hover: var(--menuHover);
 $base-menu-color-active: var(--menuActiveText);
 $base-menu-background: var(--menuBg);
-$base-logo-title-color: #ffffff;
+$base-logo-title-color: #101b2b;
 
-$base-menu-light-color: rgba(0, 0, 0, 0.7);
+$base-menu-light-color: #33475e;
 $base-menu-light-background: #ffffff;
-$base-logo-light-title-color: #001529;
+$base-logo-light-title-color: #101b2b;
 
 $base-sub-menu-background: var(--subMenuBg);
 $base-sub-menu-hover: var(--subMenuHover);
@@ -341,13 +341,13 @@ $fixed-header-bg: var(--fixedHeaderBg);
 $table-header-bg: var(--tableHeaderBg);
 $table-header-text-color: var(--tableHeaderTextColor);
 
-$--color-primary: #409eff;
-$--color-success: #67c23a;
-$--color-warning: #e6a23c;
-$--color-danger: #f56c6c;
-$--color-info: #909399;
+$--color-primary: #2b9cf0;
+$--color-success: #2f8f5b;
+$--color-warning: #d98a0b;
+$--color-danger: #c8341d;
+$--color-info: #8c8279;
 
-$base-sidebar-width: 200px;
+$base-sidebar-width: 232px;
 
 // the :export directive is the magic sauce for webpack
 // https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass

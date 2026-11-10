@@ -6,7 +6,8 @@ import { ref } from 'vue';
 import { NavTypeEnum } from '@/enums/NavTypeEnum';
 
 export const useSettingsStore = defineStore('setting', () => {
-  const storageSetting = useStorage<LayoutSetting>('layout-setting', {
+  // 换了 key，避免旧的 layout-setting（若依蓝 + 深色菜单）覆盖新主题
+  const storageSetting = useStorage<LayoutSetting>('sm-layout-setting', {
     tagsView: defaultSettings.tagsView,
     tagsIcon: defaultSettings.tagsIcon,
     fixedHeader: defaultSettings.fixedHeader,

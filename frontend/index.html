@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#EEF6FF" />
     <link rel="icon" href="/favicon.ico" />
     <title>%VITE_APP_TITLE%</title>
     <!--[if lt IE 11
@@ -17,185 +18,115 @@
       body,
       #app {
         height: 100%;
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
       }
 
-      .chromeframe {
-        margin: 0.2em 0;
-        background: #ccc;
-        color: #000;
-        padding: 0.2em 0;
+      body {
+        background: #eef6ff;
       }
 
+      /* ---------- 首屏加载：洋葱标识 + 滑行进度 ---------- */
       #loader-wrapper {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         z-index: 999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          radial-gradient(760px 520px at 20% -10%, rgba(43, 156, 240, 0.18), transparent 62%),
+          radial-gradient(700px 480px at 88% 8%, rgba(79, 201, 138, 0.13), transparent 66%),
+          #eef6ff;
+        transition: opacity 0.35s ease;
       }
 
-      #loader {
+      .sm-boot {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+      }
+
+      /* 洋葱方块标识：带底部厚度，呼应按钮的实体感 */
+      .sm-boot-mark {
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
+        background: #2b9cf0;
+        box-shadow: 0 4px 0 #0e6fb8;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: sm-boot-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      }
+
+      .sm-boot-mark svg {
+        width: 34px;
+        height: 34px;
         display: block;
-        position: relative;
-        left: 50%;
-        top: 50%;
-        width: 150px;
-        height: 150px;
-        margin: -75px 0 0 -75px;
-        border-radius: 50%;
-        border: 3px solid transparent;
-        border-top-color: #fff;
-        -webkit-animation: spin 2s linear infinite;
-        -ms-animation: spin 2s linear infinite;
-        -moz-animation: spin 2s linear infinite;
-        -o-animation: spin 2s linear infinite;
-        animation: spin 2s linear infinite;
-        z-index: 1001;
       }
 
-      #loader:before {
-        content: '';
-        position: absolute;
-        top: 5px;
-        left: 5px;
-        right: 5px;
-        bottom: 5px;
-        border-radius: 50%;
-        border: 3px solid transparent;
-        border-top-color: #fff;
-        -webkit-animation: spin 3s linear infinite;
-        -moz-animation: spin 3s linear infinite;
-        -o-animation: spin 3s linear infinite;
-        -ms-animation: spin 3s linear infinite;
-        animation: spin 3s linear infinite;
+      .sm-boot-track {
+        width: 132px;
+        height: 5px;
+        border-radius: 999px;
+        background: #dbe7f4;
+        overflow: hidden;
       }
 
-      #loader:after {
-        content: '';
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        right: 15px;
-        bottom: 15px;
-        border-radius: 50%;
-        border: 3px solid transparent;
-        border-top-color: #fff;
-        -moz-animation: spin 1.5s linear infinite;
-        -o-animation: spin 1.5s linear infinite;
-        -ms-animation: spin 1.5s linear infinite;
-        -webkit-animation: spin 1.5s linear infinite;
-        animation: spin 1.5s linear infinite;
-      }
-
-      @-webkit-keyframes spin {
-        0% {
-          -webkit-transform: rotate(0deg);
-          -ms-transform: rotate(0deg);
-          transform: rotate(0deg);
-        }
-
-        100% {
-          -webkit-transform: rotate(360deg);
-          -ms-transform: rotate(360deg);
-          transform: rotate(360deg);
-        }
-      }
-
-      @keyframes spin {
-        0% {
-          -webkit-transform: rotate(0deg);
-          -ms-transform: rotate(0deg);
-          transform: rotate(0deg);
-        }
-
-        100% {
-          -webkit-transform: rotate(360deg);
-          -ms-transform: rotate(360deg);
-          transform: rotate(360deg);
-        }
-      }
-
-      #loader-wrapper .loader-section {
-        position: fixed;
-        top: 0;
-        width: 51%;
+      .sm-boot-bar {
+        width: 42%;
         height: 100%;
-        background: #7171c6;
-        z-index: 1000;
-        -webkit-transform: translateX(0);
-        -ms-transform: translateX(0);
-        transform: translateX(0);
+        border-radius: 999px;
+        background: #2b9cf0;
+        animation: sm-boot-slide 1.15s cubic-bezier(0.65, 0, 0.35, 1) infinite;
       }
 
-      #loader-wrapper .loader-section.section-left {
-        left: 0;
+      .sm-boot-text {
+        margin: 0;
+        font-family: 'HarmonyOS Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        color: #8095ab;
       }
 
-      #loader-wrapper .loader-section.section-right {
-        right: 0;
+      @keyframes sm-boot-pop {
+        from {
+          opacity: 0;
+          transform: scale(0.7) translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
       }
 
-      .loaded #loader-wrapper .loader-section.section-left {
-        -webkit-transform: translateX(-100%);
-        -ms-transform: translateX(-100%);
-        transform: translateX(-100%);
-        -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-        transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      @keyframes sm-boot-slide {
+        0% {
+          transform: translateX(-110%);
+        }
+        100% {
+          transform: translateX(340%);
+        }
       }
 
-      .loaded #loader-wrapper .loader-section.section-right {
-        -webkit-transform: translateX(100%);
-        -ms-transform: translateX(100%);
-        transform: translateX(100%);
-        -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-        transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-      }
-
-      .loaded #loader {
-        opacity: 0;
-        -webkit-transition: all 0.3s ease-out;
-        transition: all 0.3s ease-out;
+      @media (prefers-reduced-motion: reduce) {
+        .sm-boot-mark,
+        .sm-boot-bar {
+          animation: none;
+        }
       }
 
       .loaded #loader-wrapper {
+        opacity: 0;
         visibility: hidden;
-        -webkit-transform: translateY(-100%);
-        -ms-transform: translateY(-100%);
-        transform: translateY(-100%);
-        -webkit-transition: all 0.3s 1s ease-out;
-        transition: all 0.3s 1s ease-out;
       }
 
       .no-js #loader-wrapper {
         display: none;
-      }
-
-      .no-js h1 {
-        color: #222222;
-      }
-
-      #loader-wrapper .load_title {
-        font-family: 'Open Sans';
-        color: #fff;
-        font-size: 19px;
-        width: 100%;
-        text-align: center;
-        z-index: 9999999999999;
-        position: absolute;
-        top: 60%;
-        opacity: 1;
-        line-height: 30px;
-      }
-
-      #loader-wrapper .load_title span {
-        font-weight: normal;
-        font-style: italic;
-        font-size: 13px;
-        color: #fff;
-        opacity: 0.5;
       }
     </style>
   </head>
@@ -203,10 +134,28 @@
   <body>
     <div id="app">
       <div id="loader-wrapper">
-        <div id="loader"></div>
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-        <div class="load_title">正在加载系统资源，请耐心等待</div>
+        <div class="sm-boot">
+          <div class="sm-boot-mark">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 1.7c.15 1.7.6 2.9 1.35 3.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+              <path d="M12 4.9c4.3 0 8.3 3.4 8.3 8.8 0 5.6-3.7 8.7-8.3 8.7S3.7 19.3 3.7 13.7C3.7 8.3 7.7 4.9 12 4.9Z" fill="currentColor" />
+              <path
+                d="M9.2 7c-1.5 1.8-2.2 3.8-2.2 6.1 0 3.3 1.3 5.9 3 7.3"
+                stroke="#2b9cf0"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M14.8 7c1.5 1.8 2.2 3.8 2.2 6.1 0 3.3-1.3 5.9-3 7.3"
+                stroke="#2b9cf0"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <div class="sm-boot-track"><div class="sm-boot-bar"></div></div>
+          <p class="sm-boot-text">正在加载</p>
+        </div>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
