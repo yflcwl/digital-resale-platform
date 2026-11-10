@@ -368,7 +368,8 @@ public class OrderServiceImpl implements IOrderService {
     public OrderVo queryDetail(Long orderId) {
         Order order = getOrder(orderId);
         Long userId = LoginHelper.getUserId();
-        if (!userId.equals(order.getBuyerId()) && !userId.equals(order.getSellerId())) {
+        if (!userId.equals(order.getBuyerId()) && !userId.equals(order.getSellerId())
+            && !LoginHelper.isSuperAdmin()) {
             throw new ServiceException("无权查看该订单");
         }
         OrderVo vo = MapstructUtils.convert(order, OrderVo.class);
@@ -380,6 +381,18 @@ public class OrderServiceImpl implements IOrderService {
         return vo;
     }
 
+    @Override
+    public TableDataInfo<OrderVo> adminPage(OrderBo bo, PageQuery pageQuery) {
+        LambdaQueryWrapper<Order> lqw = Wrappers.lambdaQuery();
+        lqw.like(bo.getOrderNo() != null && !bo.getOrderNo().isBlank(), Order::getOrderNo, bo.getOrderNo());
+        lqw.eq(bo.getStatus() != null && !bo.getStatus().isBlank(), Order::getStatus, bo.getStatus());
+        lqw.eq(bo.getBuyerId() != null, Order::getBuyerId, bo.getBuyerId());
+        lqw.eq(bo.getSellerId() != null, Order::getSellerId, bo.getSellerId());
+        lqw.orderByDesc(Order::getCreateTime);
+        Page<OrderVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
+        fillDisplayFields(result.getRecords());
+        return TableDataInfo.build(result);
+    }
     private void fillDisplayFields(List<OrderVo> records) {
         if (records == null || records.isEmpty()) {
             return;

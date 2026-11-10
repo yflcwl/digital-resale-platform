@@ -55,27 +55,60 @@
               <el-avatar v-if="!isMine(m)" :size="32" :src="activeConversation.otherAvatar">
                 {{ (activeConversation.otherNickname || '对').charAt(0) }}
               </el-avatar>
-              <div class="bubble" :class="{ mine: isMine(m) }">
+              <div class="bubble" :class="{ mine: isMine(m) }" @dblclick="setQuote(m)">
+                <div v-if="parseContent(m).quote" class="quote-block">
+                  <div class="quote-name">{{ parseContent(m).quote.nickname }}</div>
+                  <div class="quote-text">{{ parseContent(m).quote.preview }}</div>
+                </div>
                 <template v-if="m.msgType === 'IMAGE'">
                   <el-image :src="parseContent(m).url" fit="contain" class="msg-image" :preview-src-list="[parseContent(m).url]" preview-teleported />
                 </template>
                 <template v-else>{{ parseContent(m).text ?? m.content }}</template>
               </div>
+              <el-tooltip content="引用该消息(双击气泡也可)">
+                <el-button class="quote-btn" link type="primary" size="small" @click="setQuote(m)">引用</el-button>
+              </el-tooltip>
             </div>
             <el-empty v-if="messages.length === 0" description="暂无消息,打个招呼吧" :image-size="60" />
           </div>
 
           <!-- 输入区 -->
           <div class="input-bar">
-            <el-input
-              v-model="inputText"
-              type="textarea"
-              :rows="2"
-              resize="none"
-              placeholder="输入消息,Enter 发送"
-              maxlength="1000"
-              @keydown.enter.exact.prevent="handleSend"
-            />
+            <div class="input-panel">
+              <div v-if="quoteMessage" class="quote-preview">
+                <span class="quote-preview-text">
+                  引用 {{ quoteMessage.nickname }}:{{ quoteMessage.preview }}
+                </span>
+                <el-button link type="danger" size="small" @click="quoteMessage = null">取消</el-button>
+              </div>
+              <div class="input-tools">
+                <el-popover placement="top-start" :width="330" trigger="click">
+                  <template #reference>
+                    <el-button link class="tool-btn" title="表情">😊</el-button>
+                  </template>
+                  <div class="emoji-panel">
+                    <span v-for="e in emojis" :key="e" class="emoji-item" @click="appendEmoji(e)">{{ e }}</span>
+                  </div>
+                </el-popover>
+                <el-upload
+                  :show-file-list="false"
+                  :http-request="handleImageUpload"
+                  accept="image/*"
+                  class="tool-upload"
+                >
+                  <el-button link class="tool-btn" title="发送图片" :loading="uploading">🖼️</el-button>
+                </el-upload>
+              </div>
+              <el-input
+                v-model="inputText"
+                type="textarea"
+                :rows="2"
+                resize="none"
+                placeholder="输入消息,Enter 发送"
+                maxlength="1000"
+                @keydown.enter.exact.prevent="handleSend"
+              />
+            </div>
             <el-button type="primary" :loading="sending" @click="handleSend">发送</el-button>
           </div>
         </div>
@@ -92,6 +125,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { listConversations, listMessages, sendMessage, markConversationRead, openConversation } from '@/api/message/chat';
 import { ChatMessageVO, ConversationVO } from '@/api/message/types';
+import request from '@/utils/request';
 import { useUserStore } from '@/store/modules/user';
 import { getToken } from '@/utils/auth';
 import { ElMessage } from 'element-plus';
@@ -107,6 +141,10 @@ const inputText = ref('');
 const sending = ref(false);
 const messageListRef = ref<HTMLElement>();
 const wsConnected = ref(false);
+const uploading = ref(false);
+const quoteMessage = ref<{ id: number; nickname: string; preview: string } | null>(null);
+
+const emojis = ['😀','😄','😁','😆','😊','🙂','😉','😍','🥰','😘','😜','🤔','😎','🥳','😢','😭','😤','😡','👍','👎','👌','🙏','💪','🎉','❤️','🔥','⭐','💰','📦','🚚','✅','❌','🤝','😴','🤣','😂','😇','😅'];
 
 const myId = computed(() => Number(userStore.userId));
 const activeConversation = computed(() => conversations.value.find((c) => c.id === activeId.value));
@@ -167,12 +205,63 @@ const selectConversation = async (c: ConversationVO) => {
   }
 };
 
+const msgNickname = (m: ChatMessageVO) => (isMine(m) ? '我' : activeConversation.value?.otherNickname || '对方');
+
+const msgPreview = (m: ChatMessageVO) => {
+  if (m.msgType === 'IMAGE') return '[图片]';
+  const parsed = parseContent(m);
+  const text = parsed.text ?? '';
+  return text.length > 30 ? text.substring(0, 30) + '...' : text;
+};
+
+const setQuote = (m: ChatMessageVO) => {
+  quoteMessage.value = { id: m.id, nickname: msgNickname(m), preview: msgPreview(m) };
+};
+
+const appendEmoji = (e: string) => {
+  inputText.value += e;
+};
+
+/** 发送图片:上传 OSS 后作为 IMAGE 消息发送 */
+const handleImageUpload = async (options: any) => {
+  const file: File = options.file;
+  if (!activeId.value || !file) return;
+  uploading.value = true;
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res: any = await request({
+      url: '/resource/oss/upload',
+      method: 'post',
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+    const url = res.data?.url;
+    if (!url) {
+      ElMessage.error('图片上传失败');
+      return;
+    }
+    await sendMessage(activeId.value, { msgType: 'IMAGE', content: JSON.stringify({ url, text: '[图片]' }) });
+    await loadMessages(activeId.value);
+    await loadConversations();
+  } catch {
+    ElMessage.error('图片发送失败');
+  } finally {
+    uploading.value = false;
+  }
+};
+
 const handleSend = async () => {
   if (!activeId.value || !inputText.value.trim()) return;
   sending.value = true;
   try {
-    await sendMessage(activeId.value, { msgType: 'TEXT', content: inputText.value.trim() });
+    const payload: Record<string, any> = { text: inputText.value.trim() };
+    if (quoteMessage.value) {
+      payload.quote = quoteMessage.value;
+    }
+    await sendMessage(activeId.value, { msgType: 'TEXT', content: JSON.stringify(payload) });
     inputText.value = '';
+    quoteMessage.value = null;
     await loadMessages(activeId.value);
     await loadConversations();
   } finally {
@@ -307,13 +396,13 @@ onBeforeUnmount(() => {
             font-weight: 500;
           }
           .conv-time {
-            color: #909399;
+            color: var(--sm-ink-3);
             font-size: 12px;
           }
         }
         .conv-preview {
           margin-top: 4px;
-          color: #909399;
+          color: var(--sm-ink-3);
           font-size: 12px;
           overflow: hidden;
           white-space: nowrap;
@@ -357,8 +446,8 @@ onBeforeUnmount(() => {
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #eef1f6;
-        color: #909399;
+        background: var(--sm-line-soft);
+        color: var(--sm-ink-3);
       }
       .banner-info {
         flex: 1;
@@ -366,7 +455,7 @@ onBeforeUnmount(() => {
           font-size: 13px;
         }
         .banner-price {
-          color: #f56c6c;
+          color: var(--sm-danger);
           font-weight: 600;
           font-size: 13px;
         }
@@ -387,18 +476,84 @@ onBeforeUnmount(() => {
           max-width: 60%;
           padding: 8px 12px;
           border-radius: 8px;
-          background: #f2f3f5;
+          background: var(--sm-bg-2);
           line-height: 1.6;
           word-break: break-word;
           &.mine {
-            background: #409eff;
+            background: var(--sm-brand);
             color: #fff;
           }
           .msg-image {
             max-width: 220px;
             max-height: 180px;
           }
+          .quote-block {
+            border-left: 3px solid var(--sm-stone);
+            padding: 2px 8px;
+            margin-bottom: 6px;
+            background: rgba(0, 0, 0, 0.06);
+            border-radius: 2px;
+            .quote-name {
+              font-size: 12px;
+              font-weight: 600;
+              color: var(--sm-ink-3);
+            }
+            .quote-text {
+              font-size: 12px;
+              color: var(--sm-ink-3);
+            }
+          }
         }
+        .quote-btn {
+          opacity: 0;
+          align-self: center;
+          transition: opacity 0.2s;
+        }
+        &:hover .quote-btn {
+          opacity: 1;
+        }
+      }
+    }
+    .input-panel {
+      flex: 1;
+      min-width: 0;
+    }
+    .input-tools {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 4px;
+      .tool-btn {
+        font-size: 18px;
+      }
+    }
+    .emoji-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      .emoji-item {
+        font-size: 20px;
+        cursor: pointer;
+        padding: 3px;
+        border-radius: 4px;
+        &:hover {
+          background: var(--sm-bg-2);
+        }
+      }
+    }
+    .quote-preview {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--sm-line-soft);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      .quote-preview-text {
+        font-size: 12px;
+        color: var(--sm-ink-3);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
     .input-bar {

@@ -171,12 +171,12 @@ onMounted(() => {
     font-weight: 600;
   }
   .phone {
-    color: #909399;
+    color: var(--sm-ink-3);
   }
 }
 .addr-detail {
   margin-top: 10px;
-  color: #606266;
+  color: var(--sm-ink-2);
   line-height: 1.6;
   min-height: 44px;
 }

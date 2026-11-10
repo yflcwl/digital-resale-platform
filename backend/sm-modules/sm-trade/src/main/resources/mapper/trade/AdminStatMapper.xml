@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sm.trade.mapper.AdminStatMapper">
+
+    <select id="selectOverview" resultType="java.util.Map">
+        select (select count(*) from sys_user where del_flag = '0')          as "userCount",
+               (select count(*) from sm_product where del_flag = '0')        as "productCount",
+               (select count(*) from sm_product where del_flag = '0' and status = 'ON_SALE') as "onSaleCount",
+               (select count(*) from sm_order where del_flag = '0')          as "orderCount",
+               (select count(*) from sm_order where del_flag = '0'
+                and create_time &gt;= current_date)                            as "todayOrderCount",
+               (select count(*) from sm_inspection_report where del_flag = '0') as "reportCount"
+    </select>
+
+    <select id="selectOrderTrend7d" resultType="java.util.Map">
+        select to_char(d.day, 'MM-DD') as day,
+               count(o.id)             as cnt
+        from generate_series(current_date - interval '6 day', current_date, interval '1 day') as d(day)
+                 left join sm_order o
+                           on o.create_time &gt;= d.day and o.create_time &lt; d.day + interval '1 day'
+        group by d.day
+        order by d.day
+    </select>
+
+    <select id="selectOrderStatusDist" resultType="java.util.Map">
+        select status as name, count(*) as value
+        from sm_order
+        where del_flag = '0'
+        group by status
+        order by value desc
+    </select>
+
+    <select id="selectCategoryProductDist" resultType="java.util.Map">
+        select c.name as name, count(p.id) as value
+        from sm_category c
+                 left join sm_product p on p.category_id = c.id and p.del_flag = '0'
+        where c.level = 1
+        group by c.id, c.name
+        order by value desc
+        limit #{limit}
+    </select>
+
+</mapper>

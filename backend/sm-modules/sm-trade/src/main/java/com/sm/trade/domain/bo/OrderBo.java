@@ -47,4 +47,13 @@ public class OrderBo implements Serializable {
 
     /** 查询:状态筛选 */
     private String status;
+
+    /** 查询:订单号(管理端) */
+    private String orderNo;
+
+    /** 查询:买家ID(管理端) */
+    private Long buyerId;
+
+    /** 查询:卖家ID(管理端) */
+    private Long sellerId;
 }

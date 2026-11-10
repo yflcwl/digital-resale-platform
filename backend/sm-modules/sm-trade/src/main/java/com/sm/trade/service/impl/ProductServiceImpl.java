@@ -320,6 +320,45 @@ public class ProductServiceImpl implements IProductService {
         return records;
     }
 
+    @Override
+    public TableDataInfo<ProductVo> adminPage(ProductBo bo, PageQuery pageQuery) {
+        LambdaQueryWrapper<Product> lqw = Wrappers.lambdaQuery();
+        lqw.like(StringUtils.isNotBlank(bo.getTitle()), Product::getTitle, bo.getTitle());
+        lqw.eq(StringUtils.isNotBlank(bo.getStatus()), Product::getStatus, bo.getStatus());
+        lqw.eq(bo.getCategoryId() != null, Product::getCategoryId, bo.getCategoryId());
+        lqw.eq(bo.getBrandId() != null, Product::getBrandId, bo.getBrandId());
+        lqw.eq(bo.getSellerId() != null, Product::getSellerId, bo.getSellerId());
+        lqw.orderByDesc(Product::getCreateTime);
+        Page<ProductVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
+        fillCategoryName(result.getRecords());
+        return TableDataInfo.build(result);
+    }
+
+    @Override
+    public void adminOffShelf(Long id) {
+        Product product = baseMapper.selectById(id);
+        if (product == null) {
+            throw new ServiceException("商品不存在");
+        }
+        if (!ProductStatus.ON_SALE.equals(product.getStatus())) {
+            throw new ServiceException("仅允许强制下架在售商品");
+        }
+        updateStatusCas(id, ProductStatus.ON_SALE, ProductStatus.OFF_SHELF);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void adminRemove(Long id) {
+        Product product = baseMapper.selectById(id);
+        if (product == null) {
+            throw new ServiceException("商品不存在");
+        }
+        if (!ProductStatus.DRAFT.equals(product.getStatus()) && !ProductStatus.OFF_SHELF.equals(product.getStatus())) {
+            throw new ServiceException("仅草稿或已下架商品可删除");
+        }
+        baseMapper.deleteById(id);
+        imageMapper.delete(Wrappers.<ProductImage>lambdaQuery().eq(ProductImage::getProductId, id));
+    }
     private void fillCategoryName(List<ProductVo> records) {
         if (records == null || records.isEmpty()) {
             return;

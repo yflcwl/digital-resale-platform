@@ -120,13 +120,13 @@ onMounted(() => {
       background: var(--el-fill-color-light);
     }
     &.unread {
-      background: #f6faff;
+      background: var(--sm-brand-tint);
     }
     .notify-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: #f56c6c;
+      background: var(--sm-danger);
       flex-shrink: 0;
     }
     .notify-main {
@@ -139,12 +139,12 @@ onMounted(() => {
       }
       .notify-content {
         margin-top: 4px;
-        color: #909399;
+        color: var(--sm-ink-3);
         font-size: 13px;
       }
     }
     .notify-time {
-      color: #c0c4cc;
+      color: var(--sm-stone);
       font-size: 12px;
       flex-shrink: 0;
     }

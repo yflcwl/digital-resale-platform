@@ -97,7 +97,7 @@ onMounted(() => {
   }
   .product-price {
     margin-top: 8px;
-    color: #f56c6c;
+    color: var(--sm-danger);
     font-size: 18px;
     font-weight: 600;
   }

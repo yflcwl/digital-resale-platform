@@ -95,8 +95,8 @@ onMounted(() => {
     justify-content: center;
     width: 100%;
     height: 100%;
-    background: #f5f7fa;
-    color: #909399;
+    background: var(--sm-line-soft);
+    color: var(--sm-ink-3);
   }
   .pay-title {
     font-size: 16px;
@@ -104,13 +104,13 @@ onMounted(() => {
   }
   .pay-no {
     margin-top: 8px;
-    color: #909399;
+    color: var(--sm-ink-3);
     font-size: 12px;
   }
   .pay-price {
     margin-top: 14px;
     .amount {
-      color: #f56c6c;
+      color: var(--sm-danger);
       font-size: 26px;
       font-weight: 700;
       margin-left: 8px;
@@ -124,7 +124,7 @@ onMounted(() => {
   }
   .pay-tip {
     margin-top: 14px;
-    color: #909399;
+    color: var(--sm-ink-3);
     font-size: 12px;
   }
 }

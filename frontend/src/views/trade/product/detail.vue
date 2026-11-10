@@ -201,13 +201,13 @@ onMounted(() => {
   border-radius: 4px;
   margin-bottom: 16px;
   .price {
-    color: #f56c6c;
+    color: var(--sm-danger);
     font-size: 28px;
     font-weight: 700;
   }
   .original-price {
     margin-left: 10px;
-    color: #909399;
+    color: var(--sm-ink-3);
     text-decoration: line-through;
     font-size: 14px;
   }
@@ -221,7 +221,7 @@ onMounted(() => {
     margin: 0 0 8px;
   }
   p {
-    color: #606266;
+    color: var(--sm-ink-2);
     line-height: 1.8;
   }
 }
@@ -240,7 +240,7 @@ onMounted(() => {
       }
       .seller-rating {
         margin-top: 4px;
-        color: #e6a23c;
+        color: var(--sm-warning);
         font-size: 13px;
       }
     }
@@ -263,7 +263,7 @@ onMounted(() => {
   }
   .buy-price {
     margin-top: 8px;
-    color: #f56c6c;
+    color: var(--sm-danger);
     font-size: 20px;
     font-weight: 700;
   }
@@ -285,7 +285,7 @@ onMounted(() => {
   .addr-line {
     line-height: 1.6;
     &.sub {
-      color: #909399;
+      color: var(--sm-ink-3);
       font-size: 12px;
     }
   }

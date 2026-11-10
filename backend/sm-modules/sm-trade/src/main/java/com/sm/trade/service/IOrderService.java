@@ -56,4 +56,9 @@ public interface IOrderService {
      * 超时取消(延迟消息消费调用,幂等)
      */
     void handleTimeout(Long orderId);
+
+    /**
+     * 管理端:订单分页(全部)
+     */
+    TableDataInfo<OrderVo> adminPage(OrderBo bo, PageQuery pageQuery);
 }

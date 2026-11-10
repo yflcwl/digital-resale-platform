@@ -265,8 +265,8 @@ onMounted(() => {
     justify-content: center;
     width: 100%;
     height: 100%;
-    background: #f5f7fa;
-    color: #909399;
+    background: var(--sm-line-soft);
+    color: var(--sm-ink-3);
   }
   .product-title {
     font-size: 15px;
@@ -274,13 +274,13 @@ onMounted(() => {
   }
   .product-price {
     margin-top: 8px;
-    color: #f56c6c;
+    color: var(--sm-danger);
     font-size: 18px;
     font-weight: 600;
   }
 }
 .address-text {
-  color: #606266;
+  color: var(--sm-ink-2);
 }
 .actions {
   display: flex;
@@ -292,6 +292,6 @@ onMounted(() => {
 }
 .log-remark {
   margin-left: 10px;
-  color: #909399;
+  color: var(--sm-ink-3);
 }
 </style>

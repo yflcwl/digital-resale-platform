@@ -73,4 +73,19 @@ public interface IProductService {
      * 我的浏览历史(最近20条)
      */
     List<ProductVo> queryBrowseHistory();
+
+    /**
+     * 管理端:商品分页(全部状态)
+     */
+    TableDataInfo<ProductVo> adminPage(ProductBo bo, PageQuery pageQuery);
+
+    /**
+     * 管理端:强制下架(仅在售商品)
+     */
+    void adminOffShelf(Long id);
+
+    /**
+     * 管理端:删除商品(仅草稿/已下架)
+     */
+    void adminRemove(Long id);
 }

@@ -246,7 +246,7 @@ onMounted(() => {
     font-weight: 600;
   }
   .order-time {
-    color: #909399;
+    color: var(--sm-ink-3);
     font-size: 12px;
     flex: 1;
   }
@@ -268,8 +268,8 @@ onMounted(() => {
     justify-content: center;
     width: 100%;
     height: 100%;
-    background: #f5f7fa;
-    color: #909399;
+    background: var(--sm-line-soft);
+    color: var(--sm-ink-3);
   }
   .order-info {
     flex: 1;
@@ -279,13 +279,13 @@ onMounted(() => {
     }
     .order-price {
       margin-top: 8px;
-      color: #f56c6c;
+      color: var(--sm-danger);
       font-size: 18px;
       font-weight: 600;
     }
     .order-parties {
       margin-top: 8px;
-      color: #909399;
+      color: var(--sm-ink-3);
       font-size: 12px;
       display: flex;
       gap: 18px;

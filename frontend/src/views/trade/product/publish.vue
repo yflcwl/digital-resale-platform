@@ -144,7 +144,7 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .upload-tip {
-  color: #909399;
+  color: var(--sm-ink-3);
   font-size: 12px;
   line-height: 1.6;
 }
