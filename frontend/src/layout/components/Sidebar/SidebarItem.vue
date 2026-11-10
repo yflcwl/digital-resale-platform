@@ -4,12 +4,12 @@
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path, onlyOneChild.query)">
         <!-- 横向导航不折叠，el-menu-item 的 #title 插槽不会渲染，文字必须放进默认插槽 -->
         <el-menu-item v-if="horizontal" :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }">
-          <svg-icon v-if="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
+          <svg-icon v-if="childIcon" :icon-class="childIcon" />
           <i v-else class="menu-dot"></i>
           <span class="menu-title" :title="hasTitle(onlyOneChild.meta.title)">{{ onlyOneChild.meta.title }}</span>
         </el-menu-item>
         <el-menu-item v-else :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }">
-          <svg-icon v-if="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
+          <svg-icon v-if="childIcon" :icon-class="childIcon" />
           <i v-else class="menu-dot"></i>
           <template #title>
             <span class="menu-title" :title="hasTitle(onlyOneChild.meta.title)">{{ onlyOneChild.meta.title }}</span>
@@ -20,7 +20,7 @@
 
     <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)" teleported>
       <template v-if="item.meta" #title>
-        <svg-icon v-if="item.meta && item.meta.icon" :icon-class="item.meta.icon" />
+        <svg-icon v-if="normIcon(item.meta?.icon)" :icon-class="normIcon(item.meta?.icon)" />
         <i v-else class="menu-dot"></i>
         <span class="menu-title" :title="hasTitle(item.meta?.title)">{{ item.meta?.title }}</span>
       </template>
@@ -66,6 +66,15 @@ const props = defineProps({
 });
 
 const onlyOneChild = ref<any>({});
+
+/**
+ * 若依用 '#' 表示「无图标」，图标库里并不存在这个名字。
+ * 统一按无图标处理，交给 .menu-dot 兜底，避免渲染成空白方块。
+ */
+const normIcon = (icon?: string): string => (!icon || icon === '#' ? '' : icon);
+
+/** 单子路由项：优先取子项图标，缺省回退父项图标 */
+const childIcon = computed(() => normIcon(onlyOneChild.value?.meta?.icon || props.item.meta?.icon));
 
 const hasOneShowingChild = (parent: RouteRecordRaw, children?: RouteRecordRaw[]) => {
   if (!children) {
