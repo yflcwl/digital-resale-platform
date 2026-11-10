@@ -324,6 +324,7 @@ public class ProductServiceImpl implements IProductService {
         if (records == null || records.isEmpty()) {
             return;
         }
+        fillImages(records);
         List<Long> categoryIds = records.stream()
             .map(ProductVo::getCategoryId)
             .filter(java.util.Objects::nonNull)
@@ -334,5 +335,18 @@ public class ProductServiceImpl implements IProductService {
         }
         Map<Long, String> nameMap = categoryService.selectNameMap(categoryIds);
         records.forEach(vo -> vo.setCategoryName(nameMap.get(vo.getCategoryId())));
+    }
+
+    /**
+     * 批量填充列表商品图片(一次SQL,按商品分组)
+     */
+    private void fillImages(List<ProductVo> records) {
+        List<Long> productIds = records.stream().map(ProductVo::getId).toList();
+        List<ProductImage> images = imageMapper.selectList(Wrappers.<ProductImage>lambdaQuery()
+            .in(ProductImage::getProductId, productIds)
+            .orderByAsc(ProductImage::getSort));
+        Map<Long, List<ProductImage>> grouped = images.stream()
+            .collect(java.util.stream.Collectors.groupingBy(ProductImage::getProductId));
+        records.forEach(vo -> vo.setImages(grouped.getOrDefault(vo.getId(), List.of())));
     }
 }
