@@ -190,24 +190,3 @@ export interface OrderQuery {
   status?: string;
 }
 
-/**
- * 订单状态字典
- */
-export const orderStatusDict: Record<string, string> = {
-  PENDING_PAY: '待支付',
-  PAID: '已支付',
-  SHIPPED: '已发货',
-  RECEIVED: '已收货',
-  REVIEWED: '已评价',
-  FINISHED: '已完成',
-  CANCELED: '已取消'
-};
-
-export const orderStatusOptions = [
-  { label: '待支付', value: 'PENDING_PAY' },
-  { label: '已支付', value: 'PAID' },
-  { label: '已发货', value: 'SHIPPED' },
-  { label: '已收货', value: 'RECEIVED' },
-  { label: '已完成', value: 'FINISHED' },
-  { label: '已取消', value: 'CANCELED' }
-];

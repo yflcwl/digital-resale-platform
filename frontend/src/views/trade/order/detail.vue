@@ -7,7 +7,7 @@
         <template #header>
           <div class="head-bar">
             <span>订单详情</span>
-            <el-tag :type="statusTagType(order.status)">{{ orderStatusDict[order.status] || order.status }}</el-tag>
+            <el-tag :type="statusTagType(order.status)">{{ statusLabel(order.status) }}</el-tag>
           </div>
         </template>
 
@@ -57,7 +57,7 @@
         <template #header><span>订单流转</span></template>
         <el-timeline>
           <el-timeline-item v-for="log in order.statusLogs || []" :key="log.id" :timestamp="log.createTime" placement="top">
-            <span class="log-to">{{ orderStatusDict[log.toStatus] || log.toStatus }}</span>
+            <span class="log-to">{{ statusLabel(log.toStatus) }}</span>
             <span class="log-remark">{{ log.remark }}</span>
           </el-timeline-item>
         </el-timeline>
@@ -105,10 +105,15 @@
 </template>
 
 <script setup name="OrderDetail" lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, getCurrentInstance, onMounted, reactive, ref, toRefs } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getOrder, cancelOrder, receiveOrder, shipOrder, reviewOrder } from '@/api/trade/order';
-import { OrderVO, orderStatusDict } from '@/api/trade/types';
+import { OrderVO } from '@/api/trade/types';
+
+const { proxy } = getCurrentInstance() as any;
+const { order_status: orderStatusDict } = toRefs<any>(proxy?.useDict('order_status'));
+
+const statusLabel = (v: string) => orderStatusDict.value?.find((d: any) => d.value === v)?.label || v;
 import { useUserStore } from '@/store/modules/user';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
@@ -149,16 +154,7 @@ const load = async () => {
 };
 
 const statusTagType = (status: string) => {
-  const map: Record<string, string> = {
-    PENDING_PAY: 'warning',
-    PAID: 'primary',
-    SHIPPED: 'primary',
-    RECEIVED: 'success',
-    REVIEWED: 'success',
-    FINISHED: 'success',
-    CANCELED: 'info'
-  };
-  return map[status] || 'info';
+  return orderStatusDict.value?.find((d: any) => d.value === status)?.elTagType || 'info';
 };
 
 const goBack = () => {

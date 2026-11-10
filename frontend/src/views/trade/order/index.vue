@@ -11,7 +11,7 @@
       <el-form :inline="true" @submit.prevent>
         <el-form-item>
           <el-select v-model="queryParams.status" placeholder="全部状态" clearable style="width: 150px;">
-            <el-option v-for="s in orderStatusOptions" :key="s.value" :label="s.label" :value="s.value" />
+            <el-option v-for="s in orderStatusDict" :key="s.value" :label="s.label" :value="s.value" />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -26,7 +26,7 @@
           <div class="order-head">
             <span class="order-no">订单号:{{ o.orderNo }}</span>
             <span class="order-time">{{ o.createTime }}</span>
-            <el-tag :type="statusTagType(o.status)" size="small">{{ orderStatusDict[o.status] || o.status }}</el-tag>
+            <el-tag :type="statusTagType(o.status)" size="small">{{ statusLabel(o.status) }}</el-tag>
           </div>
           <div class="order-body" @click="goDetail(o)">
             <el-image :src="o.productImage" fit="cover" class="order-cover">
@@ -100,10 +100,15 @@
 </template>
 
 <script setup name="Order" lang="ts">
-import { onMounted, reactive, ref } from 'vue';
+import { getCurrentInstance, onMounted, reactive, ref, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { listMyOrder, cancelOrder, receiveOrder, shipOrder, reviewOrder } from '@/api/trade/order';
-import { OrderQuery, OrderVO, orderStatusDict, orderStatusOptions } from '@/api/trade/types';
+import { OrderQuery, OrderVO } from '@/api/trade/types';
+
+const { proxy } = getCurrentInstance() as any;
+const { order_status: orderStatusDict } = toRefs<any>(proxy?.useDict('order_status'));
+
+const statusLabel = (v: string) => orderStatusDict.value?.find((d: any) => d.value === v)?.label || v;
 import { ElMessage, ElMessageBox } from 'element-plus';
 
 const router = useRouter();
@@ -142,16 +147,7 @@ const handleQuery = () => {
 };
 
 const statusTagType = (status: string) => {
-  const map: Record<string, string> = {
-    PENDING_PAY: 'warning',
-    PAID: 'primary',
-    SHIPPED: 'primary',
-    RECEIVED: 'success',
-    REVIEWED: 'success',
-    FINISHED: 'success',
-    CANCELED: 'info'
-  };
-  return map[status] || 'info';
+  return orderStatusDict.value?.find((d: any) => d.value === status)?.elTagType || 'info';
 };
 
 const goDetail = (o: OrderVO) => {
