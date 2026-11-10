@@ -36,14 +36,16 @@
         <el-form-item label="手机号" prop="phone">
           <el-input v-model="form.phone" placeholder="请输入联系电话" maxlength="20" />
         </el-form-item>
-        <el-form-item label="省份" prop="province">
-          <el-input v-model="form.province" placeholder="如:四川省" />
-        </el-form-item>
-        <el-form-item label="城市" prop="city">
-          <el-input v-model="form.city" placeholder="如:成都市" />
-        </el-form-item>
-        <el-form-item label="区/县">
-          <el-input v-model="form.district" placeholder="如:高新区(可选)" />
+        <el-form-item label="所在地区" prop="province">
+          <el-cascader
+            v-model="regionValue"
+            :options="regionOptions"
+            :props="{ value: 'value', label: 'label' }"
+            placeholder="请选择省 / 市 / 区"
+            clearable
+            style="width: 100%"
+            @change="handleRegionChange"
+          />
         </el-form-item>
         <el-form-item label="详细地址" prop="detail">
           <el-input v-model="form.detail" type="textarea" :rows="2" placeholder="街道、门牌号等" />
@@ -61,6 +63,7 @@
 import { onMounted, reactive, ref } from 'vue';
 import { listAddress, addAddress, editAddress, delAddress, setDefaultAddress } from '@/api/trade/address';
 import { AddressForm, AddressVO } from '@/api/trade/types';
+import { pcaTextArr } from 'element-china-area-data';
 import { ElMessage, ElMessageBox, FormInstance, FormRules } from 'element-plus';
 
 const loading = ref(false);
@@ -68,6 +71,8 @@ const submitting = ref(false);
 const dialogVisible = ref(false);
 const list = ref<AddressVO[]>([]);
 const formRef = ref<FormInstance>();
+const regionOptions = pcaTextArr;
+const regionValue = ref<string[]>([]);
 
 const form = reactive<AddressForm>({
   receiver: '',
@@ -81,9 +86,14 @@ const form = reactive<AddressForm>({
 const rules: FormRules = {
   receiver: [{ required: true, message: '请输入收货人', trigger: 'blur' }],
   phone: [{ required: true, message: '请输入联系电话', trigger: 'blur' }],
-  province: [{ required: true, message: '请输入省份', trigger: 'blur' }],
-  city: [{ required: true, message: '请输入城市', trigger: 'blur' }],
+  province: [{ required: true, message: '请选择所在地区', trigger: 'change' }],
   detail: [{ required: true, message: '请输入详细地址', trigger: 'blur' }]
+};
+
+const handleRegionChange = (val: string[] | null) => {
+  form.province = val?.[0] || '';
+  form.city = val?.[1] || '';
+  form.district = val?.[2] || '';
 };
 
 const getList = async () => {
@@ -104,6 +114,7 @@ const openDialog = (item?: AddressVO) => {
   form.city = item?.city || '';
   form.district = item?.district || '';
   form.detail = item?.detail || '';
+  regionValue.value = item ? [item.province, item.city, item.district || ''].filter(Boolean) : [];
   dialogVisible.value = true;
 };
 
