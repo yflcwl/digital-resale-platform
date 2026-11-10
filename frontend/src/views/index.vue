@@ -41,7 +41,7 @@
         </header>
 
         <ul v-if="recent.length" class="recent">
-          <li v-for="p in recent" :key="p.id" class="recent-row" @click="go('/trade/detail/' + p.id)">
+          <li v-for="p in recent" :key="p.id" class="recent-row" @click="go('/trade/detail?id=' + p.id)">
             <span class="thumb">
               <img v-if="p.images && p.images.length" :src="p.images[0].url" alt="" />
               <i v-else class="thumb-letter">{{ (p.title || '·').slice(0, 1) }}</i>
