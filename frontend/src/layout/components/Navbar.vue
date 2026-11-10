@@ -245,8 +245,15 @@ watch(
   }
 
   /* 一级菜单：胶囊 */
-  :deep(.el-menu--horizontal > .el-menu-item),
-  :deep(.el-menu--horizontal > .el-sub-menu > .el-sub-menu__title) {
+  :deep(.topbar-menu > a) {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  /* 菜单项被 <a> 包裹，必须用后代选择器 */
+  :deep(.el-menu--horizontal .el-menu-item),
+  :deep(.el-menu--horizontal .el-sub-menu > .el-sub-menu__title) {
     height: 38px;
     line-height: 38px;
     margin: 11px 2px 0;
@@ -290,7 +297,7 @@ watch(
     }
   }
 
-  :deep(.el-menu--horizontal > .el-sub-menu.is-active > .el-sub-menu__title) {
+  :deep(.el-menu--horizontal .el-sub-menu.is-active > .el-sub-menu__title) {
     color: var(--sm-brand) !important;
     background: var(--sm-brand-soft) !important;
     box-shadow: none;
