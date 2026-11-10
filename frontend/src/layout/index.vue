@@ -125,14 +125,14 @@ const setLayout = () => {
   top: 0;
   right: 0;
   z-index: 9;
-  width: calc(100% - #{$base-sidebar-width});
+  width: calc(100% - 92px);
   transition: width 0.28s;
   background: $fixed-header-bg;
   box-shadow: 0 2px 8px rgba(0, 21, 41, 0.10);
 }
 
 .hideSidebar .fixed-header {
-  width: calc(100% - 54px);
+  width: calc(100% - 92px);
 }
 
 .sidebarHide .fixed-header {
@@ -150,6 +150,6 @@ const setLayout = () => {
 }
 
 .mobile .fixed-header {
-  width: 100%;
+  width: calc(100% - 84px);
 }
 </style>

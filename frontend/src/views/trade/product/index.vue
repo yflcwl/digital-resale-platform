@@ -120,7 +120,8 @@ const getList = async () => {
 };
 
 const loadCategory = async () => {
-  categoryOptions.value = await listCategoryTree();
+  const res = await listCategoryTree();
+  categoryOptions.value = res.data;
 };
 
 const handleCategoryChange = (val: number[]) => {
@@ -128,7 +129,7 @@ const handleCategoryChange = (val: number[]) => {
   queryParams.brandId = undefined;
   if (queryParams.categoryId) {
     listBrand(queryParams.categoryId).then((res) => {
-      brandList.value = res;
+      brandList.value = res.data;
     });
   } else {
     brandList.value = [];

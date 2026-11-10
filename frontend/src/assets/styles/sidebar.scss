@@ -1,16 +1,18 @@
 @use './variables.module.scss' as *;
 
 /**
- * 侧边栏 —— 奶油浮岛
- * 不再是若依那种顶到屏幕边缘的深色长条，而是四周留白、圆角 20px 的独立卡片，
- * 选中项为红色实体胶囊（带底部厚度），hover 有横向位移。
+ * 侧边栏 —— 悬浮图标轨
+ *
+ * 形态：一块脱离屏幕边缘的玻璃竖条（四周留 12px，圆角 22px）。
+ * 默认 68px 只放图标；鼠标移入展开到 224px 显示文字，浮在内容之上，不挤压布局。
  */
 
 #app {
+  /* 内容让出轨道占位：12(外边距) + 68(轨道) + 12(间距) */
   .main-container {
     height: 100%;
     transition: margin-left 0.28s var(--sm-ease-out);
-    margin-left: var(--sm-sidebar-w);
+    margin-left: 92px;
     position: relative;
     background: transparent;
   }
@@ -19,268 +21,239 @@
     margin-left: 0 !important;
   }
 
-  /* 顶部导航模式：没有侧边栏，内容区通栏 */
+  /* 顶部导航模式（保留兼容） */
   .navTop .main-container {
     margin-left: 0 !important;
   }
 
-  /* ---------- 容器：透明的定位层 ---------- */
   .sidebar-container {
-    width: var(--sm-sidebar-w) !important;
-    height: 100%;
     position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
+    top: 12px;
+    bottom: 12px;
+    left: 12px;
     z-index: 1001;
-    padding: 10px 8px 10px 10px;
-    box-sizing: border-box;
+    width: 68px;
+    padding: 0;
     background: transparent;
-    font-size: 0;
-    overflow: hidden;
+    border: none;
     box-shadow: none;
-    transition: width 0.28s var(--sm-ease-out);
+    overflow: visible;
+    font-size: 0;
+    transition: width 0.32s var(--sm-ease-out);
+  }
 
-    /* 移动端抽屉 */
-    .horizontal-collapse-transition {
-      transition:
-        0s width ease-in-out,
-        0s padding-left ease-in-out,
-        0s padding-right ease-in-out;
+  .sidebar-container.is-expanded {
+    width: 224px;
+  }
+
+  /* ---------- 玻璃竖条本体 ---------- */
+  .sidebar-inner {
+    width: 68px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--sm-glass);
+    backdrop-filter: var(--sm-glass-blur);
+    -webkit-backdrop-filter: var(--sm-glass-blur);
+    border: 1px solid var(--sm-glass-border);
+    border-radius: 22px;
+    box-shadow: var(--sm-shadow-2);
+    overflow: hidden;
+    transition:
+      width 0.32s var(--sm-ease-out),
+      box-shadow 0.32s ease;
+  }
+
+  .sidebar-container.is-expanded .sidebar-inner {
+    width: 224px;
+    box-shadow: var(--sm-shadow-3);
+  }
+
+  .scrollbar-wrapper {
+    overflow-x: hidden !important;
+  }
+
+  .el-scrollbar {
+    height: 100%;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .el-scrollbar__bar.is-vertical {
+    right: 2px;
+  }
+
+  .sidebar-container.has-logo .el-scrollbar {
+    height: calc(100% - 66px);
+    flex: 1;
+    min-height: 0;
+  }
+
+  .is-horizontal {
+    display: none;
+  }
+
+  a {
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* ---------- 菜单 ---------- */
+  .sidebar-container .el-menu {
+    border: none;
+    background: transparent;
+    height: 100%;
+    width: 100% !important;
+    padding: 6px 8px 10px;
+    box-sizing: border-box;
+  }
+
+  .sidebar-container .el-menu--collapse {
+    width: 68px;
+  }
+
+  .sidebar-container .el-menu-item,
+  .sidebar-container .el-sub-menu__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    line-height: 1;
+    min-width: 0;
+    margin: 3px 0;
+    padding: 0 !important;
+    border-radius: 14px;
+    color: var(--sm-ink-2);
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    overflow: hidden !important;
+    transition:
+      background-color var(--sm-dur) ease,
+      color var(--sm-dur) ease,
+      transform var(--sm-dur) var(--sm-ease),
+      box-shadow var(--sm-dur) var(--sm-ease);
+
+    .svg-icon {
+      width: 19px;
+      height: 19px;
+      margin: 0;
+      flex-shrink: 0;
+      transition: transform var(--sm-dur) var(--sm-ease);
     }
 
-    /* ---------- 内层：真正的那块毛玻璃 ---------- */
-    .sidebar-inner {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      background: var(--sm-glass);
-      backdrop-filter: var(--sm-glass-blur);
-      -webkit-backdrop-filter: var(--sm-glass-blur);
-      border: 1px solid var(--sm-glass-border);
-      border-radius: var(--sm-r-lg);
-      box-shadow: var(--sm-shadow-1);
-      overflow: hidden;
-    }
-
-    .scrollbar-wrapper {
-      overflow-x: hidden !important;
-    }
-
-    .el-scrollbar {
-      height: 100%;
-      flex: 1;
-      min-height: 0;
-    }
-
-    .el-scrollbar__bar.is-vertical {
-      right: 2px;
-    }
-
-    &.has-logo {
-      .el-scrollbar {
-        height: calc(100% - 64px);
-        flex: 1;
-        min-height: 0;
-      }
-    }
-
-    .is-horizontal {
-      display: none;
-    }
-
-    a {
-      display: inline-block;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    /* ---------- 菜单本体 ---------- */
-    .el-menu {
-      border: none;
-      background: transparent;
-      height: 100%;
-      width: 100% !important;
-      padding: 8px;
-      box-sizing: border-box;
-    }
-
-    .el-menu-item,
-    .el-sub-menu__title {
-      height: 46px;
-      line-height: 46px;
-      min-width: 0;
-      margin: 3px 0;
-      padding: 0 12px !important;
-      border-radius: var(--sm-r-sm);
-      color: var(--sm-ink-2);
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      transition:
-        background-color var(--sm-dur) ease,
-        color var(--sm-dur) ease,
-        transform var(--sm-dur) var(--sm-ease),
-        box-shadow var(--sm-dur) var(--sm-ease);
+    .menu-title {
       overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+
+    &:hover {
+      background-color: var(--sm-bg-2) !important;
+      color: var(--sm-ink) !important;
 
       .svg-icon {
-        width: 18px;
-        height: 18px;
-        margin-right: 12px;
-        vertical-align: middle;
-        transition: transform var(--sm-dur) var(--sm-ease);
-      }
-
-      .menu-title {
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        white-space: nowrap !important;
-      }
-
-      /* hover：轻微右移，像被指尖推了一下 */
-      &:hover {
-        background-color: var(--sm-bg-2) !important;
-        color: var(--sm-ink) !important;
-        transform: translateX(2px);
-
-        .svg-icon {
-          transform: scale(1.08);
-        }
+        transform: scale(1.06);
       }
     }
+  }
 
-    /* 选中：红色实体胶囊 + 底部厚度 */
-    .el-menu-item.is-active {
+  /* 展开态：左对齐 + 图标与文字间距 */
+  .sidebar-container.is-expanded .el-menu-item,
+  .sidebar-container.is-expanded .el-sub-menu__title {
+    justify-content: flex-start;
+    padding: 0 12px !important;
+
+    .svg-icon {
+      margin-right: 11px;
+    }
+  }
+
+  /* 选中：蓝色实体胶囊 */
+  .sidebar-container .el-menu-item.is-active {
+    background-color: var(--sm-brand) !important;
+    color: #fff !important;
+    font-weight: 700;
+    box-shadow: 0 2px 0 var(--sm-brand-deep);
+
+    .svg-icon {
+      color: #fff;
+    }
+
+    &:hover {
       background-color: var(--sm-brand) !important;
       color: #fff !important;
-      font-weight: 700;
-      box-shadow: 0 2px 0 var(--sm-brand-deep);
-
-      .svg-icon {
-        color: #fff;
-      }
-
-      &:hover {
-        background-color: #e2482f !important;
-        color: #fff !important;
-        transform: translateX(2px);
-      }
-    }
-
-    /* 展开的父级：文字变深，不抢选中项的红 */
-    .el-sub-menu.is-active > .el-sub-menu__title {
-      color: var(--sm-ink) !important;
-      font-weight: 700;
-    }
-
-    .el-sub-menu.is-opened > .el-sub-menu__title {
-      background-color: var(--sm-bg-2) !important;
-    }
-
-    .el-sub-menu__icon-arrow {
-      color: var(--sm-stone);
-      right: 10px;
-    }
-
-    /* ---------- 二级菜单：软红底，层级弱化 ---------- */
-    .nest-menu .el-sub-menu > .el-sub-menu__title,
-    .el-sub-menu .el-menu-item {
-      height: 42px;
-      line-height: 42px;
-      min-width: 0 !important;
-      padding-left: 40px !important;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: var(--sm-r-sm);
-      margin: 2px 0;
-
-      &.is-active {
-        background-color: var(--sm-brand-soft) !important;
-        color: var(--sm-brand) !important;
-        box-shadow: none;
-        font-weight: 700;
-
-        /* 软红底上用左侧短杠标记，而不是整块红 */
-        &::before {
-          content: '';
-          position: absolute;
-          left: 22px;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 3px;
-          height: 16px;
-          border-radius: var(--sm-r-pill);
-          background: var(--sm-brand);
-        }
-
-        &:hover {
-          background-color: var(--sm-brand-soft) !important;
-          color: var(--sm-brand) !important;
-        }
-      }
-    }
-
-    .el-menu-item.is-active::before {
-      content: none;
     }
   }
 
-  /* ---------- 折叠态：76px，只留图标 ---------- */
-  .hideSidebar {
-    .sidebar-container {
-      width: var(--sm-sidebar-w-collapsed) !important;
-      padding: 10px 8px 10px 10px;
-    }
+  .sidebar-container .el-sub-menu.is-active > .el-sub-menu__title {
+    color: var(--sm-ink) !important;
+    font-weight: 700;
+  }
 
-    .sidebar-inner {
-      border-radius: var(--sm-r-lg);
-    }
+  .sidebar-container.is-expanded .el-sub-menu.is-opened > .el-sub-menu__title {
+    background-color: var(--sm-bg-2) !important;
+  }
 
-    .el-menu {
-      padding: 8px 6px;
-    }
+  .sidebar-container .el-sub-menu__icon-arrow {
+    color: currentColor;
+    right: auto;
+    margin-left: auto;
+    position: static;
+    font-size: 11px;
+    opacity: 0.7;
+  }
 
-    .el-menu-item,
-    .el-sub-menu__title {
-      padding: 0 !important;
-      justify-content: center;
-      border-radius: var(--sm-r-sm);
+  .sidebar-container .el-menu--collapse .el-sub-menu__icon-arrow {
+    display: none;
+  }
 
-      .svg-icon {
-        margin-right: 0;
-      }
+  /* ---------- 二级菜单（展开态内嵌） ---------- */
+  .sidebar-container .nest-menu .el-sub-menu > .el-sub-menu__title,
+  .sidebar-container .el-sub-menu .el-menu-item {
+    height: 40px;
+    line-height: 1;
+    min-width: 0 !important;
+    justify-content: flex-start;
+    padding-left: 40px !important;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 12px;
+    margin: 2px 0;
 
-      &:hover {
-        transform: translateY(-1px);
-      }
-    }
-
-    .el-sub-menu__icon-arrow {
-      display: none;
-    }
-
-    .has-logo .el-scrollbar {
-      height: calc(100% - 64px);
+    &.is-active {
+      background-color: var(--sm-brand-soft) !important;
+      color: var(--sm-brand) !important;
+      box-shadow: none;
+      font-weight: 700;
     }
   }
 
-  /* ---------- 弹出式子菜单（折叠态 hover） ---------- */
+  /* ---------- 折叠态弹出的子菜单 ---------- */
   .el-menu--popup {
-    background: var(--sm-paper) !important;
+    background: var(--sm-glass-strong) !important;
+    backdrop-filter: var(--sm-glass-blur);
     border-radius: var(--sm-r-md) !important;
-    border: 1px solid var(--sm-line) !important;
+    border: 1px solid var(--sm-glass-border) !important;
     box-shadow: var(--sm-shadow-2) !important;
     padding: 6px !important;
     min-width: 180px;
 
     .el-menu-item {
+      display: flex;
+      justify-content: flex-start;
       height: 40px;
-      line-height: 40px;
+      line-height: 1;
+      padding: 0 12px !important;
       border-radius: var(--sm-r-xs);
       color: var(--sm-ink-2);
       font-weight: 600;
       margin: 2px 0;
+
+      .svg-icon {
+        margin-right: 10px;
+      }
 
       &:hover {
         background: var(--sm-bg-2) !important;
@@ -294,29 +267,35 @@
     }
   }
 
-  /* ---------- 移动端 ---------- */
+  /* ---------- 移动端：轨道收窄 ---------- */
   .mobile {
     .main-container {
-      margin-left: 0;
+      margin-left: 84px;
     }
 
     .sidebar-container {
-      transition: transform 0.28s var(--sm-ease-out);
-      width: var(--sm-sidebar-w) !important;
+      width: 60px;
+      left: 8px;
+      top: 8px;
+      bottom: 8px;
     }
 
-    &.openSidebar .sidebar-container {
-      transform: translateX(0);
+    .sidebar-inner {
+      width: 60px;
+      border-radius: 18px;
     }
 
-    &.hideSidebar .sidebar-container {
-      pointer-events: none;
-      transform: translateX(calc(-1 * var(--sm-sidebar-w)));
+    .sidebar-container.is-expanded {
+      width: 200px;
+    }
+
+    .sidebar-container.is-expanded .sidebar-inner {
+      width: 200px;
     }
   }
 
   .drawer-bg {
-    background: rgba(23, 19, 16, 0.42);
+    background: rgba(16, 27, 43, 0.42);
     width: 100%;
     top: 0;
     height: 100%;

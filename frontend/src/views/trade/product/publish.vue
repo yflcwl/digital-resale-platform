@@ -89,7 +89,7 @@ const handleCategoryChange = (val: number[]) => {
   brandList.value = [];
   if (form.categoryId) {
     listBrand(form.categoryId).then((res) => {
-      brandList.value = res;
+      brandList.value = res.data;
     });
   }
 };
@@ -116,11 +116,13 @@ const goBack = () => {
 };
 
 onMounted(async () => {
-  categoryOptions.value = await listCategoryTree();
+  const catRes = await listCategoryTree();
+  categoryOptions.value = catRes.data;
   const editId = route.query.editId as string;
   if (editId) {
     isEdit.value = true;
-    const detail = await getProduct(editId);
+    const res = await getProduct(editId);
+    const detail = res.data;
     form.id = detail.id;
     form.title = detail.title;
     form.description = detail.description;
@@ -133,7 +135,7 @@ onMounted(async () => {
     categoryValue.value = [detail.categoryId];
     if (detail.categoryId) {
       listBrand(detail.categoryId).then((res) => {
-        brandList.value = res;
+        brandList.value = res.data;
       });
     }
   }

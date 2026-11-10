@@ -1,15 +1,20 @@
 <template>
-  <div :class="{ 'has-logo': showLogo }" class="sidebar-root">
+  <div
+    :class="{ 'has-logo': showLogo, 'is-expanded': expanded }"
+    class="sidebar-root"
+    @mouseenter="expanded = true"
+    @mouseleave="expanded = false"
+  >
     <div class="sidebar-inner">
-      <logo v-if="showLogo" :collapse="isCollapse" />
+      <logo v-if="showLogo" :collapse="!expanded" />
       <el-scrollbar :class="sideTheme" wrap-class="scrollbar-wrapper">
         <transition :enter-active-class="proxy?.animate.menuSearchAnimate.enter" mode="out-in">
           <el-menu
             :default-active="activeMenu"
-            :collapse="isCollapse"
+            :collapse="!expanded"
             :unique-opened="true"
             :collapse-transition="false"
-            :popper-offset="12"
+            :popper-offset="14"
             mode="vertical"
           >
             <sidebar-item v-for="(r, index) in sidebarRouters" :key="r.path + index" :item="r" :base-path="r.path" />
@@ -23,7 +28,6 @@
 <script setup lang="ts">
 import Logo from './Logo.vue';
 import SidebarItem from './SidebarItem.vue';
-import { useAppStore } from '@/store/modules/app';
 import { useSettingsStore } from '@/store/modules/settings';
 import { usePermissionStore } from '@/store/modules/permission';
 import { RouteRecordRaw } from 'vue-router';
@@ -31,13 +35,16 @@ import { RouteRecordRaw } from 'vue-router';
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
 const route = useRoute();
-const appStore = useAppStore();
 const settingsStore = useSettingsStore();
 const permissionStore = usePermissionStore();
 const sidebarRouters = computed<RouteRecordRaw[]>(() => permissionStore.getSidebarRoutes());
 const showLogo = computed(() => settingsStore.sidebarLogo);
 const sideTheme = computed(() => settingsStore.sideTheme);
-const isCollapse = computed(() => !appStore.sidebar.opened);
+
+/**
+ * 图标轨：默认收起只显示图标，鼠标移入展开显示文字（浮在内容之上，不挤压布局）
+ */
+const expanded = ref(false);
 
 const activeMenu = computed(() => {
   const { meta, path } = route;

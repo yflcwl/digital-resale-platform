@@ -347,8 +347,9 @@ watch(
   padding: 0 8px 0 4px;
   box-sizing: border-box;
 
-  /* 汉堡键：圆角实体键，hover 上浮 */
+  /* 图标轨自动展开，汉堡键不再需要 */
   .hamburger-container {
+    display: none !important;
     line-height: 1;
     height: 38px;
     width: 38px;

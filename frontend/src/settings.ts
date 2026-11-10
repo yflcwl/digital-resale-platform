@@ -21,12 +21,12 @@ const setting: DefaultSettings = {
   /**
    * 默认布局
    */
-  navType: NavTypeEnum.TOP,
+  navType: NavTypeEnum.LEFT,
 
   /**
    * 是否显示 tagsView
    */
-  tagsView: true,
+  tagsView: false,
 
   /**
    * 显示页签图标

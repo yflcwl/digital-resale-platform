@@ -1,5 +1,6 @@
 <template>
   <div class="app-container" v-loading="loading">
+    <el-button icon="ArrowLeft" @click="goBack" style="margin-bottom: 12px">返回</el-button>
     <el-row :gutter="20" v-if="product">
       <!-- 左侧轮播 -->
       <el-col :span="10">
@@ -62,21 +63,31 @@
 
 <script setup name="ProductDetail" lang="ts">
 import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { getProduct, favoriteProduct, cancelFavoriteProduct } from '@/api/trade/product';
 import { conditionSelfOptions, ProductVO } from '@/api/trade/types';
 import { ElMessage } from 'element-plus';
 
 const route = useRoute();
+const router = useRouter();
 const loading = ref(false);
 const product = ref<ProductVO>();
 
 const load = async () => {
   loading.value = true;
   try {
-    product.value = await getProduct(route.query.id as string);
+    const res = await getProduct(route.query.id as string);
+    product.value = res.data;
   } finally {
     loading.value = false;
+  }
+};
+
+const goBack = () => {
+  if (window.history.length > 1) {
+    router.back();
+  } else {
+    router.push('/trade/market');
   }
 };
 

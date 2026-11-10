@@ -72,6 +72,13 @@
             <artifactId>sm-common-oss</artifactId>
         </dependency>
 
+        <!-- RocketMQ:订单延迟取消 -->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-spring-boot-starter</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+
     </dependencies>
 
 </project>
