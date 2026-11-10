@@ -1,6 +1,6 @@
-package org.dromara.system.domain.bo;
+package com.sm.system.domain.bo;
 
-import org.dromara.system.domain.SysLogininfor;
+import com.sm.system.domain.SysLogininfor;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 

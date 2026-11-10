@@ -1,10 +1,10 @@
-package org.dromara.system.service;
+package com.sm.system.service;
 
 import cn.hutool.core.lang.tree.Tree;
-import org.dromara.system.domain.SysMenu;
-import org.dromara.system.domain.bo.SysMenuBo;
-import org.dromara.system.domain.vo.RouterVo;
-import org.dromara.system.domain.vo.SysMenuVo;
+import com.sm.system.domain.SysMenu;
+import com.sm.system.domain.bo.SysMenuBo;
+import com.sm.system.domain.vo.RouterVo;
+import com.sm.system.domain.vo.SysMenuVo;
 
 import java.util.List;
 import java.util.Set;

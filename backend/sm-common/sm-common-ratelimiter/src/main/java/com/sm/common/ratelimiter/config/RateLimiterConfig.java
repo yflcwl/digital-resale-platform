@@ -1,6 +1,6 @@
-package org.dromara.common.ratelimiter.config;
+package com.sm.common.ratelimiter.config;
 
-import org.dromara.common.ratelimiter.aspectj.RateLimiterAspect;
+import com.sm.common.ratelimiter.aspectj.RateLimiterAspect;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConfiguration;

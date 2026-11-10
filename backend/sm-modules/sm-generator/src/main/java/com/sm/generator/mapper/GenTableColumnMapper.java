@@ -1,8 +1,8 @@
-package org.dromara.generator.mapper;
+package com.sm.generator.mapper;
 
 import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.generator.domain.GenTableColumn;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.generator.domain.GenTableColumn;
 
 /**
  * 业务字段 数据层

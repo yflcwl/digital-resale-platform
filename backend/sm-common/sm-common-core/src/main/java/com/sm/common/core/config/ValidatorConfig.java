@@ -1,4 +1,4 @@
-package org.dromara.common.core.config;
+package com.sm.common.core.config;
 
 import jakarta.validation.Validator;
 import org.hibernate.validator.HibernateValidator;

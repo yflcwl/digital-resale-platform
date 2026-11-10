@@ -1,11 +1,11 @@
-package org.dromara.common.core.exception.file;
+package com.sm.common.core.exception.file;
 
 import java.io.Serial;
 
 /**
  * 文件名称超长限制异常类
  *
- * @author ruoyi
+ * @author sm
  */
 public class FileNameLengthLimitExceededException extends FileException {
 

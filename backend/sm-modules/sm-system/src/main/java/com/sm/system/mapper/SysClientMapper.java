@@ -1,8 +1,8 @@
-package org.dromara.system.mapper;
+package com.sm.system.mapper;
 
-import org.dromara.system.domain.SysClient;
-import org.dromara.system.domain.vo.SysClientVo;
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.system.domain.SysClient;
+import com.sm.system.domain.vo.SysClientVo;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
 
 /**
  * 授权管理Mapper接口

@@ -1,10 +1,10 @@
-package org.dromara.common.websocket.config;
+package com.sm.common.websocket.config;
 
 import cn.hutool.core.util.StrUtil;
-import org.dromara.common.websocket.config.properties.WebSocketProperties;
-import org.dromara.common.websocket.handler.PlusWebSocketHandler;
-import org.dromara.common.websocket.interceptor.PlusWebSocketInterceptor;
-import org.dromara.common.websocket.listener.WebSocketTopicListener;
+import com.sm.common.websocket.config.properties.WebSocketProperties;
+import com.sm.common.websocket.handler.PlusWebSocketHandler;
+import com.sm.common.websocket.interceptor.PlusWebSocketInterceptor;
+import com.sm.common.websocket.listener.WebSocketTopicListener;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

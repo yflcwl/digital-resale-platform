@@ -1,8 +1,8 @@
-package org.dromara.system.mapper;
+package com.sm.system.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.system.domain.SysUserRole;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.system.domain.SysUserRole;
 
 import java.util.List;
 

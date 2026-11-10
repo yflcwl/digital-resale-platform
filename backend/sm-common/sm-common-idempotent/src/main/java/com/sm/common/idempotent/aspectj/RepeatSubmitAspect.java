@@ -1,4 +1,4 @@
-package org.dromara.common.idempotent.aspectj;
+package com.sm.common.idempotent.aspectj;
 
 import cn.dev33.satoken.SaManager;
 import cn.hutool.core.util.ArrayUtil;
@@ -11,16 +11,16 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.dromara.common.core.constant.GlobalConstants;
-import org.dromara.common.core.constant.HttpStatus;
-import org.dromara.common.core.domain.R;
-import org.dromara.common.core.exception.ServiceException;
-import org.dromara.common.core.utils.MessageUtils;
-import org.dromara.common.core.utils.ServletUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.idempotent.annotation.RepeatSubmit;
-import org.dromara.common.json.utils.JsonUtils;
-import org.dromara.common.redis.utils.RedisUtils;
+import com.sm.common.core.constant.GlobalConstants;
+import com.sm.common.core.constant.HttpStatus;
+import com.sm.common.core.domain.R;
+import com.sm.common.core.exception.ServiceException;
+import com.sm.common.core.utils.MessageUtils;
+import com.sm.common.core.utils.ServletUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.idempotent.annotation.RepeatSubmit;
+import com.sm.common.json.utils.JsonUtils;
+import com.sm.common.redis.utils.RedisUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 

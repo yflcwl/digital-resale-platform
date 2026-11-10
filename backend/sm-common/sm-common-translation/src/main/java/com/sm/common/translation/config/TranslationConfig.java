@@ -1,10 +1,10 @@
-package org.dromara.common.translation.config;
+package com.sm.common.translation.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.dromara.common.translation.annotation.TranslationType;
-import org.dromara.common.translation.core.TranslationInterface;
-import org.dromara.common.translation.core.handler.TranslationBeanSerializerModifier;
-import org.dromara.common.translation.core.handler.TranslationHandler;
+import com.sm.common.translation.annotation.TranslationType;
+import com.sm.common.translation.core.TranslationInterface;
+import com.sm.common.translation.core.handler.TranslationBeanSerializerModifier;
+import com.sm.common.translation.core.handler.TranslationHandler;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

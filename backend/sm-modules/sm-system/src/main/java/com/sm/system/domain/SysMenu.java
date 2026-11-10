@@ -1,14 +1,14 @@
-package org.dromara.system.domain;
+package com.sm.system.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.dromara.common.core.constant.Constants;
-import org.dromara.common.core.constant.SystemConstants;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
+import com.sm.common.core.constant.Constants;
+import com.sm.common.core.constant.SystemConstants;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.mybatis.core.domain.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;

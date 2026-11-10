@@ -1,4 +1,4 @@
-package org.dromara.common.social.config.properties;
+package com.sm.common.social.config.properties;
 
 import lombok.Data;
 

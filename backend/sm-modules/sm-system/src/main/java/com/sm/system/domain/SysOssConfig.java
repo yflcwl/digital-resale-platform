@@ -1,10 +1,10 @@
-package org.dromara.system.domain;
+package com.sm.system.domain;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
+import com.sm.common.mybatis.core.domain.BaseEntity;
 
 /**
  * 对象存储配置对象 sys_oss_config

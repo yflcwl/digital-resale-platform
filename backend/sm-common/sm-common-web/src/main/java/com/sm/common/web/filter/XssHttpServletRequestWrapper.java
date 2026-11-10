@@ -1,4 +1,4 @@
-package org.dromara.common.web.filter;
+package com.sm.common.web.filter;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.map.MapUtil;
@@ -9,7 +9,7 @@ import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
-import org.dromara.common.core.utils.StringUtils;
+import com.sm.common.core.utils.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * XSS过滤处理
  *
- * @author ruoyi
+ * @author sm
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     /**

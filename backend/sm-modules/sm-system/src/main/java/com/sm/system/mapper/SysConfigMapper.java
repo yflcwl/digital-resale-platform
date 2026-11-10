@@ -1,8 +1,8 @@
-package org.dromara.system.mapper;
+package com.sm.system.mapper;
 
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.system.domain.SysConfig;
-import org.dromara.system.domain.vo.SysConfigVo;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.system.domain.SysConfig;
+import com.sm.system.domain.vo.SysConfigVo;
 
 /**
  * 参数配置 数据层

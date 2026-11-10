@@ -1,6 +1,6 @@
-package org.dromara.generator.util;
+package com.sm.generator.util;
 
-import org.dromara.common.core.constant.Constants;
+import com.sm.common.core.constant.Constants;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.velocity.app.Velocity;
@@ -10,7 +10,7 @@ import java.util.Properties;
 /**
  * VelocityEngine工厂
  *
- * @author ruoyi
+ * @author sm
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class VelocityInitializer {

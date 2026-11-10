@@ -1,4 +1,4 @@
-package org.dromara.system.domain.bo;
+package com.sm.system.domain.bo;
 
 import io.github.linpeilie.annotations.AutoMapper;
 import jakarta.validation.constraints.NotBlank;
@@ -6,9 +6,9 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.dromara.common.core.constant.RegexConstants;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
-import org.dromara.system.domain.SysDictType;
+import com.sm.common.core.constant.RegexConstants;
+import com.sm.common.mybatis.core.domain.BaseEntity;
+import com.sm.system.domain.SysDictType;
 
 /**
  * 字典类型业务对象 sys_dict_type

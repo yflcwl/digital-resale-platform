@@ -1,6 +1,6 @@
-package org.dromara.system.domain;
+package com.sm.system.domain;
 
-import org.dromara.common.core.utils.StringUtils;
+import com.sm.common.core.utils.StringUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -1,15 +1,15 @@
-package org.dromara.common.mybatis.handler;
+package com.sm.common.mybatis.handler;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.HttpStatus;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
-import org.dromara.common.core.domain.model.LoginUser;
-import org.dromara.common.core.exception.ServiceException;
-import org.dromara.common.core.utils.ObjectUtils;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
-import org.dromara.common.satoken.utils.LoginHelper;
+import com.sm.common.core.domain.model.LoginUser;
+import com.sm.common.core.exception.ServiceException;
+import com.sm.common.core.utils.ObjectUtils;
+import com.sm.common.mybatis.core.domain.BaseEntity;
+import com.sm.common.satoken.utils.LoginHelper;
 
 import java.util.Date;
 

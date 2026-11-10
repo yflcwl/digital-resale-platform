@@ -1,11 +1,11 @@
-package org.dromara.common.core.exception.user;
+package com.sm.common.core.exception.user;
 
 import java.io.Serial;
 
 /**
  * 验证码失效异常类
  *
- * @author ruoyi
+ * @author sm
  */
 public class CaptchaExpireException extends UserException {
 

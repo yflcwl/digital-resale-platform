@@ -1,11 +1,11 @@
-package org.dromara.system.domain.vo;
+package com.sm.system.domain.vo;
 
 import java.util.Date;
 import cn.idev.excel.annotation.ExcelIgnoreUnannotated;
 import cn.idev.excel.annotation.ExcelProperty;
-import org.dromara.common.excel.annotation.ExcelDictFormat;
-import org.dromara.common.excel.convert.ExcelDictConvert;
-import org.dromara.system.domain.SysLogininfor;
+import com.sm.common.excel.annotation.ExcelDictFormat;
+import com.sm.common.excel.convert.ExcelDictConvert;
+import com.sm.system.domain.SysLogininfor;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 

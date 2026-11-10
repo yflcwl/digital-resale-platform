@@ -1,12 +1,12 @@
-package org.dromara.common.encrypt.filter;
+package com.sm.common.encrypt.filter;
 
 import cn.hutool.core.io.IoUtil;
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
-import org.dromara.common.core.constant.Constants;
-import org.dromara.common.encrypt.utils.EncryptUtils;
+import com.sm.common.core.constant.Constants;
+import com.sm.common.encrypt.utils.EncryptUtils;
 import org.springframework.http.MediaType;
 
 import java.io.BufferedReader;

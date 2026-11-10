@@ -1,4 +1,4 @@
-package org.dromara.common.social.maxkey;
+package com.sm.common.social.maxkey;
 
 import cn.hutool.core.lang.Dict;
 import me.zhyd.oauth.cache.AuthStateCache;
@@ -8,8 +8,8 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.AuthDefaultRequest;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.json.utils.JsonUtils;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.json.utils.JsonUtils;
 
 /**
  *  @author 长春叭哥 2023年03月26日

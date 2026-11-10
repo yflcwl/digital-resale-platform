@@ -1,7 +1,7 @@
-package org.dromara.system.domain.vo;
+package com.sm.system.domain.vo;
 
 import cn.idev.excel.annotation.ExcelIgnoreUnannotated;
-import org.dromara.system.domain.SysOssConfig;
+import com.sm.system.domain.SysOssConfig;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 

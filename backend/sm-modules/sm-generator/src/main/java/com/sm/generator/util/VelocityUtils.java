@@ -1,16 +1,16 @@
-package org.dromara.generator.util;
+package com.sm.generator.util;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.Dict;
-import org.dromara.common.mybatis.enums.DataBaseType;
-import org.dromara.generator.constant.GenConstants;
-import org.dromara.common.core.utils.DateUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.json.utils.JsonUtils;
-import org.dromara.common.mybatis.helper.DataBaseHelper;
-import org.dromara.generator.domain.GenTable;
-import org.dromara.generator.domain.GenTableColumn;
+import com.sm.common.mybatis.enums.DataBaseType;
+import com.sm.generator.constant.GenConstants;
+import com.sm.common.core.utils.DateUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.json.utils.JsonUtils;
+import com.sm.common.mybatis.helper.DataBaseHelper;
+import com.sm.generator.domain.GenTable;
+import com.sm.generator.domain.GenTableColumn;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.velocity.VelocityContext;
@@ -20,7 +20,7 @@ import java.util.*;
 /**
  * 模板处理工具类
  *
- * @author ruoyi
+ * @author sm
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class VelocityUtils {
@@ -218,8 +218,8 @@ public class VelocityUtils {
             } else if (!column.isSuperColumn() && GenConstants.TYPE_BIGDECIMAL.equals(column.getJavaType())) {
                 importList.add("java.math.BigDecimal");
             } else if (!column.isSuperColumn() && "imageUpload".equals(column.getHtmlType())) {
-                importList.add("org.dromara.common.translation.annotation.Translation");
-                importList.add("org.dromara.common.translation.constant.TransConstant");
+                importList.add("com.sm.common.translation.annotation.Translation");
+                importList.add("com.sm.common.translation.constant.TransConstant");
             }
         }
         return importList;

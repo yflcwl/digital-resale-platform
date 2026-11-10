@@ -1,4 +1,4 @@
-package org.dromara.common.oss.core;
+package com.sm.common.oss.core;
 
 import java.io.IOException;
 

@@ -1,9 +1,9 @@
-package org.dromara.common.log.enums;
+package com.sm.common.log.enums;
 
 /**
  * 操作人类别
  *
- * @author ruoyi
+ * @author sm
  */
 public enum OperatorType {
     /**

@@ -1,4 +1,4 @@
-package org.dromara.common.core.enums;
+package com.sm.common.core.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * 用户状态
  *
- * @author ruoyi
+ * @author sm
  */
 @Getter
 @AllArgsConstructor

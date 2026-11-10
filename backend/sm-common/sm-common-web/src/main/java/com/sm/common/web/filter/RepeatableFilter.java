@@ -1,6 +1,6 @@
-package org.dromara.common.web.filter;
+package com.sm.common.web.filter;
 
-import org.dromara.common.core.utils.StringUtils;
+import com.sm.common.core.utils.StringUtils;
 import org.springframework.http.MediaType;
 
 import jakarta.servlet.*;
@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Repeatable 过滤器
  *
- * @author ruoyi
+ * @author sm
  */
 public class RepeatableFilter implements Filter {
     @Override

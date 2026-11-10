@@ -1,8 +1,8 @@
-package org.dromara.workflow.domain.bo;
+package com.sm.workflow.domain.bo;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.dromara.common.core.validate.AddGroup;
+import com.sm.common.core.validate.AddGroup;
 
 import java.io.Serial;
 import java.io.Serializable;

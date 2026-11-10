@@ -1,4 +1,4 @@
-package org.dromara.demo.controller.queue;
+package com.sm.demo.controller.queue;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

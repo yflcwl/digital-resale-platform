@@ -1,4 +1,4 @@
-package org.dromara.common.mybatis.core.domain;
+package com.sm.common.mybatis.core.domain;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

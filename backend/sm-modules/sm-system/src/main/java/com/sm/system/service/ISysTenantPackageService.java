@@ -1,9 +1,9 @@
-package org.dromara.system.service;
+package com.sm.system.service;
 
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.system.domain.bo.SysTenantPackageBo;
-import org.dromara.system.domain.vo.SysTenantPackageVo;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.system.domain.bo.SysTenantPackageBo;
+import com.sm.system.domain.vo.SysTenantPackageVo;
 
 import java.util.Collection;
 import java.util.List;

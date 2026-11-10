@@ -1,6 +1,6 @@
-package org.dromara.common.redis.manager;
+package com.sm.common.redis.manager;
 
-import org.dromara.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.SpringUtils;
 import org.springframework.cache.Cache;
 
 import java.util.concurrent.Callable;

@@ -1,14 +1,14 @@
-package org.dromara.common.mybatis.helper;
+package com.sm.common.mybatis.helper;
 
 import cn.hutool.core.convert.Convert;
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.baomidou.dynamic.datasource.toolkit.DynamicDataSourceContextHolder;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.exception.ServiceException;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.core.utils.sql.SqlUtil;
-import org.dromara.common.mybatis.enums.DataBaseType;
+import com.sm.common.core.exception.ServiceException;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.sql.SqlUtil;
+import com.sm.common.mybatis.enums.DataBaseType;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

@@ -1,7 +1,7 @@
-package org.dromara.common.encrypt.properties;
+package com.sm.common.encrypt.properties;
 
-import org.dromara.common.encrypt.enumd.AlgorithmType;
-import org.dromara.common.encrypt.enumd.EncodeType;
+import com.sm.common.encrypt.enumd.AlgorithmType;
+import com.sm.common.encrypt.enumd.EncodeType;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

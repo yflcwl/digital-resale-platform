@@ -1,7 +1,7 @@
-package org.dromara.common.sms.config;
+package com.sm.common.sms.config;
 
-import org.dromara.common.sms.core.dao.PlusSmsDao;
-import org.dromara.common.sms.handler.SmsExceptionHandler;
+import com.sm.common.sms.core.dao.PlusSmsDao;
+import com.sm.common.sms.handler.SmsExceptionHandler;
 import org.dromara.sms4j.api.dao.SmsDao;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;

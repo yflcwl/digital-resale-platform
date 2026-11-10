@@ -1,7 +1,7 @@
-package org.dromara.common.mail.config;
+package com.sm.common.mail.config;
 
 import cn.hutool.extra.mail.MailAccount;
-import org.dromara.common.mail.config.properties.MailProperties;
+import com.sm.common.mail.config.properties.MailProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

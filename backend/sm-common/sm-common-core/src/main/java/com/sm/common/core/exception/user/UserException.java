@@ -1,13 +1,13 @@
-package org.dromara.common.core.exception.user;
+package com.sm.common.core.exception.user;
 
-import org.dromara.common.core.exception.base.BaseException;
+import com.sm.common.core.exception.base.BaseException;
 
 import java.io.Serial;
 
 /**
  * 用户信息异常类
  *
- * @author ruoyi
+ * @author sm
  */
 public class UserException extends BaseException {
 

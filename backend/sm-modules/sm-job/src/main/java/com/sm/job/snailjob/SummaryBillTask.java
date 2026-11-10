@@ -1,12 +1,12 @@
-package org.dromara.job.snailjob;
+package com.sm.job.snailjob;
 
 import cn.hutool.core.util.StrUtil;
 import com.aizuda.snailjob.client.job.core.annotation.JobExecutor;
 import com.aizuda.snailjob.client.job.core.dto.JobArgs;
 import com.aizuda.snailjob.common.log.SnailJobLog;
 import com.aizuda.snailjob.model.dto.ExecuteResult;
-import org.dromara.common.json.utils.JsonUtils;
-import org.dromara.job.entity.BillDto;
+import com.sm.common.json.utils.JsonUtils;
+import com.sm.job.entity.BillDto;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

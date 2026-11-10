@@ -1,4 +1,4 @@
-package org.dromara.common.doc.core.resolver;
+package com.sm.common.doc.core.resolver;
 
 import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.util.ClassLoaderUtil;

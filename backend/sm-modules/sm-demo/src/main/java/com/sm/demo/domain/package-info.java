@@ -1,1 +1,1 @@
-package org.dromara.demo.domain;
+package com.sm.demo.domain;

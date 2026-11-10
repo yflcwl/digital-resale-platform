@@ -1,9 +1,9 @@
-package org.dromara.generator.service;
+package com.sm.generator.service;
 
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.generator.domain.GenTable;
-import org.dromara.generator.domain.GenTableColumn;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.generator.domain.GenTable;
+import com.sm.generator.domain.GenTableColumn;
 
 import java.util.List;
 import java.util.Map;

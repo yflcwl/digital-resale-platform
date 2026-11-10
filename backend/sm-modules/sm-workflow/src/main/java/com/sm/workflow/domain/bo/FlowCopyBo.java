@@ -1,4 +1,4 @@
-package org.dromara.workflow.domain.bo;
+package com.sm.workflow.domain.bo;
 
 import lombok.Data;
 

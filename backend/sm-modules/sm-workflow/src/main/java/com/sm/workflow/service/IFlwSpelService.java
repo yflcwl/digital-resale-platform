@@ -1,11 +1,11 @@
-package org.dromara.workflow.service;
+package com.sm.workflow.service;
 
-import org.dromara.common.core.domain.dto.TaskAssigneeDTO;
-import org.dromara.common.core.domain.model.TaskAssigneeBody;
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.workflow.domain.bo.FlowSpelBo;
-import org.dromara.workflow.domain.vo.FlowSpelVo;
+import com.sm.common.core.domain.dto.TaskAssigneeDTO;
+import com.sm.common.core.domain.model.TaskAssigneeBody;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.workflow.domain.bo.FlowSpelBo;
+import com.sm.workflow.domain.vo.FlowSpelVo;
 
 import java.util.Collection;
 import java.util.List;

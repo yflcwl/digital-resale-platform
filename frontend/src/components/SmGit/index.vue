@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-const url = ref('https://gitee.com/dromara/RuoYi-Vue-Plus');
+const url = ref('https://github.com/yflcwl/digital-resale-platform');
 
 function goto() {
   window.open(url.value);

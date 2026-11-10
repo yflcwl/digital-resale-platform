@@ -1,6 +1,6 @@
-package org.dromara.common.oss.constant;
+package com.sm.common.oss.constant;
 
-import org.dromara.common.core.constant.GlobalConstants;
+import com.sm.common.core.constant.GlobalConstants;
 
 import java.util.Arrays;
 import java.util.List;

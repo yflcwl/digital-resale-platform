@@ -1,4 +1,4 @@
-package org.dromara.common.social.topiam;
+package com.sm.common.social.topiam;
 
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.request.AuthDefaultRequest;

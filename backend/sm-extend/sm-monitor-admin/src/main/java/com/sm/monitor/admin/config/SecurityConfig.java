@@ -1,4 +1,4 @@
-package org.dromara.monitor.admin.config;
+package com.sm.monitor.admin.config;
 
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
 import org.springframework.context.annotation.Bean;

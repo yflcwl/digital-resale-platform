@@ -1,7 +1,7 @@
-package org.dromara.system.service;
+package com.sm.system.service;
 
-import org.dromara.system.domain.bo.SysSocialBo;
-import org.dromara.system.domain.vo.SysSocialVo;
+import com.sm.system.domain.bo.SysSocialBo;
+import com.sm.system.domain.vo.SysSocialVo;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.dromara.common.web.config.properties;
+package com.sm.common.web.config.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

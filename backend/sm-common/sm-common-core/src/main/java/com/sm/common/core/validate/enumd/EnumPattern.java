@@ -1,4 +1,4 @@
-package org.dromara.common.core.validate.enumd;
+package com.sm.common.core.validate.enumd;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

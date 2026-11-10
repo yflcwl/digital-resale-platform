@@ -1,4 +1,4 @@
-package org.dromara.workflow.domain.bo;
+package com.sm.workflow.domain.bo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;

@@ -1,10 +1,10 @@
-package org.dromara.demo.service;
+package com.sm.demo.service;
 
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.demo.domain.TestDemo;
-import org.dromara.demo.domain.bo.TestDemoBo;
-import org.dromara.demo.domain.vo.TestDemoVo;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.demo.domain.TestDemo;
+import com.sm.demo.domain.bo.TestDemoBo;
+import com.sm.demo.domain.vo.TestDemoVo;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,6 +1,6 @@
-package org.dromara.system.runner;
+package com.sm.system.runner;
 
-import org.dromara.system.service.ISysOssConfigService;
+import com.sm.system.service.ISysOssConfigService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;

@@ -1,11 +1,11 @@
-package org.dromara.common.encrypt.filter;
+package com.sm.common.encrypt.filter;
 
 import cn.hutool.core.util.RandomUtil;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.WriteListener;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletResponseWrapper;
-import org.dromara.common.encrypt.utils.EncryptUtils;
+import com.sm.common.encrypt.utils.EncryptUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

@@ -1,17 +1,17 @@
-package org.dromara.common.oss.core;
+package com.sm.common.oss.core;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.IdUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.constant.Constants;
-import org.dromara.common.core.utils.DateUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.core.utils.file.FileUtils;
-import org.dromara.common.oss.constant.OssConstant;
-import org.dromara.common.oss.entity.UploadResult;
-import org.dromara.common.oss.enums.AccessPolicyType;
-import org.dromara.common.oss.exception.OssException;
-import org.dromara.common.oss.properties.OssProperties;
+import com.sm.common.core.constant.Constants;
+import com.sm.common.core.utils.DateUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.core.utils.file.FileUtils;
+import com.sm.common.oss.constant.OssConstant;
+import com.sm.common.oss.entity.UploadResult;
+import com.sm.common.oss.enums.AccessPolicyType;
+import com.sm.common.oss.exception.OssException;
+import com.sm.common.oss.properties.OssProperties;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;

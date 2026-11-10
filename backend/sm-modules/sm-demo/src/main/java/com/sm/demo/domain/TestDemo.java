@@ -1,7 +1,7 @@
-package org.dromara.demo.domain;
+package com.sm.demo.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
-import org.dromara.common.tenant.core.TenantEntity;
+import com.sm.common.tenant.core.TenantEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -1,8 +1,8 @@
-package org.dromara.common.redis.utils;
+package com.sm.common.redis.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.SpringUtils;
 import org.redisson.api.*;
 
 import java.util.concurrent.CompletionStage;

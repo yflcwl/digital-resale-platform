@@ -1,9 +1,9 @@
-package org.dromara.common.core.utils.sql;
+package com.sm.common.core.utils.sql;
 
 import cn.hutool.core.exceptions.UtilException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.utils.StringUtils;
+import com.sm.common.core.utils.StringUtils;
 
 /**
  * sql操作工具类

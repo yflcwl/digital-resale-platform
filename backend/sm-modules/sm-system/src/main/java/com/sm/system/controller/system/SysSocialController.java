@@ -1,11 +1,11 @@
-package org.dromara.system.controller.system;
+package com.sm.system.controller.system;
 
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.domain.R;
-import org.dromara.common.satoken.utils.LoginHelper;
-import org.dromara.common.web.core.BaseController;
-import org.dromara.system.domain.vo.SysSocialVo;
-import org.dromara.system.service.ISysSocialService;
+import com.sm.common.core.domain.R;
+import com.sm.common.satoken.utils.LoginHelper;
+import com.sm.common.web.core.BaseController;
+import com.sm.system.domain.vo.SysSocialVo;
+import com.sm.system.service.ISysSocialService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

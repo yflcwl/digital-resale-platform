@@ -1,8 +1,8 @@
-package org.dromara.system.mapper;
+package com.sm.system.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.system.domain.SysRoleMenu;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.system.domain.SysRoleMenu;
 
 import java.util.List;
 

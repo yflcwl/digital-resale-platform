@@ -1,4 +1,4 @@
-package org.dromara.common.mybatis.core.page;
+package com.sm.common.mybatis.core.page;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.http.HttpStatus;

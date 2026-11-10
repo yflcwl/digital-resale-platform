@@ -3,40 +3,40 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>ruoyi-vue-plus</artifactId>
-        <groupId>org.dromara</groupId>
+        <artifactId>sm-trade</artifactId>
+        <groupId>com.sm</groupId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <modules>
-        <module>ruoyi-common-bom</module>
-        <module>ruoyi-common-social</module>
-        <module>ruoyi-common-core</module>
-        <module>ruoyi-common-doc</module>
-        <module>ruoyi-common-excel</module>
-        <module>ruoyi-common-idempotent</module>
-        <module>ruoyi-common-job</module>
-        <module>ruoyi-common-log</module>
-        <module>ruoyi-common-mail</module>
-        <module>ruoyi-common-mybatis</module>
-        <module>ruoyi-common-oss</module>
-        <module>ruoyi-common-ratelimiter</module>
-        <module>ruoyi-common-redis</module>
-        <module>ruoyi-common-satoken</module>
-        <module>ruoyi-common-security</module>
-        <module>ruoyi-common-sms</module>
-        <module>ruoyi-common-web</module>
-        <module>ruoyi-common-translation</module>
-        <module>ruoyi-common-sensitive</module>
-        <module>ruoyi-common-json</module>
-        <module>ruoyi-common-encrypt</module>
-        <module>ruoyi-common-tenant</module>
-        <module>ruoyi-common-websocket</module>
-        <module>ruoyi-common-sse</module>
+        <module>sm-common-bom</module>
+        <module>sm-common-social</module>
+        <module>sm-common-core</module>
+        <module>sm-common-doc</module>
+        <module>sm-common-excel</module>
+        <module>sm-common-idempotent</module>
+        <module>sm-common-job</module>
+        <module>sm-common-log</module>
+        <module>sm-common-mail</module>
+        <module>sm-common-mybatis</module>
+        <module>sm-common-oss</module>
+        <module>sm-common-ratelimiter</module>
+        <module>sm-common-redis</module>
+        <module>sm-common-satoken</module>
+        <module>sm-common-security</module>
+        <module>sm-common-sms</module>
+        <module>sm-common-web</module>
+        <module>sm-common-translation</module>
+        <module>sm-common-sensitive</module>
+        <module>sm-common-json</module>
+        <module>sm-common-encrypt</module>
+        <module>sm-common-tenant</module>
+        <module>sm-common-websocket</module>
+        <module>sm-common-sse</module>
     </modules>
 
-    <artifactId>ruoyi-common</artifactId>
+    <artifactId>sm-common</artifactId>
     <packaging>pom</packaging>
 
     <description>

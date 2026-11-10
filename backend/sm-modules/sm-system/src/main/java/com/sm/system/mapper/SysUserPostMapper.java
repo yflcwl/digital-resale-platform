@@ -1,7 +1,7 @@
-package org.dromara.system.mapper;
+package com.sm.system.mapper;
 
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.system.domain.SysUserPost;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.system.domain.SysUserPost;
 
 /**
  * 用户与岗位关联表 数据层

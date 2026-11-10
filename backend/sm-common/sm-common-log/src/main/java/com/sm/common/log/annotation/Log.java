@@ -1,14 +1,14 @@
-package org.dromara.common.log.annotation;
+package com.sm.common.log.annotation;
 
-import org.dromara.common.log.enums.BusinessType;
-import org.dromara.common.log.enums.OperatorType;
+import com.sm.common.log.enums.BusinessType;
+import com.sm.common.log.enums.OperatorType;
 
 import java.lang.annotation.*;
 
 /**
  * 自定义操作日志记录注解
  *
- * @author ruoyi
+ * @author sm
  */
 @Target({ElementType.PARAMETER, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

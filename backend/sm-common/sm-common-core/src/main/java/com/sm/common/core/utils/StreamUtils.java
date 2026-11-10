@@ -1,4 +1,4 @@
-package org.dromara.common.core.utils;
+package com.sm.common.core.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;

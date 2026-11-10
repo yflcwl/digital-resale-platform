@@ -1,10 +1,10 @@
-package org.dromara.system.service;
+package com.sm.system.service;
 
 import cn.hutool.core.lang.tree.Tree;
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.system.domain.bo.SysDeptBo;
-import org.dromara.system.domain.vo.SysDeptVo;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.system.domain.bo.SysDeptBo;
+import com.sm.system.domain.vo.SysDeptVo;
 
 import java.util.List;
 

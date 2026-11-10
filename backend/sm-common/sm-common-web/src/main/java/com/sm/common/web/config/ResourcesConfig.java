@@ -1,10 +1,10 @@
-package org.dromara.common.web.config;
+package com.sm.common.web.config;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
-import org.dromara.common.core.utils.ObjectUtils;
-import org.dromara.common.web.handler.GlobalExceptionHandler;
-import org.dromara.common.web.interceptor.PlusWebInvokeTimeInterceptor;
+import com.sm.common.core.utils.ObjectUtils;
+import com.sm.common.web.handler.GlobalExceptionHandler;
+import com.sm.common.web.interceptor.PlusWebInvokeTimeInterceptor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.format.FormatterRegistry;

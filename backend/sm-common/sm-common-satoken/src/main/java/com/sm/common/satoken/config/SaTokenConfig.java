@@ -1,13 +1,13 @@
-package org.dromara.common.satoken.config;
+package com.sm.common.satoken.config;
 
 import cn.dev33.satoken.dao.SaTokenDao;
 import cn.dev33.satoken.jwt.StpLogicJwtForSimple;
 import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpLogic;
-import org.dromara.common.core.factory.YmlPropertySourceFactory;
-import org.dromara.common.satoken.core.dao.PlusSaTokenDao;
-import org.dromara.common.satoken.core.service.SaPermissionImpl;
-import org.dromara.common.satoken.handler.SaTokenExceptionHandler;
+import com.sm.common.core.factory.YmlPropertySourceFactory;
+import com.sm.common.satoken.core.dao.PlusSaTokenDao;
+import com.sm.common.satoken.core.service.SaPermissionImpl;
+import com.sm.common.satoken.handler.SaTokenExceptionHandler;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;

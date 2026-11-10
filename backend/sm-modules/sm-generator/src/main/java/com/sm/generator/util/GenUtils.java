@@ -1,20 +1,20 @@
-package org.dromara.generator.util;
+package com.sm.generator.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.RegExUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.generator.config.GenConfig;
-import org.dromara.generator.constant.GenConstants;
-import org.dromara.generator.domain.GenTable;
-import org.dromara.generator.domain.GenTableColumn;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.generator.config.GenConfig;
+import com.sm.generator.constant.GenConstants;
+import com.sm.generator.domain.GenTable;
+import com.sm.generator.domain.GenTableColumn;
 
 import java.util.Arrays;
 
 /**
  * 代码生成器 工具类
  *
- * @author ruoyi
+ * @author sm
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GenUtils {

@@ -1,7 +1,7 @@
-package org.dromara.common.sms.core.dao;
+package com.sm.common.sms.core.dao;
 
-import org.dromara.common.core.constant.GlobalConstants;
-import org.dromara.common.redis.utils.RedisUtils;
+import com.sm.common.core.constant.GlobalConstants;
+import com.sm.common.redis.utils.RedisUtils;
 import org.dromara.sms4j.api.dao.SmsDao;
 
 import java.time.Duration;

@@ -1,9 +1,9 @@
-package org.dromara.common.json.validate;
+package com.sm.common.json.validate;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.json.utils.JsonUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.json.utils.JsonUtils;
 
 /**
  * JSON 格式校验器

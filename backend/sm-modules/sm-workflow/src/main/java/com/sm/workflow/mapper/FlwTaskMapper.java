@@ -1,13 +1,13 @@
-package org.dromara.workflow.mapper;
+package com.sm.workflow.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
-import org.dromara.workflow.domain.bo.FlowTaskBo;
-import org.dromara.workflow.domain.vo.FlowHisTaskVo;
-import org.dromara.workflow.domain.vo.FlowTaskVo;
+import com.sm.workflow.domain.bo.FlowTaskBo;
+import com.sm.workflow.domain.vo.FlowHisTaskVo;
+import com.sm.workflow.domain.vo.FlowTaskVo;
 
 
 /**

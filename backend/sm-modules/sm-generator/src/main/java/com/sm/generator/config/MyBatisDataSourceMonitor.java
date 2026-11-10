@@ -1,4 +1,4 @@
-package org.dromara.generator.config;
+package com.sm.generator.config;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.baomidou.dynamic.datasource.toolkit.DynamicDataSourceContextHolder;

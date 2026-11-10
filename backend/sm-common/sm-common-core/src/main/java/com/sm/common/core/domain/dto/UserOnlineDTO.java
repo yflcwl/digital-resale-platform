@@ -1,4 +1,4 @@
-package org.dromara.common.core.domain.dto;
+package com.sm.common.core.domain.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 当前在线会话
  *
- * @author ruoyi
+ * @author sm
  */
 
 @Data

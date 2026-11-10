@@ -1,8 +1,8 @@
-package org.dromara.workflow.domain.vo;
+package com.sm.workflow.domain.vo;
 
 import lombok.Data;
-import org.dromara.common.translation.annotation.Translation;
-import org.dromara.workflow.common.constant.FlowConstant;
+import com.sm.common.translation.annotation.Translation;
+import com.sm.workflow.common.constant.FlowConstant;
 
 import java.io.Serial;
 import java.io.Serializable;

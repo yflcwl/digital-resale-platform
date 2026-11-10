@@ -1,12 +1,12 @@
-package org.dromara.system.domain.vo;
+package com.sm.system.domain.vo;
 
-import org.dromara.common.core.utils.StringUtils;
+import com.sm.common.core.utils.StringUtils;
 import lombok.Data;
 
 /**
  * 路由显示信息
  *
- * @author ruoyi
+ * @author sm
  */
 
 @Data

@@ -1,4 +1,4 @@
-package org.dromara.system.domain.bo;
+package com.sm.system.domain.bo;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

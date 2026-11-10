@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.dromara</groupId>
-        <artifactId>ruoyi-modules</artifactId>
+        <groupId>com.sm</groupId>
+        <artifactId>sm-modules</artifactId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ruoyi-generator</artifactId>
+    <artifactId>sm-generator</artifactId>
 
     <description>
         generator 代码生成
@@ -18,33 +18,33 @@
     <dependencies>
         <!-- 通用工具-->
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-core</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-core</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-doc</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-doc</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-mybatis</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-mybatis</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-web</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-web</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-log</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-log</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-idempotent</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-idempotent</artifactId>
         </dependency>
 
         <!--velocity代码生成使用模板 -->

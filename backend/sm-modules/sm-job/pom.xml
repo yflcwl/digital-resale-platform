@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.dromara</groupId>
-        <artifactId>ruoyi-modules</artifactId>
+        <groupId>com.sm</groupId>
+        <artifactId>sm-modules</artifactId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>ruoyi-job</artifactId>
+    <artifactId>sm-job</artifactId>
 
     <description>
         任务调度
@@ -19,13 +19,13 @@
 
         <!-- 通用工具-->
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-json</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-json</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-job</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-job</artifactId>
         </dependency>
         
     </dependencies>

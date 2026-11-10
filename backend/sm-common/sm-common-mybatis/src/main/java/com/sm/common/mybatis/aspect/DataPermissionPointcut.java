@@ -1,7 +1,7 @@
-package org.dromara.common.mybatis.aspect;
+package com.sm.common.mybatis.aspect;
 
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.mybatis.annotation.DataPermission;
+import com.sm.common.mybatis.annotation.DataPermission;
 import org.springframework.aop.support.StaticMethodMatcherPointcut;
 
 import java.lang.reflect.Method;

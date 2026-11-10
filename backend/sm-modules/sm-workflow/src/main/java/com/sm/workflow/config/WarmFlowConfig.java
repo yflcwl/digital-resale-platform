@@ -1,6 +1,6 @@
-package org.dromara.workflow.config;
+package com.sm.workflow.config;
 
-import org.dromara.workflow.common.ConditionalOnEnable;
+import com.sm.workflow.common.ConditionalOnEnable;
 import org.springframework.context.annotation.Configuration;
 
 /**

@@ -1,12 +1,12 @@
-package org.dromara.common.websocket.utils;
+package com.sm.common.websocket.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.redis.utils.RedisUtils;
-import org.dromara.common.websocket.dto.WebSocketMessageDto;
-import org.dromara.common.websocket.holder.WebSocketSessionHolder;
+import com.sm.common.redis.utils.RedisUtils;
+import com.sm.common.websocket.dto.WebSocketMessageDto;
+import com.sm.common.websocket.holder.WebSocketSessionHolder;
 import org.springframework.web.socket.PongMessage;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static org.dromara.common.websocket.constant.WebSocketConstants.WEB_SOCKET_TOPIC;
+import static com.sm.common.websocket.constant.WebSocketConstants.WEB_SOCKET_TOPIC;
 
 /**
  * 工具类

@@ -33,7 +33,7 @@ captcha:
 # 日志配置
 logging:
   level:
-    org.dromara: @logging.level@
+    com.sm: @logging.level@
     org.springframework: warn
     org.mybatis.spring.mapper: error
     org.apache.fury: warn
@@ -50,7 +50,7 @@ user:
 # Spring配置
 spring:
   application:
-    name: RuoYi-Vue-Plus
+    name: sm-server
   threads:
     # 开启虚拟线程 仅jdk21可用
     virtual:
@@ -139,12 +139,12 @@ tenant:
 mybatis-plus:
   # 自定义配置 是否全局开启逻辑删除 关闭后 所有逻辑删除功能将失效
   enableLogicDelete: true
-  # 多包名使用 例如 org.dromara.**.mapper,org.xxx.**.mapper
-  mapperPackage: org.dromara.**.mapper
+  # 多包名使用 例如 com.sm.**.mapper,org.xxx.**.mapper
+  mapperPackage: com.sm.**.mapper
   # 对应的 XML 文件位置
   mapperLocations: classpath*:mapper/**/*Mapper.xml
   # 实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: org.dromara.**.domain
+  typeAliasesPackage: com.sm.**.domain
   global-config:
     dbConfig:
       # 主键类型
@@ -185,7 +185,7 @@ springdoc:
     enabled: true
   info:
     # 标题
-    title: '标题：RuoYi-Vue-Plus多租户管理系统_接口文档'
+    title: '标题：二手数码交易平台与智能质检辅助系统_接口文档'
     # 描述
     description: '描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...'
     # 版本
@@ -194,19 +194,19 @@ springdoc:
     contact:
       name: Lion Li
       email: crazylionli@163.com
-      url: https://gitee.com/dromara/RuoYi-Vue-Plus
+      url: https://github.com/yflcwl/digital-resale-platform
   #这里定义了两个分组，可定义多个，也可以不定义
   group-configs:
     - group: 1.演示模块
-      packages-to-scan: org.dromara.demo
+      packages-to-scan: com.sm.demo
     - group: 2.通用模块
-      packages-to-scan: org.dromara.web
+      packages-to-scan: com.sm.web
     - group: 3.系统模块
-      packages-to-scan: org.dromara.system
+      packages-to-scan: com.sm.system
     - group: 4.代码生成模块
-      packages-to-scan: org.dromara.generator
+      packages-to-scan: com.sm.generator
     - group: 5.工作流模块
-      packages-to-scan: org.dromara.workflow
+      packages-to-scan: com.sm.workflow
 
 # 防止XSS攻击
 xss:

@@ -1,4 +1,4 @@
-package org.dromara.common.mybatis.helper;
+package com.sm.common.mybatis.helper;
 
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.context.model.SaStorage;
@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.utils.reflect.ReflectUtils;
-import org.dromara.common.mybatis.annotation.DataPermission;
+import com.sm.common.core.utils.reflect.ReflectUtils;
+import com.sm.common.mybatis.annotation.DataPermission;
 
 import java.util.HashMap;
 import java.util.Map;

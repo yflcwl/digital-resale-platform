@@ -1,4 +1,4 @@
-package org.dromara.common.encrypt.utils;
+package com.sm.common.encrypt.utils;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.ArrayUtil;

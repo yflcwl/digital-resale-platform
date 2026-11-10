@@ -1,8 +1,8 @@
-package org.dromara.common.web.filter;
+package com.sm.common.web.filter;
 
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.web.config.properties.XssProperties;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.web.config.properties.XssProperties;
 import org.springframework.http.HttpMethod;
 
 import jakarta.servlet.*;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 防止XSS攻击的过滤器
  *
- * @author ruoyi
+ * @author sm
  */
 public class XssFilter implements Filter {
     /**

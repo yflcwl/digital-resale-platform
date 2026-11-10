@@ -1,4 +1,4 @@
-package org.dromara.generator.config;
+package com.sm.generator.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * 读取代码生成相关配置
  *
- * @author ruoyi
+ * @author sm
  */
 @Component
 @ConfigurationProperties(prefix = "gen")

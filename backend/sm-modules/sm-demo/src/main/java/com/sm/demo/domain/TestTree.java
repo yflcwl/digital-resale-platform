@@ -1,10 +1,10 @@
-package org.dromara.demo.domain;
+package com.sm.demo.domain;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.Version;
-import org.dromara.common.tenant.core.TenantEntity;
+import com.sm.common.tenant.core.TenantEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

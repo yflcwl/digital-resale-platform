@@ -1,4 +1,4 @@
-package org.dromara.common.encrypt.properties;
+package com.sm.common.encrypt.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

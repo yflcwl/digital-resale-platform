@@ -1,10 +1,10 @@
-package org.dromara.system.service;
+package com.sm.system.service;
 
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.system.domain.SysUserRole;
-import org.dromara.system.domain.bo.SysRoleBo;
-import org.dromara.system.domain.vo.SysRoleVo;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.system.domain.SysUserRole;
+import com.sm.system.domain.bo.SysRoleBo;
+import com.sm.system.domain.vo.SysRoleVo;
 
 import java.util.List;
 import java.util.Set;

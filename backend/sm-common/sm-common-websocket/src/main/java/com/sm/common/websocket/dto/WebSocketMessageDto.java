@@ -1,4 +1,4 @@
-package org.dromara.common.websocket.dto;
+package com.sm.common.websocket.dto;
 
 import lombok.Data;
 

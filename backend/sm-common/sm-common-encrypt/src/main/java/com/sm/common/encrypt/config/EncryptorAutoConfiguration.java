@@ -1,12 +1,12 @@
-package org.dromara.common.encrypt.config;
+package com.sm.common.encrypt.config;
 
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.encrypt.core.EncryptorManager;
-import org.dromara.common.encrypt.interceptor.MybatisDecryptInterceptor;
-import org.dromara.common.encrypt.interceptor.MybatisEncryptInterceptor;
-import org.dromara.common.encrypt.properties.EncryptorProperties;
+import com.sm.common.encrypt.core.EncryptorManager;
+import com.sm.common.encrypt.interceptor.MybatisDecryptInterceptor;
+import com.sm.common.encrypt.interceptor.MybatisEncryptInterceptor;
+import com.sm.common.encrypt.properties.EncryptorProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

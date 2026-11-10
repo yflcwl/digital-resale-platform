@@ -1,4 +1,4 @@
-package org.dromara.system.domain.bo;
+package com.sm.system.domain.bo;
 
 import io.github.linpeilie.annotations.AutoMapper;
 import jakarta.validation.constraints.Email;
@@ -7,10 +7,10 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.constant.SystemConstants;
-import org.dromara.common.core.xss.Xss;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
-import org.dromara.system.domain.SysUser;
+import com.sm.common.core.constant.SystemConstants;
+import com.sm.common.core.xss.Xss;
+import com.sm.common.mybatis.core.domain.BaseEntity;
+import com.sm.system.domain.SysUser;
 
 /**
  * 用户信息业务对象 sys_user

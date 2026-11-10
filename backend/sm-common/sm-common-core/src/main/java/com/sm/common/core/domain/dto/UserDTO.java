@@ -1,4 +1,4 @@
-package org.dromara.common.core.domain.dto;
+package com.sm.common.core.domain.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

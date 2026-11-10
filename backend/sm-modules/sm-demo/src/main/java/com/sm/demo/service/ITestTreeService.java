@@ -1,7 +1,7 @@
-package org.dromara.demo.service;
+package com.sm.demo.service;
 
-import org.dromara.demo.domain.bo.TestTreeBo;
-import org.dromara.demo.domain.vo.TestTreeVo;
+import com.sm.demo.domain.bo.TestTreeBo;
+import com.sm.demo.domain.vo.TestTreeVo;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,8 +1,8 @@
-package org.dromara.system.mapper;
+package com.sm.system.mapper;
 
-import org.dromara.system.domain.SysDictType;
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.system.domain.vo.SysDictTypeVo;
+import com.sm.system.domain.SysDictType;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.system.domain.vo.SysDictTypeVo;
 
 /**
  * 字典表 数据层

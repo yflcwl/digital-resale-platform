@@ -1,4 +1,4 @@
-package org.dromara.generator.controller;
+package com.sm.generator.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.convert.Convert;
@@ -6,17 +6,17 @@ import cn.hutool.core.io.IoUtil;
 import com.baomidou.lock.annotation.Lock4j;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.domain.R;
-import org.dromara.common.idempotent.annotation.RepeatSubmit;
-import org.dromara.common.log.annotation.Log;
-import org.dromara.common.log.enums.BusinessType;
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.common.mybatis.helper.DataBaseHelper;
-import org.dromara.common.web.core.BaseController;
-import org.dromara.generator.domain.GenTable;
-import org.dromara.generator.domain.GenTableColumn;
-import org.dromara.generator.service.IGenTableService;
+import com.sm.common.core.domain.R;
+import com.sm.common.idempotent.annotation.RepeatSubmit;
+import com.sm.common.log.annotation.Log;
+import com.sm.common.log.enums.BusinessType;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.common.mybatis.helper.DataBaseHelper;
+import com.sm.common.web.core.BaseController;
+import com.sm.generator.domain.GenTable;
+import com.sm.generator.domain.GenTableColumn;
+import com.sm.generator.service.IGenTableService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -192,7 +192,7 @@ public class GenController extends BaseController {
         response.reset();
         response.addHeader("Access-Control-Allow-Origin", "*");
         response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
-        response.setHeader("Content-Disposition", "attachment; filename=\"ruoyi.zip\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"sm.zip\"");
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
         IoUtil.write(response.getOutputStream(), false, data);

@@ -1,4 +1,4 @@
-package org.dromara.job.snailjob;
+package com.sm.job.snailjob;
 
 import com.aizuda.snailjob.client.job.core.annotation.JobExecutor;
 import com.aizuda.snailjob.client.job.core.dto.JobArgs;

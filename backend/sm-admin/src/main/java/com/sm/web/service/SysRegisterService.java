@@ -1,27 +1,27 @@
-package org.dromara.web.service;
+package com.sm.web.service;
 
 import cn.hutool.crypto.digest.BCrypt;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.constant.Constants;
-import org.dromara.common.core.constant.GlobalConstants;
-import org.dromara.common.core.domain.model.RegisterBody;
-import org.dromara.common.core.enums.UserType;
-import org.dromara.common.core.exception.user.CaptchaException;
-import org.dromara.common.core.exception.user.CaptchaExpireException;
-import org.dromara.common.core.exception.user.UserException;
-import org.dromara.common.core.utils.MessageUtils;
-import org.dromara.common.core.utils.ServletUtils;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.log.event.LogininforEvent;
-import org.dromara.common.redis.utils.RedisUtils;
-import org.dromara.common.tenant.helper.TenantHelper;
-import org.dromara.common.web.config.properties.CaptchaProperties;
-import org.dromara.system.domain.SysUser;
-import org.dromara.system.domain.bo.SysUserBo;
-import org.dromara.system.mapper.SysUserMapper;
-import org.dromara.system.service.ISysUserService;
+import com.sm.common.core.constant.Constants;
+import com.sm.common.core.constant.GlobalConstants;
+import com.sm.common.core.domain.model.RegisterBody;
+import com.sm.common.core.enums.UserType;
+import com.sm.common.core.exception.user.CaptchaException;
+import com.sm.common.core.exception.user.CaptchaExpireException;
+import com.sm.common.core.exception.user.UserException;
+import com.sm.common.core.utils.MessageUtils;
+import com.sm.common.core.utils.ServletUtils;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.log.event.LogininforEvent;
+import com.sm.common.redis.utils.RedisUtils;
+import com.sm.common.tenant.helper.TenantHelper;
+import com.sm.common.web.config.properties.CaptchaProperties;
+import com.sm.system.domain.SysUser;
+import com.sm.system.domain.bo.SysUserBo;
+import com.sm.system.mapper.SysUserMapper;
+import com.sm.system.service.ISysUserService;
 import org.springframework.stereotype.Service;
 
 /**

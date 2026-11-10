@@ -1,4 +1,4 @@
-package org.dromara.common.mybatis.core.page;
+package com.sm.common.mybatis.core.page;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -6,9 +6,9 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.dromara.common.core.exception.ServiceException;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.core.utils.sql.SqlUtil;
+import com.sm.common.core.exception.ServiceException;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.core.utils.sql.SqlUtil;
 
 import java.io.Serial;
 import java.io.Serializable;

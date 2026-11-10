@@ -1,4 +1,4 @@
-package org.dromara.demo.domain.vo;
+package com.sm.demo.domain.vo;
 
 import cn.idev.excel.annotation.ExcelIgnoreUnannotated;
 import cn.idev.excel.annotation.ExcelProperty;
@@ -7,13 +7,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.enums.UserStatus;
-import org.dromara.common.core.validate.AddGroup;
-import org.dromara.common.core.validate.EditGroup;
-import org.dromara.common.excel.annotation.ExcelDictFormat;
-import org.dromara.common.excel.annotation.ExcelEnumFormat;
-import org.dromara.common.excel.convert.ExcelDictConvert;
-import org.dromara.common.excel.convert.ExcelEnumConvert;
+import com.sm.common.core.enums.UserStatus;
+import com.sm.common.core.validate.AddGroup;
+import com.sm.common.core.validate.EditGroup;
+import com.sm.common.excel.annotation.ExcelDictFormat;
+import com.sm.common.excel.annotation.ExcelEnumFormat;
+import com.sm.common.excel.convert.ExcelDictConvert;
+import com.sm.common.excel.convert.ExcelEnumConvert;
 
 import java.io.Serial;
 import java.io.Serializable;

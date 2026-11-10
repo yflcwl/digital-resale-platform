@@ -1,6 +1,6 @@
-package org.dromara.web.domain.vo;
+package com.sm.web.domain.vo;
 
-import org.dromara.system.domain.vo.SysTenantVo;
+import com.sm.system.domain.vo.SysTenantVo;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 

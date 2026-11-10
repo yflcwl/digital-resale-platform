@@ -1,10 +1,10 @@
-package org.dromara.common.translation.core.impl;
+package com.sm.common.translation.core.impl;
 
 import cn.hutool.core.convert.Convert;
-import org.dromara.common.core.service.UserService;
-import org.dromara.common.translation.annotation.TranslationType;
-import org.dromara.common.translation.constant.TransConstant;
-import org.dromara.common.translation.core.TranslationInterface;
+import com.sm.common.core.service.UserService;
+import com.sm.common.translation.annotation.TranslationType;
+import com.sm.common.translation.constant.TransConstant;
+import com.sm.common.translation.core.TranslationInterface;
 import lombok.AllArgsConstructor;
 
 /**

@@ -1,8 +1,8 @@
-package org.dromara.system.domain.vo;
+package com.sm.system.domain.vo;
 
 import lombok.Data;
-import org.dromara.common.translation.annotation.Translation;
-import org.dromara.common.translation.constant.TransConstant;
+import com.sm.common.translation.annotation.Translation;
+import com.sm.common.translation.constant.TransConstant;
 
 import java.io.Serial;
 import java.io.Serializable;

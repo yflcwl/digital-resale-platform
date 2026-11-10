@@ -3,28 +3,28 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.dromara</groupId>
-        <artifactId>ruoyi-common</artifactId>
+        <groupId>com.sm</groupId>
+        <artifactId>sm-common</artifactId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ruoyi-common-tenant</artifactId>
+    <artifactId>sm-common-tenant</artifactId>
 
     <description>
-        ruoyi-common-tenant 租户模块
+        sm-common-tenant 租户模块
     </description>
 
     <dependencies>
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-mybatis</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-mybatis</artifactId>
             <optional>true</optional>
         </dependency>
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-redis</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-redis</artifactId>
         </dependency>
 
     </dependencies>

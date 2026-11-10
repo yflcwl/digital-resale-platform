@@ -1,4 +1,4 @@
-package org.dromara.generator.domain;
+package com.sm.generator.domain;
 
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -8,8 +8,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.JdbcType;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.mybatis.core.domain.BaseEntity;
 
 /**
  * 代码生成业务字段表 gen_table_column

@@ -1,9 +1,9 @@
-package org.dromara.common.core.constant;
+package com.sm.common.core.constant;
 
 /**
  * 通用常量信息
  *
- * @author ruoyi
+ * @author sm
  */
 public interface Constants {
 

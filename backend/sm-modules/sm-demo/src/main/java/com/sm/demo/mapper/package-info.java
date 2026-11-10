@@ -1,1 +1,1 @@
-package org.dromara.demo.mapper;
+package com.sm.demo.mapper;

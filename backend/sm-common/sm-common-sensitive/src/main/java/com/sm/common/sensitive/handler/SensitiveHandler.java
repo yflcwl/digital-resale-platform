@@ -1,4 +1,4 @@
-package org.dromara.common.sensitive.handler;
+package com.sm.common.sensitive.handler;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -7,10 +7,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.sensitive.annotation.Sensitive;
-import org.dromara.common.sensitive.core.SensitiveService;
-import org.dromara.common.sensitive.core.SensitiveStrategy;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.sensitive.annotation.Sensitive;
+import com.sm.common.sensitive.core.SensitiveService;
+import com.sm.common.sensitive.core.SensitiveStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 

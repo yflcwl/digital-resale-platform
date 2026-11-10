@@ -1,4 +1,4 @@
-package org.dromara.common.redis.config;
+package com.sm.common.redis.config;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -9,9 +9,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.redis.config.properties.RedissonProperties;
-import org.dromara.common.redis.handler.KeyPrefixHandler;
-import org.dromara.common.redis.handler.RedisExceptionHandler;
+import com.sm.common.redis.config.properties.RedissonProperties;
+import com.sm.common.redis.handler.KeyPrefixHandler;
+import com.sm.common.redis.handler.RedisExceptionHandler;
 import org.redisson.client.codec.StringCodec;
 import org.redisson.codec.CompositeCodec;
 import org.redisson.codec.TypedJsonJacksonCodec;
@@ -135,7 +135,7 @@ public class RedisConfig {
      *   # 集群配置
      *   clusterServersConfig:
      *     # 客户端名称
-     *     clientName: ${ruoyi.name}
+     *     clientName: ${sm.name}
      *     # master最小空闲连接数
      *     masterConnectionMinimumIdleSize: 32
      *     # master连接池大小

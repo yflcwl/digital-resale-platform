@@ -1,10 +1,10 @@
-package org.dromara.common.mybatis.utils;
+package com.sm.common.mybatis.utils;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.SpringUtils;
 
 /**
  * ID 生成工具类

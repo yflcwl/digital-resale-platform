@@ -1,12 +1,12 @@
-package org.dromara.system.mapper;
+package com.sm.system.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import org.dromara.common.core.constant.SystemConstants;
-import org.dromara.common.core.utils.StreamUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.system.domain.SysMenu;
-import org.dromara.system.domain.vo.SysMenuVo;
+import com.sm.common.core.constant.SystemConstants;
+import com.sm.common.core.utils.StreamUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.system.domain.SysMenu;
+import com.sm.system.domain.vo.SysMenuVo;
 
 import java.util.HashSet;
 import java.util.List;

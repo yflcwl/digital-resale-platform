@@ -1,9 +1,9 @@
-package org.dromara.common.core.utils.ip;
+package com.sm.common.core.utils.ip;
 
 import cn.hutool.core.io.resource.ResourceUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.exception.ServiceException;
-import org.dromara.common.core.utils.StringUtils;
+import com.sm.common.core.exception.ServiceException;
+import com.sm.common.core.utils.StringUtils;
 import org.lionsoul.ip2region.service.Config;
 import org.lionsoul.ip2region.service.Ip2Region;
 import org.lionsoul.ip2region.xdb.Util;

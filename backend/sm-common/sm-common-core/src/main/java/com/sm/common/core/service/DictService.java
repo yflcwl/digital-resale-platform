@@ -1,7 +1,7 @@
-package org.dromara.common.core.service;
+package com.sm.common.core.service;
 
-import org.dromara.common.core.domain.dto.DictDataDTO;
-import org.dromara.common.core.domain.dto.DictTypeDTO;
+import com.sm.common.core.domain.dto.DictDataDTO;
+import com.sm.common.core.domain.dto.DictTypeDTO;
 
 import java.util.List;
 import java.util.Map;

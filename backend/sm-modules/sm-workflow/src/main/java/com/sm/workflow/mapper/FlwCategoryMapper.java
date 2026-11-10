@@ -1,12 +1,12 @@
-package org.dromara.workflow.mapper;
+package com.sm.workflow.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import org.dromara.common.mybatis.annotation.DataColumn;
-import org.dromara.common.mybatis.annotation.DataPermission;
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.common.mybatis.helper.DataBaseHelper;
-import org.dromara.workflow.domain.FlowCategory;
-import org.dromara.workflow.domain.vo.FlowCategoryVo;
+import com.sm.common.mybatis.annotation.DataColumn;
+import com.sm.common.mybatis.annotation.DataPermission;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.common.mybatis.helper.DataBaseHelper;
+import com.sm.workflow.domain.FlowCategory;
+import com.sm.workflow.domain.vo.FlowCategoryVo;
 
 import java.util.List;
 import java.util.stream.Collectors;

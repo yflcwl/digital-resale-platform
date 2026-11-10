@@ -1,8 +1,8 @@
-package org.dromara.common.sse.config;
+package com.sm.common.sse.config;
 
-import org.dromara.common.sse.controller.SseController;
-import org.dromara.common.sse.core.SseEmitterManager;
-import org.dromara.common.sse.listener.SseTopicListener;
+import com.sm.common.sse.controller.SseController;
+import com.sm.common.sse.core.SseEmitterManager;
+import com.sm.common.sse.listener.SseTopicListener;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

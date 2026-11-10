@@ -1,11 +1,11 @@
-package org.dromara.workflow.mapper;
+package com.sm.workflow.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
-import org.dromara.workflow.domain.bo.FlowInstanceBo;
-import org.dromara.workflow.domain.vo.FlowInstanceVo;
+import com.sm.workflow.domain.bo.FlowInstanceBo;
+import com.sm.workflow.domain.vo.FlowInstanceVo;
 
 /**
  * 实例信息Mapper接口

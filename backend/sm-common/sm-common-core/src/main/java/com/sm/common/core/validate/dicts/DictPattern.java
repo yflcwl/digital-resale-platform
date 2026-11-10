@@ -1,4 +1,4 @@
-package org.dromara.common.core.validate.dicts;
+package com.sm.common.core.validate.dicts;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

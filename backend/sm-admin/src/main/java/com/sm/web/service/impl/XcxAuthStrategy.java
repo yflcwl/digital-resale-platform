@@ -1,4 +1,4 @@
-package org.dromara.web.service.impl;
+package com.sm.web.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.stp.parameter.SaLoginParameter;
@@ -12,18 +12,18 @@ import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.AuthRequest;
 import me.zhyd.oauth.request.AuthWechatMiniProgramRequest;
-import org.dromara.common.core.constant.SystemConstants;
-import org.dromara.common.core.domain.model.XcxLoginBody;
-import org.dromara.common.core.domain.model.XcxLoginUser;
-import org.dromara.common.core.exception.ServiceException;
-import org.dromara.common.core.utils.ValidatorUtils;
-import org.dromara.common.json.utils.JsonUtils;
-import org.dromara.common.satoken.utils.LoginHelper;
-import org.dromara.system.domain.vo.SysClientVo;
-import org.dromara.system.domain.vo.SysUserVo;
-import org.dromara.web.domain.vo.LoginVo;
-import org.dromara.web.service.IAuthStrategy;
-import org.dromara.web.service.SysLoginService;
+import com.sm.common.core.constant.SystemConstants;
+import com.sm.common.core.domain.model.XcxLoginBody;
+import com.sm.common.core.domain.model.XcxLoginUser;
+import com.sm.common.core.exception.ServiceException;
+import com.sm.common.core.utils.ValidatorUtils;
+import com.sm.common.json.utils.JsonUtils;
+import com.sm.common.satoken.utils.LoginHelper;
+import com.sm.system.domain.vo.SysClientVo;
+import com.sm.system.domain.vo.SysUserVo;
+import com.sm.web.domain.vo.LoginVo;
+import com.sm.web.service.IAuthStrategy;
+import com.sm.web.service.SysLoginService;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,9 +1,9 @@
-package org.dromara.web.controller;
+package com.sm.web.controller;
 
 import cn.dev33.satoken.annotation.SaIgnore;
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.core.utils.StringUtils;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

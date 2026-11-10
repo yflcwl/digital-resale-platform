@@ -1,9 +1,9 @@
-package org.dromara.demo.controller.queue;
+package com.sm.demo.controller.queue;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.domain.R;
-import org.dromara.common.redis.utils.QueueUtils;
+import com.sm.common.core.domain.R;
+import com.sm.common.redis.utils.QueueUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

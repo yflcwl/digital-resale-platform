@@ -1,10 +1,10 @@
-package org.dromara.demo.mapper;
+package com.sm.demo.mapper;
 
-import org.dromara.common.mybatis.annotation.DataColumn;
-import org.dromara.common.mybatis.annotation.DataPermission;
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.demo.domain.TestTree;
-import org.dromara.demo.domain.vo.TestTreeVo;
+import com.sm.common.mybatis.annotation.DataColumn;
+import com.sm.common.mybatis.annotation.DataPermission;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.demo.domain.TestTree;
+import com.sm.demo.domain.vo.TestTreeVo;
 
 /**
  * 测试树表Mapper接口

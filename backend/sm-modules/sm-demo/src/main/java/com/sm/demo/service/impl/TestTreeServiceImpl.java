@@ -1,15 +1,15 @@
-package org.dromara.demo.service.impl;
+package com.sm.demo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.utils.MapstructUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.demo.domain.TestTree;
-import org.dromara.demo.domain.bo.TestTreeBo;
-import org.dromara.demo.domain.vo.TestTreeVo;
-import org.dromara.demo.mapper.TestTreeMapper;
-import org.dromara.demo.service.ITestTreeService;
+import com.sm.common.core.utils.MapstructUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.demo.domain.TestTree;
+import com.sm.demo.domain.bo.TestTreeBo;
+import com.sm.demo.domain.vo.TestTreeVo;
+import com.sm.demo.mapper.TestTreeMapper;
+import com.sm.demo.service.ITestTreeService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

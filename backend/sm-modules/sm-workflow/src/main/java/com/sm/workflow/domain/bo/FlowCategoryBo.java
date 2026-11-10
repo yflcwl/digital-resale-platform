@@ -1,14 +1,14 @@
-package org.dromara.workflow.domain.bo;
+package com.sm.workflow.domain.bo;
 
 import io.github.linpeilie.annotations.AutoMapper;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.dromara.common.core.validate.AddGroup;
-import org.dromara.common.core.validate.EditGroup;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
-import org.dromara.workflow.domain.FlowCategory;
+import com.sm.common.core.validate.AddGroup;
+import com.sm.common.core.validate.EditGroup;
+import com.sm.common.mybatis.core.domain.BaseEntity;
+import com.sm.workflow.domain.FlowCategory;
 
 /**
  * 流程分类业务对象 wf_category

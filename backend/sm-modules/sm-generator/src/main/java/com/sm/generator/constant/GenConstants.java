@@ -1,9 +1,9 @@
-package org.dromara.generator.constant;
+package com.sm.generator.constant;
 
 /**
  * 代码生成通用常量
  *
- * @author ruoyi
+ * @author sm
  */
 public interface GenConstants {
     /**

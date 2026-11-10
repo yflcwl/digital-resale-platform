@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>ruoyi-vue-plus</artifactId>
-        <groupId>org.dromara</groupId>
+        <artifactId>sm-trade</artifactId>
+        <groupId>com.sm</groupId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>ruoyi-admin</artifactId>
+    <artifactId>sm-admin</artifactId>
 
     <description>
         web服务入口
@@ -46,51 +46,51 @@
 <!--        </dependency>-->
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-doc</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-doc</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-social</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-social</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-ratelimiter</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-ratelimiter</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-common-mail</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-mail</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-system</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-system</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-job</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-job</artifactId>
         </dependency>
 
         <!-- 代码生成-->
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-generator</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-generator</artifactId>
         </dependency>
 
         <!--  demo模块  -->
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-demo</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-demo</artifactId>
         </dependency>
 
         <!--  工作流模块  -->
         <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-workflow</artifactId>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-workflow</artifactId>
         </dependency>
 
         <dependency>

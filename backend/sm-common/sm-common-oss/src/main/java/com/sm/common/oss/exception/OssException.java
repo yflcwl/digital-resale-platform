@@ -1,4 +1,4 @@
-package org.dromara.common.oss.exception;
+package com.sm.common.oss.exception;
 
 import java.io.Serial;
 

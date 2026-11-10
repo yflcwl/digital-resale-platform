@@ -1,19 +1,19 @@
-package org.dromara.demo.service.impl;
+package com.sm.demo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.exception.ServiceException;
-import org.dromara.common.core.utils.MapstructUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.demo.domain.TestDemo;
-import org.dromara.demo.domain.bo.TestDemoBo;
-import org.dromara.demo.domain.vo.TestDemoVo;
-import org.dromara.demo.mapper.TestDemoMapper;
-import org.dromara.demo.service.ITestDemoService;
+import com.sm.common.core.exception.ServiceException;
+import com.sm.common.core.utils.MapstructUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.demo.domain.TestDemo;
+import com.sm.demo.domain.bo.TestDemoBo;
+import com.sm.demo.domain.vo.TestDemoVo;
+import com.sm.demo.mapper.TestDemoMapper;
+import com.sm.demo.service.ITestDemoService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

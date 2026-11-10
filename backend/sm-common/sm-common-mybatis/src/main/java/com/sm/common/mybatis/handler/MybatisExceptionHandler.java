@@ -1,11 +1,11 @@
-package org.dromara.common.mybatis.handler;
+package com.sm.common.mybatis.handler;
 
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.hutool.http.HttpStatus;
 import com.baomidou.dynamic.datasource.exception.CannotFindDataSourceException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.domain.R;
+import com.sm.common.core.domain.R;
 import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

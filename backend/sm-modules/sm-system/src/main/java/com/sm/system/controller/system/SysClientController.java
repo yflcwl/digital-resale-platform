@@ -1,23 +1,23 @@
-package org.dromara.system.controller.system;
+package com.sm.system.controller.system;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.domain.R;
-import org.dromara.common.core.validate.AddGroup;
-import org.dromara.common.core.validate.EditGroup;
-import org.dromara.common.excel.utils.ExcelUtil;
-import org.dromara.common.idempotent.annotation.RepeatSubmit;
-import org.dromara.common.log.annotation.Log;
-import org.dromara.common.log.enums.BusinessType;
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.common.web.core.BaseController;
-import org.dromara.system.domain.bo.SysClientBo;
-import org.dromara.system.domain.vo.SysClientVo;
-import org.dromara.system.service.ISysClientService;
+import com.sm.common.core.domain.R;
+import com.sm.common.core.validate.AddGroup;
+import com.sm.common.core.validate.EditGroup;
+import com.sm.common.excel.utils.ExcelUtil;
+import com.sm.common.idempotent.annotation.RepeatSubmit;
+import com.sm.common.log.annotation.Log;
+import com.sm.common.log.enums.BusinessType;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.common.web.core.BaseController;
+import com.sm.system.domain.bo.SysClientBo;
+import com.sm.system.domain.vo.SysClientVo;
+import com.sm.system.service.ISysClientService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

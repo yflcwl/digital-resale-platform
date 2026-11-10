@@ -1,9 +1,9 @@
-package org.dromara.common.log.enums;
+package com.sm.common.log.enums;
 
 /**
  * 业务操作类型
  *
- * @author ruoyi
+ * @author sm
  */
 public enum BusinessType {
     /**

@@ -1,9 +1,9 @@
-package org.dromara.common.log.enums;
+package com.sm.common.log.enums;
 
 /**
  * 操作状态
  *
- * @author ruoyi
+ * @author sm
  */
 public enum BusinessStatus {
     /**

@@ -1,12 +1,12 @@
-package org.dromara.system.service.impl;
+package com.sm.system.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.constant.TenantConstants;
-import org.dromara.common.core.service.PermissionService;
-import org.dromara.common.satoken.utils.LoginHelper;
-import org.dromara.system.service.ISysMenuService;
-import org.dromara.system.service.ISysPermissionService;
-import org.dromara.system.service.ISysRoleService;
+import com.sm.common.core.constant.TenantConstants;
+import com.sm.common.core.service.PermissionService;
+import com.sm.common.satoken.utils.LoginHelper;
+import com.sm.system.service.ISysMenuService;
+import com.sm.system.service.ISysPermissionService;
+import com.sm.system.service.ISysRoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * 用户权限处理
  *
- * @author ruoyi
+ * @author sm
  */
 @RequiredArgsConstructor
 @Service

@@ -1,4 +1,4 @@
-package org.dromara.common.web.handler;
+package com.sm.common.web.handler;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.HttpStatus;
@@ -7,12 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.domain.R;
-import org.dromara.common.core.exception.ServiceException;
-import org.dromara.common.core.exception.SseException;
-import org.dromara.common.core.exception.base.BaseException;
-import org.dromara.common.core.utils.StreamUtils;
-import org.dromara.common.json.utils.JsonUtils;
+import com.sm.common.core.domain.R;
+import com.sm.common.core.exception.ServiceException;
+import com.sm.common.core.exception.SseException;
+import com.sm.common.core.exception.base.BaseException;
+import com.sm.common.core.utils.StreamUtils;
+import com.sm.common.json.utils.JsonUtils;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.support.DefaultMessageSourceResolvable;

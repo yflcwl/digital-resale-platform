@@ -1,6 +1,6 @@
-package org.dromara.common.web.config;
+package com.sm.common.web.config;
 
-import org.dromara.common.web.config.properties.CaptchaProperties;
+import com.sm.common.web.config.properties.CaptchaProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 

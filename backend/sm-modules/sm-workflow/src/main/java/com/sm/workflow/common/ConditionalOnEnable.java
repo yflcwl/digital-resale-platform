@@ -1,4 +1,4 @@
-package org.dromara.workflow.common;
+package com.sm.workflow.common;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 

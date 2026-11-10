@@ -1,7 +1,7 @@
-package org.dromara.common.encrypt.core.encryptor;
+package com.sm.common.encrypt.core.encryptor;
 
-import org.dromara.common.encrypt.core.EncryptContext;
-import org.dromara.common.encrypt.core.IEncryptor;
+import com.sm.common.encrypt.core.EncryptContext;
+import com.sm.common.encrypt.core.IEncryptor;
 
 /**
  * 所有加密执行者的基类

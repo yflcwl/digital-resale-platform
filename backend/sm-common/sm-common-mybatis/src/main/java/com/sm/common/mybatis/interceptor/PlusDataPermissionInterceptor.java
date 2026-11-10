@@ -1,4 +1,4 @@
-package org.dromara.common.mybatis.interceptor;
+package com.sm.common.mybatis.interceptor;
 
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
@@ -20,7 +20,7 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.dromara.common.mybatis.handler.PlusDataPermissionHandler;
+import com.sm.common.mybatis.handler.PlusDataPermissionHandler;
 
 import java.sql.Connection;
 import java.sql.SQLException;

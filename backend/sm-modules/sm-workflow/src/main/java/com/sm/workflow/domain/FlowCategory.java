@@ -1,4 +1,4 @@
-package org.dromara.workflow.domain;
+package com.sm.workflow.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.dromara.common.tenant.core.TenantEntity;
+import com.sm.common.tenant.core.TenantEntity;
 
 import java.io.Serial;
 import java.util.ArrayList;

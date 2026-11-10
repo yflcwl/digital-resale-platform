@@ -1,11 +1,11 @@
-package org.dromara.system.domain;
+package com.sm.system.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.constant.SystemConstants;
-import org.dromara.common.tenant.core.TenantEntity;
+import com.sm.common.core.constant.SystemConstants;
+import com.sm.common.tenant.core.TenantEntity;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package org.dromara.common.mybatis.config;
+package com.sm.common.mybatis.config;
 
 import cn.hutool.core.net.NetUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
@@ -9,13 +9,13 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
-import org.dromara.common.core.factory.YmlPropertySourceFactory;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.mybatis.aspect.DataPermissionPointcutAdvisor;
-import org.dromara.common.mybatis.handler.InjectionMetaObjectHandler;
-import org.dromara.common.mybatis.handler.MybatisExceptionHandler;
-import org.dromara.common.mybatis.handler.PlusPostInitTableInfoHandler;
-import org.dromara.common.mybatis.interceptor.PlusDataPermissionInterceptor;
+import com.sm.common.core.factory.YmlPropertySourceFactory;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.mybatis.aspect.DataPermissionPointcutAdvisor;
+import com.sm.common.mybatis.handler.InjectionMetaObjectHandler;
+import com.sm.common.mybatis.handler.MybatisExceptionHandler;
+import com.sm.common.mybatis.handler.PlusPostInitTableInfoHandler;
+import com.sm.common.mybatis.interceptor.PlusDataPermissionInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;

@@ -1,11 +1,11 @@
-package org.dromara.workflow.domain.vo;
+package com.sm.workflow.domain.vo;
 
 import lombok.Data;
-import org.dromara.common.core.utils.DateUtils;
-import org.dromara.common.translation.annotation.Translation;
-import org.dromara.common.translation.constant.TransConstant;
+import com.sm.common.core.utils.DateUtils;
+import com.sm.common.translation.annotation.Translation;
+import com.sm.common.translation.constant.TransConstant;
 import org.dromara.warm.flow.core.entity.User;
-import org.dromara.workflow.common.constant.FlowConstant;
+import com.sm.workflow.common.constant.FlowConstant;
 
 import java.io.Serial;
 import java.io.Serializable;

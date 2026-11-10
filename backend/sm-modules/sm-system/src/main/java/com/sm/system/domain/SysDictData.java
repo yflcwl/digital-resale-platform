@@ -1,11 +1,11 @@
-package org.dromara.system.domain;
+package com.sm.system.domain;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.dromara.common.core.constant.SystemConstants;
-import org.dromara.common.tenant.core.TenantEntity;
+import com.sm.common.core.constant.SystemConstants;
+import com.sm.common.tenant.core.TenantEntity;
 
 /**
  * 字典数据表 sys_dict_data

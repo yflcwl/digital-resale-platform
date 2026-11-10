@@ -1,9 +1,9 @@
-package org.dromara.common.websocket.listener;
+package com.sm.common.websocket.listener;
 
 import cn.hutool.core.collection.CollUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.websocket.holder.WebSocketSessionHolder;
-import org.dromara.common.websocket.utils.WebSocketUtils;
+import com.sm.common.websocket.holder.WebSocketSessionHolder;
+import com.sm.common.websocket.utils.WebSocketUtils;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.Ordered;

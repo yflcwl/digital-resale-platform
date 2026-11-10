@@ -1,11 +1,11 @@
-package org.dromara.common.websocket.handler;
+package com.sm.common.websocket.handler;
 
 import cn.hutool.core.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.domain.model.LoginUser;
-import org.dromara.common.websocket.dto.WebSocketMessageDto;
-import org.dromara.common.websocket.holder.WebSocketSessionHolder;
-import org.dromara.common.websocket.utils.WebSocketUtils;
+import com.sm.common.core.domain.model.LoginUser;
+import com.sm.common.websocket.dto.WebSocketMessageDto;
+import com.sm.common.websocket.holder.WebSocketSessionHolder;
+import com.sm.common.websocket.utils.WebSocketUtils;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 import org.springframework.web.socket.handler.ConcurrentWebSocketSessionDecorator;
@@ -13,7 +13,7 @@ import org.springframework.web.socket.handler.ConcurrentWebSocketSessionDecorato
 import java.io.IOException;
 import java.util.List;
 
-import static org.dromara.common.websocket.constant.WebSocketConstants.LOGIN_USER_KEY;
+import static com.sm.common.websocket.constant.WebSocketConstants.LOGIN_USER_KEY;
 
 /**
  * WebSocketHandler 实现类

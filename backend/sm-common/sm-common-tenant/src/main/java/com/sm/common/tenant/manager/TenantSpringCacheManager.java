@@ -1,11 +1,11 @@
-package org.dromara.common.tenant.manager;
+package com.sm.common.tenant.manager;
 
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.constant.GlobalConstants;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.redis.manager.PlusSpringCacheManager;
-import org.dromara.common.tenant.helper.TenantHelper;
+import com.sm.common.core.constant.GlobalConstants;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.redis.manager.PlusSpringCacheManager;
+import com.sm.common.tenant.helper.TenantHelper;
 import org.springframework.cache.Cache;
 
 /**

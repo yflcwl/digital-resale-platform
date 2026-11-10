@@ -1,4 +1,4 @@
-package org.dromara.system.domain.bo;
+package com.sm.system.domain.bo;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
@@ -6,11 +6,11 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.constant.RegexConstants;
-import org.dromara.common.core.xss.Xss;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
-import org.dromara.common.sensitive.annotation.Sensitive;
-import org.dromara.common.sensitive.core.SensitiveStrategy;
+import com.sm.common.core.constant.RegexConstants;
+import com.sm.common.core.xss.Xss;
+import com.sm.common.mybatis.core.domain.BaseEntity;
+import com.sm.common.sensitive.annotation.Sensitive;
+import com.sm.common.sensitive.core.SensitiveStrategy;
 
 /**
  * 个人信息业务处理

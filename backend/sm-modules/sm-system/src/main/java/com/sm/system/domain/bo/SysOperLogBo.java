@@ -1,7 +1,7 @@
-package org.dromara.system.domain.bo;
+package com.sm.system.domain.bo;
 
-import org.dromara.common.log.event.OperLogEvent;
-import org.dromara.system.domain.SysOperLog;
+import com.sm.common.log.event.OperLogEvent;
+import com.sm.system.domain.SysOperLog;
 import io.github.linpeilie.annotations.AutoMapper;
 import io.github.linpeilie.annotations.AutoMappers;
 import lombok.Data;

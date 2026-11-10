@@ -1,4 +1,4 @@
-package org.dromara.common.core.constant;
+package com.sm.common.core.constant;
 
 /**
  * 全局的key常量 (业务无关的key)

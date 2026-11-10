@@ -1,13 +1,13 @@
-package org.dromara.demo.domain.vo;
+package com.sm.demo.domain.vo;
 
 import cn.idev.excel.annotation.ExcelIgnoreUnannotated;
 import cn.idev.excel.annotation.ExcelProperty;
 import cn.idev.excel.annotation.format.DateTimeFormat;
-import org.dromara.common.excel.annotation.ExcelNotation;
-import org.dromara.common.excel.annotation.ExcelRequired;
-import org.dromara.common.translation.annotation.Translation;
-import org.dromara.common.translation.constant.TransConstant;
-import org.dromara.demo.domain.TestDemo;
+import com.sm.common.excel.annotation.ExcelNotation;
+import com.sm.common.excel.annotation.ExcelRequired;
+import com.sm.common.translation.annotation.Translation;
+import com.sm.common.translation.constant.TransConstant;
+import com.sm.demo.domain.TestDemo;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 

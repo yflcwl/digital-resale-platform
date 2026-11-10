@@ -1,15 +1,15 @@
-package org.dromara.common.satoken.core.service;
+package com.sm.common.satoken.core.service;
 
 import cn.dev33.satoken.stp.StpInterface;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
-import org.dromara.common.core.domain.model.LoginUser;
-import org.dromara.common.core.enums.UserType;
-import org.dromara.common.core.exception.ServiceException;
-import org.dromara.common.core.service.PermissionService;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.satoken.utils.LoginHelper;
+import com.sm.common.core.domain.model.LoginUser;
+import com.sm.common.core.enums.UserType;
+import com.sm.common.core.exception.ServiceException;
+import com.sm.common.core.service.PermissionService;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.satoken.utils.LoginHelper;
 
 import java.util.ArrayList;
 import java.util.List;

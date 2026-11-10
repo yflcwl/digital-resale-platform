@@ -1,6 +1,6 @@
-package org.dromara.demo.controller;
+package com.sm.demo.controller;
 
-import org.dromara.common.core.domain.R;
+import com.sm.common.core.domain.R;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

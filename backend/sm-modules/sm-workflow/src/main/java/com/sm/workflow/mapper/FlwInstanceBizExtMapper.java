@@ -1,9 +1,9 @@
-package org.dromara.workflow.mapper;
+package com.sm.workflow.mapper;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.workflow.domain.FlowInstanceBizExt;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.workflow.domain.FlowInstanceBizExt;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package org.dromara.common.web.core;
+package com.sm.common.web.core;
 
-import org.dromara.common.core.domain.R;
-import org.dromara.common.core.utils.StringUtils;
+import com.sm.common.core.domain.R;
+import com.sm.common.core.utils.StringUtils;
 
 /**
  * web层通用数据处理

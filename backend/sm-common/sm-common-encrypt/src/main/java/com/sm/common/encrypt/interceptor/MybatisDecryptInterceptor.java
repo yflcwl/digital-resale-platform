@@ -1,4 +1,4 @@
-package org.dromara.common.encrypt.interceptor;
+package com.sm.common.encrypt.interceptor;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
@@ -8,13 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.plugin.*;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.encrypt.annotation.EncryptField;
-import org.dromara.common.encrypt.core.EncryptContext;
-import org.dromara.common.encrypt.core.EncryptorManager;
-import org.dromara.common.encrypt.enumd.AlgorithmType;
-import org.dromara.common.encrypt.enumd.EncodeType;
-import org.dromara.common.encrypt.properties.EncryptorProperties;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.encrypt.annotation.EncryptField;
+import com.sm.common.encrypt.core.EncryptContext;
+import com.sm.common.encrypt.core.EncryptorManager;
+import com.sm.common.encrypt.enumd.AlgorithmType;
+import com.sm.common.encrypt.enumd.EncodeType;
+import com.sm.common.encrypt.properties.EncryptorProperties;
 
 import java.lang.reflect.Field;
 import java.sql.Statement;

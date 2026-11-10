@@ -1,7 +1,7 @@
-package org.dromara.common.web.filter;
+package com.sm.common.web.filter;
 
 import cn.hutool.core.io.IoUtil;
-import org.dromara.common.core.constant.Constants;
+import com.sm.common.core.constant.Constants;
 
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 构建可重复读取inputStream的request
  *
- * @author ruoyi
+ * @author sm
  */
 public class RepeatedlyRequestWrapper extends HttpServletRequestWrapper {
     private final byte[] body;

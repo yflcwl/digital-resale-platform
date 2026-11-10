@@ -1,8 +1,8 @@
-package org.dromara.demo.controller;
+package com.sm.demo.controller;
 
-import org.dromara.common.core.domain.R;
-import org.dromara.common.websocket.dto.WebSocketMessageDto;
-import org.dromara.common.websocket.utils.WebSocketUtils;
+import com.sm.common.core.domain.R;
+import com.sm.common.websocket.dto.WebSocketMessageDto;
+import com.sm.common.websocket.utils.WebSocketUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

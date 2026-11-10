@@ -1,9 +1,9 @@
-package org.dromara.common.web.config;
+package com.sm.common.web.config;
 
 import jakarta.servlet.DispatcherType;
-import org.dromara.common.web.config.properties.XssProperties;
-import org.dromara.common.web.filter.RepeatableFilter;
-import org.dromara.common.web.filter.XssFilter;
+import com.sm.common.web.config.properties.XssProperties;
+import com.sm.common.web.filter.RepeatableFilter;
+import com.sm.common.web.filter.XssFilter;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

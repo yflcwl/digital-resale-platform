@@ -1,4 +1,4 @@
-package org.dromara.common.core.constant;
+package com.sm.common.core.constant;
 
 import cn.hutool.core.lang.RegexPool;
 

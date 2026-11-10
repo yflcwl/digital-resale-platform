@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="p-2 dict-page">
     <el-row :gutter="16" class="dict-grid">
       <!-- 字典类型 -->

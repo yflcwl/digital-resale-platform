@@ -1,9 +1,9 @@
-package org.dromara.common.ratelimiter.enums;
+package com.sm.common.ratelimiter.enums;
 
 /**
  * 限流类型
  *
- * @author ruoyi
+ * @author sm
  */
 
 public enum LimitType {

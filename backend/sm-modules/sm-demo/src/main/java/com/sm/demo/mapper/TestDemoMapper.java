@@ -1,15 +1,15 @@
-package org.dromara.demo.mapper;
+package com.sm.demo.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
-import org.dromara.common.mybatis.annotation.DataColumn;
-import org.dromara.common.mybatis.annotation.DataPermission;
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.demo.domain.TestDemo;
-import org.dromara.demo.domain.vo.TestDemoVo;
+import com.sm.common.mybatis.annotation.DataColumn;
+import com.sm.common.mybatis.annotation.DataPermission;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.demo.domain.TestDemo;
+import com.sm.demo.domain.vo.TestDemoVo;
 
 import java.io.Serializable;
 import java.util.Collection;

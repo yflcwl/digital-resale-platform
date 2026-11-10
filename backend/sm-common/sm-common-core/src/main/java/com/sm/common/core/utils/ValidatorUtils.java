@@ -1,4 +1,4 @@
-package org.dromara.common.core.utils;
+package com.sm.common.core.utils;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;

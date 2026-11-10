@@ -1,10 +1,10 @@
-package org.dromara.common.mybatis.aspect;
+package com.sm.common.mybatis.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.dromara.common.mybatis.annotation.DataPermission;
-import org.dromara.common.mybatis.helper.DataPermissionHelper;
+import com.sm.common.mybatis.annotation.DataPermission;
+import com.sm.common.mybatis.helper.DataPermissionHelper;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;

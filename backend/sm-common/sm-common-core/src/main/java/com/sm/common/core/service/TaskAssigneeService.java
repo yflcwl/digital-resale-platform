@@ -1,7 +1,7 @@
-package org.dromara.common.core.service;
+package com.sm.common.core.service;
 
-import org.dromara.common.core.domain.dto.TaskAssigneeDTO;
-import org.dromara.common.core.domain.model.TaskAssigneeBody;
+import com.sm.common.core.domain.dto.TaskAssigneeDTO;
+import com.sm.common.core.domain.model.TaskAssigneeBody;
 
 /**
  * 工作流设计器获取任务执行人

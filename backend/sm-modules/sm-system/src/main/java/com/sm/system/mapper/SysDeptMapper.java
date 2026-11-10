@@ -1,15 +1,15 @@
-package org.dromara.system.mapper;
+package com.sm.system.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.dromara.common.core.utils.StreamUtils;
-import org.dromara.common.mybatis.annotation.DataColumn;
-import org.dromara.common.mybatis.annotation.DataPermission;
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.common.mybatis.helper.DataBaseHelper;
-import org.dromara.system.domain.SysDept;
-import org.dromara.system.domain.vo.SysDeptVo;
+import com.sm.common.core.utils.StreamUtils;
+import com.sm.common.mybatis.annotation.DataColumn;
+import com.sm.common.mybatis.annotation.DataPermission;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.common.mybatis.helper.DataBaseHelper;
+import com.sm.system.domain.SysDept;
+import com.sm.system.domain.vo.SysDeptVo;
 
 import java.util.List;
 

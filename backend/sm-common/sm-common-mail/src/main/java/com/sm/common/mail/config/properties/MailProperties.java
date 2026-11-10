@@ -1,4 +1,4 @@
-package org.dromara.common.mail.config.properties;
+package com.sm.common.mail.config.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

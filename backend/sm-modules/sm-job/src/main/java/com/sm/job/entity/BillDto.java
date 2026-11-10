@@ -1,4 +1,4 @@
-package org.dromara.job.entity;
+package com.sm.job.entity;
 
 import lombok.Data;
 

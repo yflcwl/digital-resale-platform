@@ -1,11 +1,11 @@
-package org.dromara.workflow.domain.bo;
+package com.sm.workflow.domain.bo;
 
 
 import cn.hutool.core.util.ObjectUtil;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.dromara.common.core.validate.AddGroup;
-import org.dromara.workflow.domain.FlowInstanceBizExt;
+import com.sm.common.core.validate.AddGroup;
+import com.sm.workflow.domain.FlowInstanceBizExt;
 
 import java.io.Serial;
 import java.io.Serializable;

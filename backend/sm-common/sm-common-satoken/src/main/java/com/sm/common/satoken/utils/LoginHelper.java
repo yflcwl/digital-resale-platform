@@ -1,4 +1,4 @@
-package org.dromara.common.satoken.utils;
+package com.sm.common.satoken.utils;
 
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
@@ -8,10 +8,10 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.constant.SystemConstants;
-import org.dromara.common.core.constant.TenantConstants;
-import org.dromara.common.core.domain.model.LoginUser;
-import org.dromara.common.core.enums.UserType;
+import com.sm.common.core.constant.SystemConstants;
+import com.sm.common.core.constant.TenantConstants;
+import com.sm.common.core.domain.model.LoginUser;
+import com.sm.common.core.enums.UserType;
 
 import java.util.Set;
 

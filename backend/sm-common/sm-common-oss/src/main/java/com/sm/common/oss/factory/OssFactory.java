@@ -1,15 +1,15 @@
-package org.dromara.common.oss.factory;
+package com.sm.common.oss.factory;
 
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.constant.CacheNames;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.json.utils.JsonUtils;
-import org.dromara.common.oss.constant.OssConstant;
-import org.dromara.common.oss.core.OssClient;
-import org.dromara.common.oss.exception.OssException;
-import org.dromara.common.oss.properties.OssProperties;
-import org.dromara.common.redis.utils.CacheUtils;
-import org.dromara.common.redis.utils.RedisUtils;
+import com.sm.common.core.constant.CacheNames;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.json.utils.JsonUtils;
+import com.sm.common.oss.constant.OssConstant;
+import com.sm.common.oss.core.OssClient;
+import com.sm.common.oss.exception.OssException;
+import com.sm.common.oss.properties.OssProperties;
+import com.sm.common.redis.utils.CacheUtils;
+import com.sm.common.redis.utils.RedisUtils;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

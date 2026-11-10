@@ -1,8 +1,8 @@
-package org.dromara.demo.controller;
+package com.sm.demo.controller;
 
-import org.dromara.common.core.domain.R;
-import org.dromara.common.ratelimiter.annotation.RateLimiter;
-import org.dromara.common.ratelimiter.enums.LimitType;
+import com.sm.common.core.domain.R;
+import com.sm.common.ratelimiter.annotation.RateLimiter;
+import com.sm.common.ratelimiter.enums.LimitType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

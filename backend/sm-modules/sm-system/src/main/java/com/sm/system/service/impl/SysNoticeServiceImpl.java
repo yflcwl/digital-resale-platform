@@ -1,22 +1,22 @@
-package org.dromara.system.service.impl;
+package com.sm.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.utils.MapstructUtils;
-import org.dromara.common.core.utils.ObjectUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.system.domain.SysNotice;
-import org.dromara.system.domain.SysUser;
-import org.dromara.system.domain.bo.SysNoticeBo;
-import org.dromara.system.domain.vo.SysNoticeVo;
-import org.dromara.system.domain.vo.SysUserVo;
-import org.dromara.system.mapper.SysNoticeMapper;
-import org.dromara.system.mapper.SysUserMapper;
-import org.dromara.system.service.ISysNoticeService;
+import com.sm.common.core.utils.MapstructUtils;
+import com.sm.common.core.utils.ObjectUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.system.domain.SysNotice;
+import com.sm.system.domain.SysUser;
+import com.sm.system.domain.bo.SysNoticeBo;
+import com.sm.system.domain.vo.SysNoticeVo;
+import com.sm.system.domain.vo.SysUserVo;
+import com.sm.system.mapper.SysNoticeMapper;
+import com.sm.system.mapper.SysUserMapper;
+import com.sm.system.service.ISysNoticeService;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;

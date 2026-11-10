@@ -1,4 +1,4 @@
-package org.dromara.system.domain;
+package com.sm.system.domain;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

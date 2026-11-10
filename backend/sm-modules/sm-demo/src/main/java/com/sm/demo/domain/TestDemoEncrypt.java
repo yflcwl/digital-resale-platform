@@ -1,8 +1,8 @@
-package org.dromara.demo.domain;
+package com.sm.demo.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import org.dromara.common.encrypt.annotation.EncryptField;
-import org.dromara.common.encrypt.enumd.AlgorithmType;
+import com.sm.common.encrypt.annotation.EncryptField;
+import com.sm.common.encrypt.enumd.AlgorithmType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

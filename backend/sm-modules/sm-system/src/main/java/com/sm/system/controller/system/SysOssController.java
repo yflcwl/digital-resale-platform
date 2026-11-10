@@ -1,21 +1,21 @@
-package org.dromara.system.controller.system;
+package com.sm.system.controller.system;
 
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.domain.R;
-import org.dromara.common.core.validate.QueryGroup;
-import org.dromara.common.log.annotation.Log;
-import org.dromara.common.log.enums.BusinessType;
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.common.web.core.BaseController;
-import org.dromara.system.domain.bo.SysOssBo;
-import org.dromara.system.domain.vo.SysOssUploadVo;
-import org.dromara.system.domain.vo.SysOssVo;
-import org.dromara.system.service.ISysOssService;
+import com.sm.common.core.domain.R;
+import com.sm.common.core.validate.QueryGroup;
+import com.sm.common.log.annotation.Log;
+import com.sm.common.log.enums.BusinessType;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.common.web.core.BaseController;
+import com.sm.system.domain.bo.SysOssBo;
+import com.sm.system.domain.vo.SysOssUploadVo;
+import com.sm.system.domain.vo.SysOssVo;
+import com.sm.system.service.ISysOssService;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

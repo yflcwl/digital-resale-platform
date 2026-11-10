@@ -1,4 +1,4 @@
-package org.dromara.monitor.admin;
+package com.sm.monitor.admin;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;

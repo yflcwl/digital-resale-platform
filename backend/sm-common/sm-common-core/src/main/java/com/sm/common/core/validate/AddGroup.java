@@ -1,4 +1,4 @@
-package org.dromara.common.core.validate;
+package com.sm.common.core.validate;
 
 /**
  * 校验分组 add

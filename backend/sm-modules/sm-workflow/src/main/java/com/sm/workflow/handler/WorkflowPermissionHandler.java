@@ -1,17 +1,17 @@
-package org.dromara.workflow.handler;
+package com.sm.workflow.handler;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.domain.dto.UserDTO;
-import org.dromara.common.core.utils.StreamUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.satoken.utils.LoginHelper;
+import com.sm.common.core.domain.dto.UserDTO;
+import com.sm.common.core.utils.StreamUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.satoken.utils.LoginHelper;
 import org.dromara.warm.flow.core.dto.FlowParams;
 import org.dromara.warm.flow.core.handler.PermissionHandler;
-import org.dromara.workflow.common.ConditionalOnEnable;
-import org.dromara.workflow.service.IFlwTaskAssigneeService;
+import com.sm.workflow.common.ConditionalOnEnable;
+import com.sm.workflow.service.IFlwTaskAssigneeService;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;

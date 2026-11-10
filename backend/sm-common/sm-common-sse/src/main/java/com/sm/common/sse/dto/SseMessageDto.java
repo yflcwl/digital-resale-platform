@@ -1,4 +1,4 @@
-package org.dromara.common.sse.dto;
+package com.sm.common.sse.dto;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package org.dromara.workflow.common.enums;
+package com.sm.workflow.common.enums;
 
 /**
  * 节点扩展属性枚举

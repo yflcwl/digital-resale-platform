@@ -1,4 +1,4 @@
-package org.dromara.common.social.maxkey;
+package com.sm.common.social.maxkey;
 
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.request.AuthDefaultRequest;

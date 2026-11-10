@@ -1,8 +1,8 @@
-package org.dromara.common.core.exception.base;
+package com.sm.common.core.exception.base;
 
 import lombok.AllArgsConstructor;
-import org.dromara.common.core.utils.MessageUtils;
-import org.dromara.common.core.utils.StringUtils;
+import com.sm.common.core.utils.MessageUtils;
+import com.sm.common.core.utils.StringUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import java.io.Serial;
 /**
  * 基础异常
  *
- * @author ruoyi
+ * @author sm
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

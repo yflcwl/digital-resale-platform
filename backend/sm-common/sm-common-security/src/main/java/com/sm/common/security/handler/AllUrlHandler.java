@@ -1,7 +1,7 @@
-package org.dromara.common.security.handler;
+package com.sm.common.security.handler;
 
 import cn.hutool.core.util.ReUtil;
-import org.dromara.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.SpringUtils;
 import lombok.Data;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.method.HandlerMethod;

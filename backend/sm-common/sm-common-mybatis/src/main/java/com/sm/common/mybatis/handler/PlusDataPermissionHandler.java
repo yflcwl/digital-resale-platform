@@ -1,4 +1,4 @@
-package org.dromara.common.mybatis.handler;
+package com.sm.common.mybatis.handler;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -9,17 +9,17 @@ import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.expression.operators.relational.ParenthesedExpressionList;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
-import org.dromara.common.core.domain.dto.RoleDTO;
-import org.dromara.common.core.domain.model.LoginUser;
-import org.dromara.common.core.exception.ServiceException;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.core.utils.StreamUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.mybatis.annotation.DataColumn;
-import org.dromara.common.mybatis.annotation.DataPermission;
-import org.dromara.common.mybatis.enums.DataScopeType;
-import org.dromara.common.mybatis.helper.DataPermissionHelper;
-import org.dromara.common.satoken.utils.LoginHelper;
+import com.sm.common.core.domain.dto.RoleDTO;
+import com.sm.common.core.domain.model.LoginUser;
+import com.sm.common.core.exception.ServiceException;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.StreamUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.mybatis.annotation.DataColumn;
+import com.sm.common.mybatis.annotation.DataPermission;
+import com.sm.common.mybatis.enums.DataScopeType;
+import com.sm.common.mybatis.helper.DataPermissionHelper;
+import com.sm.common.satoken.utils.LoginHelper;
 import org.springframework.context.expression.BeanFactoryResolver;
 import org.springframework.expression.*;
 import org.springframework.expression.common.TemplateParserContext;
@@ -146,7 +146,7 @@ public class PlusDataPermissionHandler {
             for (DataColumn dataColumn : dataPermission.value()) {
                 // 包含权限标识符 这直接跳过
                 if (ignoreMap.containsKey(dataColumn)) {
-                    // 修复多角色与权限标识符共用问题 https://gitee.com/dromara/RuoYi-Vue-Plus/issues/IB4CS4
+                    // 修复多角色与权限标识符共用问题
                     conditions.add(joinStr + " 1 = 1 ");
                     isSuccess = true;
                     continue;

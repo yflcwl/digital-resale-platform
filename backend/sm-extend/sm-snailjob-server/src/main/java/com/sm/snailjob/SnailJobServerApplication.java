@@ -1,4 +1,4 @@
-package org.dromara.snailjob;
+package com.sm.snailjob;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

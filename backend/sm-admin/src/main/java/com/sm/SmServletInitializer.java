@@ -1,4 +1,4 @@
-package org.dromara;
+package com.sm;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -8,11 +8,11 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  *
  * @author Lion Li
  */
-public class DromaraServletInitializer extends SpringBootServletInitializer {
+public class SmServletInitializer extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(DromaraApplication.class);
+        return application.sources(SmApplication.class);
     }
 
 }

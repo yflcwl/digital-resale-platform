@@ -1,4 +1,4 @@
-package org.dromara.common.core.exception;
+package com.sm.common.core.exception;
 
 import cn.hutool.core.text.StrFormatter;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import java.io.Serial;
 /**
  * 业务异常（支持占位符 {} ）
  *
- * @author ruoyi
+ * @author sm
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

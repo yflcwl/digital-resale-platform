@@ -1,4 +1,4 @@
-package org.dromara.system.service;
+package com.sm.system.service;
 
 /**
  * 通用 数据权限 服务

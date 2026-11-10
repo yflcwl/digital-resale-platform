@@ -1,4 +1,4 @@
-package org.dromara.common.core.config;
+package com.sm.common.core.config;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;

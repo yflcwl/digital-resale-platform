@@ -1,10 +1,10 @@
-package org.dromara.demo.controller;
+package com.sm.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import org.dromara.common.core.domain.R;
-import org.dromara.common.web.core.BaseController;
-import org.dromara.demo.domain.TestDemo;
-import org.dromara.demo.mapper.TestDemoMapper;
+import com.sm.common.core.domain.R;
+import com.sm.common.web.core.BaseController;
+import com.sm.demo.domain.TestDemo;
+import com.sm.demo.mapper.TestDemoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,7 +1,7 @@
-package org.dromara.system.domain.bo;
+package com.sm.system.domain.bo;
 
-import org.dromara.common.mybatis.core.domain.BaseEntity;
-import org.dromara.system.domain.SysOss;
+import com.sm.common.mybatis.core.domain.BaseEntity;
+import com.sm.system.domain.SysOss;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

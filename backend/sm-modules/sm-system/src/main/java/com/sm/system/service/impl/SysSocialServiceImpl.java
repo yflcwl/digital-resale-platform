@@ -1,15 +1,15 @@
-package org.dromara.system.service.impl;
+package com.sm.system.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.utils.MapstructUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.system.domain.SysSocial;
-import org.dromara.system.domain.bo.SysSocialBo;
-import org.dromara.system.domain.vo.SysSocialVo;
-import org.dromara.system.mapper.SysSocialMapper;
-import org.dromara.system.service.ISysSocialService;
+import com.sm.common.core.utils.MapstructUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.system.domain.SysSocial;
+import com.sm.system.domain.bo.SysSocialBo;
+import com.sm.system.domain.vo.SysSocialVo;
+import com.sm.system.mapper.SysSocialMapper;
+import com.sm.system.service.ISysSocialService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

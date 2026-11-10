@@ -1,10 +1,10 @@
-package org.dromara.common.core.validate.dicts;
+package com.sm.common.core.validate.dicts;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.dromara.common.core.service.DictService;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.core.utils.StringUtils;
+import com.sm.common.core.service.DictService;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.StringUtils;
 
 /**
  * 自定义字典值校验器

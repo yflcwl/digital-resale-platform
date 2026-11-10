@@ -1,4 +1,4 @@
-package org.dromara.common.tenant.helper;
+package com.sm.common.tenant.helper;
 
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.context.model.SaStorage;
@@ -10,12 +10,12 @@ import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.constant.GlobalConstants;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.core.utils.reflect.ReflectUtils;
-import org.dromara.common.redis.utils.RedisUtils;
-import org.dromara.common.satoken.utils.LoginHelper;
+import com.sm.common.core.constant.GlobalConstants;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.core.utils.reflect.ReflectUtils;
+import com.sm.common.redis.utils.RedisUtils;
+import com.sm.common.satoken.utils.LoginHelper;
 
 import java.util.Stack;
 import java.util.function.Supplier;

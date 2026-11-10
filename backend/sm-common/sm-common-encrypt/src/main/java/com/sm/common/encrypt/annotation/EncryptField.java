@@ -1,7 +1,7 @@
-package org.dromara.common.encrypt.annotation;
+package com.sm.common.encrypt.annotation;
 
-import org.dromara.common.encrypt.enumd.AlgorithmType;
-import org.dromara.common.encrypt.enumd.EncodeType;
+import com.sm.common.encrypt.enumd.AlgorithmType;
+import com.sm.common.encrypt.enumd.EncodeType;
 
 import java.lang.annotation.*;
 

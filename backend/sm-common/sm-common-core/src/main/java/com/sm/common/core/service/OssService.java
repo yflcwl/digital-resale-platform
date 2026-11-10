@@ -1,6 +1,6 @@
-package org.dromara.common.core.service;
+package com.sm.common.core.service;
 
-import org.dromara.common.core.domain.dto.OssDTO;
+import com.sm.common.core.domain.dto.OssDTO;
 
 import java.util.List;
 

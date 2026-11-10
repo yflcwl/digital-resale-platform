@@ -1,11 +1,11 @@
-package org.dromara.common.mybatis.handler;
+package com.sm.common.mybatis.handler;
 
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.handlers.PostInitTableInfoHandler;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import org.apache.ibatis.session.Configuration;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.core.utils.reflect.ReflectUtils;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.reflect.ReflectUtils;
 
 /**
  * 修改表信息初始化方式

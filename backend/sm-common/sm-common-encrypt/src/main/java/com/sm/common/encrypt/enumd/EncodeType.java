@@ -1,4 +1,4 @@
-package org.dromara.common.encrypt.enumd;
+package com.sm.common.encrypt.enumd;
 
 /**
  * 编码类型

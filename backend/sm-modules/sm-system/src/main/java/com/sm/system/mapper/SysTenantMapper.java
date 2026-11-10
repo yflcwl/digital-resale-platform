@@ -1,8 +1,8 @@
-package org.dromara.system.mapper;
+package com.sm.system.mapper;
 
-import org.dromara.system.domain.SysTenant;
-import org.dromara.system.domain.vo.SysTenantVo;
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.system.domain.SysTenant;
+import com.sm.system.domain.vo.SysTenantVo;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
 
 /**
  * 租户Mapper接口

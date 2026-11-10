@@ -1,4 +1,4 @@
-package org.dromara.common.doc.handler;
+package com.sm.common.doc.handler;
 
 import cn.hutool.core.io.IoUtil;
 import io.swagger.v3.core.jackson.TypeNameResolver;
@@ -11,8 +11,8 @@ import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.dromara.common.core.utils.StreamUtils;
-import org.dromara.common.doc.core.resolver.JavadocResolver;
+import com.sm.common.core.utils.StreamUtils;
+import com.sm.common.doc.core.resolver.JavadocResolver;
 import org.springdoc.core.customizers.OpenApiBuilderCustomizer;
 import org.springdoc.core.customizers.ServerBaseUrlCustomizer;
 import org.springdoc.core.properties.SpringDocConfigProperties;

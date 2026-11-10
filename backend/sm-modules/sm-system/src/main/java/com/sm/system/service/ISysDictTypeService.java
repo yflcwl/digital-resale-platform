@@ -1,10 +1,10 @@
-package org.dromara.system.service;
+package com.sm.system.service;
 
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.system.domain.bo.SysDictTypeBo;
-import org.dromara.system.domain.vo.SysDictDataVo;
-import org.dromara.system.domain.vo.SysDictTypeVo;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.system.domain.bo.SysDictTypeBo;
+import com.sm.system.domain.vo.SysDictDataVo;
+import com.sm.system.domain.vo.SysDictTypeVo;
 
 import java.util.List;
 

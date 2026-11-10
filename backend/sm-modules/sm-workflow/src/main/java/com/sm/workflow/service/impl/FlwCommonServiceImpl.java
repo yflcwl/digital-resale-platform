@@ -1,24 +1,24 @@
-package org.dromara.workflow.service.impl;
+package com.sm.workflow.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.domain.dto.UserDTO;
-import org.dromara.common.core.exception.ServiceException;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.core.utils.StreamUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.mail.utils.MailUtils;
-import org.dromara.common.sse.dto.SseMessageDto;
-import org.dromara.common.sse.utils.SseMessageUtils;
+import com.sm.common.core.domain.dto.UserDTO;
+import com.sm.common.core.exception.ServiceException;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.StreamUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.mail.utils.MailUtils;
+import com.sm.common.sse.dto.SseMessageDto;
+import com.sm.common.sse.utils.SseMessageUtils;
 import org.dromara.warm.flow.core.FlowEngine;
 import org.dromara.warm.flow.core.entity.Node;
 import org.dromara.warm.flow.orm.entity.FlowTask;
-import org.dromara.workflow.common.ConditionalOnEnable;
-import org.dromara.workflow.common.enums.MessageTypeEnum;
-import org.dromara.workflow.service.IFlwCommonService;
-import org.dromara.workflow.service.IFlwTaskService;
+import com.sm.workflow.common.ConditionalOnEnable;
+import com.sm.workflow.common.enums.MessageTypeEnum;
+import com.sm.workflow.service.IFlwCommonService;
+import com.sm.workflow.service.IFlwTaskService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

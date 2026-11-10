@@ -1,4 +1,4 @@
-package org.dromara.workflow.service.impl;
+package com.sm.workflow.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
@@ -7,13 +7,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.domain.dto.UserDTO;
-import org.dromara.common.core.service.DeptService;
-import org.dromara.common.core.service.DictService;
-import org.dromara.common.core.service.UserService;
-import org.dromara.common.core.utils.DateUtils;
-import org.dromara.common.core.utils.StreamUtils;
-import org.dromara.common.core.utils.StringUtils;
+import com.sm.common.core.domain.dto.UserDTO;
+import com.sm.common.core.service.DeptService;
+import com.sm.common.core.service.DictService;
+import com.sm.common.core.service.UserService;
+import com.sm.common.core.utils.DateUtils;
+import com.sm.common.core.utils.StreamUtils;
+import com.sm.common.core.utils.StringUtils;
 import org.dromara.warm.flow.core.dto.DefJson;
 import org.dromara.warm.flow.core.dto.NodeJson;
 import org.dromara.warm.flow.core.dto.PromptContent;
@@ -22,8 +22,8 @@ import org.dromara.warm.flow.core.utils.MapUtil;
 import org.dromara.warm.flow.orm.entity.FlowHisTask;
 import org.dromara.warm.flow.orm.mapper.FlowHisTaskMapper;
 import org.dromara.warm.flow.ui.service.ChartExtService;
-import org.dromara.workflow.common.ConditionalOnEnable;
-import org.dromara.workflow.common.constant.FlowConstant;
+import com.sm.workflow.common.ConditionalOnEnable;
+import com.sm.workflow.common.constant.FlowConstant;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

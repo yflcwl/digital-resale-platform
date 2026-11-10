@@ -1,8 +1,8 @@
-package org.dromara.system.domain.vo;
+package com.sm.system.domain.vo;
 
-import org.dromara.common.translation.annotation.Translation;
-import org.dromara.common.translation.constant.TransConstant;
-import org.dromara.system.domain.SysOss;
+import com.sm.common.translation.annotation.Translation;
+import com.sm.common.translation.constant.TransConstant;
+import com.sm.system.domain.SysOss;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 

@@ -1,10 +1,10 @@
-package org.dromara.common.satoken.core.dao;
+package com.sm.common.satoken.core.dao;
 
 import cn.dev33.satoken.dao.auto.SaTokenDaoBySessionFollowObject;
 import cn.dev33.satoken.util.SaFoxUtil;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import org.dromara.common.redis.utils.RedisUtils;
+import com.sm.common.redis.utils.RedisUtils;
 
 import java.time.Duration;
 import java.util.ArrayList;

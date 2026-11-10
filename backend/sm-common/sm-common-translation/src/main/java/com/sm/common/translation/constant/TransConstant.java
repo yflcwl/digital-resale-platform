@@ -1,4 +1,4 @@
-package org.dromara.common.translation.constant;
+package com.sm.common.translation.constant;
 
 /**
  * 翻译常量

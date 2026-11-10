@@ -1,9 +1,9 @@
-package org.dromara.demo.domain.bo;
+package com.sm.demo.domain.bo;
 
-import org.dromara.common.core.validate.AddGroup;
-import org.dromara.common.core.validate.EditGroup;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
-import org.dromara.demo.domain.TestDemo;
+import com.sm.common.core.validate.AddGroup;
+import com.sm.common.core.validate.EditGroup;
+import com.sm.common.mybatis.core.domain.BaseEntity;
+import com.sm.demo.domain.TestDemo;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dromara.common.redis.manager;
+package com.sm.common.redis.manager;
 
-import org.dromara.common.redis.utils.RedisUtils;
+import com.sm.common.redis.utils.RedisUtils;
 import org.redisson.api.RMap;
 import org.redisson.api.RMapCache;
 import org.redisson.spring.cache.CacheConfig;

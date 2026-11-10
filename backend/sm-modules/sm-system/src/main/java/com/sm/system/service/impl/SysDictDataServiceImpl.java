@@ -1,22 +1,22 @@
-package org.dromara.system.service.impl;
+package com.sm.system.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.constant.CacheNames;
-import org.dromara.common.core.exception.ServiceException;
-import org.dromara.common.core.utils.MapstructUtils;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.mybatis.core.page.PageQuery;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.common.redis.utils.CacheUtils;
-import org.dromara.system.domain.SysDictData;
-import org.dromara.system.domain.bo.SysDictDataBo;
-import org.dromara.system.domain.vo.SysDictDataVo;
-import org.dromara.system.mapper.SysDictDataMapper;
-import org.dromara.system.service.ISysDictDataService;
+import com.sm.common.core.constant.CacheNames;
+import com.sm.common.core.exception.ServiceException;
+import com.sm.common.core.utils.MapstructUtils;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.mybatis.core.page.PageQuery;
+import com.sm.common.mybatis.core.page.TableDataInfo;
+import com.sm.common.redis.utils.CacheUtils;
+import com.sm.system.domain.SysDictData;
+import com.sm.system.domain.bo.SysDictDataBo;
+import com.sm.system.domain.vo.SysDictDataVo;
+import com.sm.system.mapper.SysDictDataMapper;
+import com.sm.system.service.ISysDictDataService;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 

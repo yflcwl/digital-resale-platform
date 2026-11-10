@@ -1,8 +1,8 @@
-package org.dromara.demo.controller;
+package com.sm.demo.controller;
 
 import cn.dev33.satoken.annotation.*;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.common.core.domain.R;
+import com.sm.common.core.domain.R;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

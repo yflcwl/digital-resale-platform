@@ -1,10 +1,10 @@
-package org.dromara.system.service.impl;
+package com.sm.system.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ArrayUtil;
-import org.dromara.common.satoken.utils.LoginHelper;
-import org.dromara.common.sensitive.core.SensitiveService;
-import org.dromara.common.tenant.helper.TenantHelper;
+import com.sm.common.satoken.utils.LoginHelper;
+import com.sm.common.sensitive.core.SensitiveService;
+import com.sm.common.tenant.helper.TenantHelper;
 import org.springframework.stereotype.Service;
 
 /**

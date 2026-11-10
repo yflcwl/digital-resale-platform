@@ -1,19 +1,19 @@
-package org.dromara.system.controller.system;
+package com.sm.system.controller.system;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.convert.Convert;
 import lombok.RequiredArgsConstructor;
-import org.dromara.common.core.constant.SystemConstants;
-import org.dromara.common.core.domain.R;
-import org.dromara.common.core.utils.StringUtils;
-import org.dromara.common.idempotent.annotation.RepeatSubmit;
-import org.dromara.common.log.annotation.Log;
-import org.dromara.common.log.enums.BusinessType;
-import org.dromara.common.web.core.BaseController;
-import org.dromara.system.domain.bo.SysDeptBo;
-import org.dromara.system.domain.vo.SysDeptVo;
-import org.dromara.system.service.ISysDeptService;
-import org.dromara.system.service.ISysPostService;
+import com.sm.common.core.constant.SystemConstants;
+import com.sm.common.core.domain.R;
+import com.sm.common.core.utils.StringUtils;
+import com.sm.common.idempotent.annotation.RepeatSubmit;
+import com.sm.common.log.annotation.Log;
+import com.sm.common.log.enums.BusinessType;
+import com.sm.common.web.core.BaseController;
+import com.sm.system.domain.bo.SysDeptBo;
+import com.sm.system.domain.vo.SysDeptVo;
+import com.sm.system.service.ISysDeptService;
+import com.sm.system.service.ISysPostService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

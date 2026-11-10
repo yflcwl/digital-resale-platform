@@ -1,8 +1,8 @@
-package org.dromara.system.domain.vo;
+package com.sm.system.domain.vo;
 
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
-import org.dromara.system.domain.SysSocial;
+import com.sm.system.domain.SysSocial;
 
 import java.io.Serial;
 import java.io.Serializable;

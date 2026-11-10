@@ -1,8 +1,8 @@
-package org.dromara.system.mapper;
+package com.sm.system.mapper;
 
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.system.domain.SysOss;
-import org.dromara.system.domain.vo.SysOssVo;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.system.domain.SysOss;
+import com.sm.system.domain.vo.SysOssVo;
 
 /**
  * 文件上传 数据层

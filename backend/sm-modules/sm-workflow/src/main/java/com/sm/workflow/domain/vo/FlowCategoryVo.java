@@ -1,12 +1,12 @@
-package org.dromara.workflow.domain.vo;
+package com.sm.workflow.domain.vo;
 
 import cn.idev.excel.annotation.ExcelIgnoreUnannotated;
 import cn.idev.excel.annotation.ExcelProperty;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
-import org.dromara.common.translation.annotation.Translation;
-import org.dromara.workflow.common.constant.FlowConstant;
-import org.dromara.workflow.domain.FlowCategory;
+import com.sm.common.translation.annotation.Translation;
+import com.sm.workflow.common.constant.FlowConstant;
+import com.sm.workflow.domain.FlowCategory;
 
 import java.io.Serial;
 import java.io.Serializable;

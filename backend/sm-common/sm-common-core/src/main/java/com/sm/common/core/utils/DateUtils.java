@@ -1,10 +1,10 @@
-package org.dromara.common.core.utils;
+package com.sm.common.core.utils;
 
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.dromara.common.core.enums.FormatsType;
-import org.dromara.common.core.exception.ServiceException;
+import com.sm.common.core.enums.FormatsType;
+import com.sm.common.core.exception.ServiceException;
 
 import java.lang.management.ManagementFactory;
 import java.text.ParseException;
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 时间工具类
  *
- * @author ruoyi
+ * @author sm
  */
 public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     private static final String[] PARSE_PATTERNS = {

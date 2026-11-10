@@ -1,8 +1,8 @@
-package org.dromara.common.encrypt.config;
+package com.sm.common.encrypt.config;
 
 import jakarta.servlet.DispatcherType;
-import org.dromara.common.encrypt.filter.CryptoFilter;
-import org.dromara.common.encrypt.properties.ApiDecryptProperties;
+import com.sm.common.encrypt.filter.CryptoFilter;
+import com.sm.common.encrypt.properties.ApiDecryptProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

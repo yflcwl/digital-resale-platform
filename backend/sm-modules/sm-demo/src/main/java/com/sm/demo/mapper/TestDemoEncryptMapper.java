@@ -1,7 +1,7 @@
-package org.dromara.demo.mapper;
+package com.sm.demo.mapper;
 
-import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
-import org.dromara.demo.domain.TestDemoEncrypt;
+import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import com.sm.demo.domain.TestDemoEncrypt;
 
 /**
  * 测试加密功能

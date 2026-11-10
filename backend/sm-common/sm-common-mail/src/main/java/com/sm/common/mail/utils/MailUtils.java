@@ -1,4 +1,4 @@
-package org.dromara.common.mail.utils;
+package com.sm.common.mail.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
@@ -12,8 +12,8 @@ import jakarta.mail.Authenticator;
 import jakarta.mail.Session;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.utils.SpringUtils;
-import org.dromara.common.core.utils.StringUtils;
+import com.sm.common.core.utils.SpringUtils;
+import com.sm.common.core.utils.StringUtils;
 
 import java.io.File;
 import java.io.InputStream;

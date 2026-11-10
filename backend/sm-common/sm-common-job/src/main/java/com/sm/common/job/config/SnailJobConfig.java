@@ -1,4 +1,4 @@
-package org.dromara.common.job.config;
+package com.sm.common.job.config;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;

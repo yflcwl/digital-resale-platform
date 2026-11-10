@@ -1,4 +1,4 @@
-package org.dromara.common.sse.config;
+package com.sm.common.sse.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

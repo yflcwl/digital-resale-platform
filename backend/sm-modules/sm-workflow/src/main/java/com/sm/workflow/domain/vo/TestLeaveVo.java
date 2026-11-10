@@ -1,11 +1,11 @@
-package org.dromara.workflow.domain.vo;
+package com.sm.workflow.domain.vo;
 
 import cn.idev.excel.annotation.ExcelIgnoreUnannotated;
 import cn.idev.excel.annotation.ExcelProperty;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
-import org.dromara.workflow.domain.TestLeave;
+import com.sm.workflow.domain.TestLeave;
 
 import java.io.Serial;
 import java.io.Serializable;

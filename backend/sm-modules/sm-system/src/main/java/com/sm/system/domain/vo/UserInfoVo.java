@@ -1,4 +1,4 @@
-package org.dromara.system.domain.vo;
+package com.sm.system.domain.vo;
 
 import lombok.Data;
 

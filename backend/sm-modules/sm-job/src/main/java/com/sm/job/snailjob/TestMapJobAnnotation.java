@@ -1,4 +1,4 @@
-package org.dromara.job.snailjob;
+package com.sm.job.snailjob;
 
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.extra.spring.SpringUtil;

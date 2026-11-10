@@ -1,12 +1,12 @@
-package org.dromara.system.domain.vo;
+package com.sm.system.domain.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.dromara.common.sensitive.annotation.Sensitive;
-import org.dromara.common.sensitive.core.SensitiveStrategy;
-import org.dromara.common.translation.annotation.Translation;
-import org.dromara.common.translation.constant.TransConstant;
-import org.dromara.system.domain.SysUser;
+import com.sm.common.sensitive.annotation.Sensitive;
+import com.sm.common.sensitive.core.SensitiveStrategy;
+import com.sm.common.translation.annotation.Translation;
+import com.sm.common.translation.constant.TransConstant;
+import com.sm.system.domain.SysUser;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 

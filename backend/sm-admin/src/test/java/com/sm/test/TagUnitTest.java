@@ -1,4 +1,4 @@
-package org.dromara.test;
+package com.sm.test;
 
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;

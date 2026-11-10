@@ -1,6 +1,6 @@
-package org.dromara.common.tenant.exception;
+package com.sm.common.tenant.exception;
 
-import org.dromara.common.core.exception.base.BaseException;
+import com.sm.common.core.exception.base.BaseException;
 
 import java.io.Serial;
 

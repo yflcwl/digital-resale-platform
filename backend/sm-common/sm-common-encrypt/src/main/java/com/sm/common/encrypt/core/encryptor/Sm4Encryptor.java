@@ -1,9 +1,9 @@
-package org.dromara.common.encrypt.core.encryptor;
+package com.sm.common.encrypt.core.encryptor;
 
-import org.dromara.common.encrypt.core.EncryptContext;
-import org.dromara.common.encrypt.enumd.AlgorithmType;
-import org.dromara.common.encrypt.enumd.EncodeType;
-import org.dromara.common.encrypt.utils.EncryptUtils;
+import com.sm.common.encrypt.core.EncryptContext;
+import com.sm.common.encrypt.enumd.AlgorithmType;
+import com.sm.common.encrypt.enumd.EncodeType;
+import com.sm.common.encrypt.utils.EncryptUtils;
 
 /**
  * sm4算法实现

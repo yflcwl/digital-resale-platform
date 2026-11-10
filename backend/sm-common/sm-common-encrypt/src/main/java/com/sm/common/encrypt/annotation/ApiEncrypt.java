@@ -1,4 +1,4 @@
-package org.dromara.common.encrypt.annotation;
+package com.sm.common.encrypt.annotation;
 
 import java.lang.annotation.*;
 

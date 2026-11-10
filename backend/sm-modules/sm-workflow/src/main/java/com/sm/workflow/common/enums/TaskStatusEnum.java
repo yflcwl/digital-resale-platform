@@ -1,4 +1,4 @@
-package org.dromara.workflow.common.enums;
+package com.sm.workflow.common.enums;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.AllArgsConstructor;

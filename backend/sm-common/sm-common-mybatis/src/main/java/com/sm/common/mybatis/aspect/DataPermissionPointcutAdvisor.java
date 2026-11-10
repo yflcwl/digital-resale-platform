@@ -1,4 +1,4 @@
-package org.dromara.common.mybatis.aspect;
+package com.sm.common.mybatis.aspect;
 
 import org.aopalliance.aop.Advice;
 import org.springframework.aop.Pointcut;

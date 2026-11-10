@@ -1,4 +1,4 @@
-package org.dromara.common.doc.core.resolver;
+package com.sm.common.doc.core.resolver;
 
 import io.swagger.v3.oas.models.Operation;
 import org.jetbrains.annotations.NotNull;
