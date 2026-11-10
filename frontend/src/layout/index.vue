@@ -127,8 +127,11 @@ const setLayout = () => {
   z-index: 9;
   width: calc(100% - 92px);
   transition: width 0.28s;
-  background: $fixed-header-bg;
-  box-shadow: 0 2px 8px rgba(0, 21, 41, 0.10);
+  background: rgba(245, 249, 254, 0.82);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--sm-line-soft);
+  box-shadow: none;
 }
 
 .hideSidebar .fixed-header {

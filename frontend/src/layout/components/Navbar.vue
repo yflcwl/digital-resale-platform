@@ -2,7 +2,7 @@
   <div class="navbar" :class="'nav' + navType">
     <hamburger id="hamburger-container" :is-active="appStore.sidebar.opened" class="hamburger-container" @toggle-click="toggleSideBar" />
 
-    <breadcrumb v-if="navType == NavTypeEnum.LEFT" id="breadcrumb-container" class="breadcrumb-container" />
+    <span v-if="navType == NavTypeEnum.LEFT" class="page-title">{{ pageTitle }}</span>
     <top-nav v-if="navType == NavTypeEnum.MIX" id="topmenu-container" class="topmenu-container" />
 
     <template v-if="navType == NavTypeEnum.TOP">
@@ -110,6 +110,8 @@ const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
 const userId = ref(userStore.userId);
 const navType = computed(() => settingsStore.navType);
+const route = useRoute();
+const pageTitle = computed(() => (route.meta?.title as string) || '');
 const showLogo = computed(() => settingsStore.sidebarLogo);
 
 const companyName = ref(undefined);
@@ -376,9 +378,12 @@ watch(
     }
   }
 
-  .breadcrumb-container {
-    //float: left;
+  .page-title {
     flex-shrink: 0;
+    font-size: 14.5px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--sm-ink);
   }
 
   .topmenu-container {

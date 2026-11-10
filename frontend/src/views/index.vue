@@ -44,7 +44,7 @@
           <li v-for="p in recent" :key="p.id" class="recent-row" @click="go('/trade/detail/' + p.id)">
             <span class="thumb">
               <img v-if="p.images && p.images.length" :src="p.images[0].url" alt="" />
-              <i v-else class="thumb-fallback"></i>
+              <i v-else class="thumb-letter">{{ (p.title || '·').slice(0, 1) }}</i>
             </span>
             <span class="recent-main">
               <span class="recent-title">{{ p.title }}</span>
@@ -165,13 +165,11 @@ onMounted(async () => {
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  padding: 28px 30px;
-  border-radius: var(--sm-r-xl);
-  border: 1px solid var(--sm-glass-border);
-  background: var(--sm-glass);
-  backdrop-filter: var(--sm-glass-blur);
-  -webkit-backdrop-filter: var(--sm-glass-blur);
-  box-shadow: var(--sm-shadow-1);
+  padding: 26px 28px;
+  border-radius: 18px;
+  border: 1px solid var(--sm-card-border);
+  background: var(--sm-paper);
+  box-shadow: 0 1px 2px rgba(16, 45, 80, 0.04);
   overflow: hidden;
 }
 
@@ -232,20 +230,18 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 20px 22px;
-  border-radius: var(--sm-r-lg);
-  border: 1px solid var(--sm-glass-border);
-  background: var(--sm-glass);
-  backdrop-filter: var(--sm-glass-blur);
-  -webkit-backdrop-filter: var(--sm-glass-blur);
-  box-shadow: var(--sm-shadow-1);
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--sm-card-border);
+  background: var(--sm-paper);
+  box-shadow: 0 1px 2px rgba(16, 45, 80, 0.04);
   transition:
     transform var(--sm-dur) var(--sm-ease),
     box-shadow var(--sm-dur) var(--sm-ease);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: var(--sm-shadow-2);
+    box-shadow: 0 4px 14px rgba(16, 45, 80, 0.07);
   }
 }
 
@@ -258,10 +254,11 @@ onMounted(async () => {
 
 .stat-value {
   font-family: var(--sm-font-num);
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 800;
   letter-spacing: -0.03em;
-  line-height: 1.1;
+  line-height: 1.15;
+  margin-top: 2px;
   color: var(--sm-ink);
   font-variant-numeric: tabular-nums;
 }
@@ -283,12 +280,10 @@ onMounted(async () => {
 
 .panel {
   padding: 20px 22px 18px;
-  border-radius: var(--sm-r-xl);
-  border: 1px solid var(--sm-glass-border);
-  background: var(--sm-glass);
-  backdrop-filter: var(--sm-glass-blur);
-  -webkit-backdrop-filter: var(--sm-glass-blur);
-  box-shadow: var(--sm-shadow-1);
+  border-radius: 18px;
+  border: 1px solid var(--sm-card-border);
+  background: var(--sm-paper);
+  box-shadow: 0 1px 2px rgba(16, 45, 80, 0.04);
 }
 
 .panel-head {
@@ -354,7 +349,7 @@ onMounted(async () => {
   border-radius: 12px;
   overflow: hidden;
   flex-shrink: 0;
-  background: var(--sm-bg-2);
+  background: var(--sm-brand-soft);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -366,11 +361,17 @@ onMounted(async () => {
   }
 }
 
-.thumb-fallback {
-  width: 16px;
-  height: 16px;
-  border-radius: 5px;
-  background: rgba(43, 156, 240, 0.28);
+.thumb-letter {
+  font-style: normal;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--sm-brand-deep);
+  background: var(--sm-brand-soft);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .recent-main {
@@ -526,8 +527,8 @@ onMounted(async () => {
     font-size: 11px;
     font-weight: 700;
     color: var(--sm-ink-3);
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid var(--sm-line);
+    background: var(--sm-bg);
+    border: 1px solid var(--sm-line-soft);
     border-radius: var(--sm-r-pill);
     padding: 3px 9px;
   }

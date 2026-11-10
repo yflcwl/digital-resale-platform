@@ -31,9 +31,10 @@
   --sm-line-soft: #eaf2fb;
 
   /* ---------- 底色与玻璃 ---------- */
-  --sm-bg: #eef6ff; /* 页面底：冷白偏蓝 */
-  --sm-bg-2: #e2eefc; /* 次级底：表头/分区 */
+  --sm-bg: #f5f9fe; /* 页面底：接近白，只留一点冷调 */
+  --sm-bg-2: #eaf2fc; /* 次级底：表头/分区 */
   --sm-paper: #ffffff; /* 实心面 */
+  --sm-card-border: #e9f0f8; /* 卡片细边 */
   --sm-glass: rgba(255, 255, 255, 0.66); /* 毛玻璃面 */
   --sm-glass-strong: rgba(255, 255, 255, 0.86);
   --sm-glass-border: rgba(255, 255, 255, 0.9);

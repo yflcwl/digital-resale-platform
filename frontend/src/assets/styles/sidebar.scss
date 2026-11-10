@@ -29,7 +29,8 @@
   .sidebar-container {
     position: fixed;
     top: 12px;
-    bottom: 12px;
+    bottom: auto;
+    max-height: calc(100vh - 24px);
     left: 12px;
     z-index: 1001;
     width: 68px;
@@ -49,7 +50,8 @@
   /* ---------- 玻璃竖条本体 ---------- */
   .sidebar-inner {
     width: 68px;
-    height: 100%;
+    height: auto;
+    max-height: calc(100vh - 24px);
     display: flex;
     flex-direction: column;
     background: var(--sm-glass);
@@ -67,6 +69,12 @@
   .sidebar-container.is-expanded .sidebar-inner {
     width: 224px;
     box-shadow: var(--sm-shadow-3);
+  }
+
+  /* logo 与菜单之间加一道细线，避免两个蓝色块贴在一起 */
+  .sidebar-container .sidebar-logo-container {
+    border-bottom: 1px solid var(--sm-line-soft);
+    margin-bottom: 4px;
   }
 
   .scrollbar-wrapper {
@@ -157,6 +165,29 @@
         transform: scale(1.06);
       }
     }
+  }
+
+  /* 没有配图标的菜单：用一个小圆点兜底，避免收起态出现空白方块 */
+  .sidebar-container .menu-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.38;
+    flex-shrink: 0;
+  }
+
+  .sidebar-container.is-expanded .menu-dot {
+    margin-right: 11px;
+  }
+
+  /* 收起态：只留图标，文字交给宽度动画隐藏 */
+  .sidebar-container:not(.is-expanded) .menu-title {
+    display: none;
+  }
+
+  .sidebar-container:not(.is-expanded) .el-sub-menu__icon-arrow {
+    display: none;
   }
 
   /* 展开态：左对齐 + 图标与文字间距 */

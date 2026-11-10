@@ -11,7 +11,7 @@
         <transition :enter-active-class="proxy?.animate.menuSearchAnimate.enter" mode="out-in">
           <el-menu
             :default-active="activeMenu"
-            :collapse="!expanded"
+            :collapse="false"
             :unique-opened="true"
             :collapse-transition="false"
             :popper-offset="14"

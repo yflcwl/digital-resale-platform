@@ -4,11 +4,13 @@
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path, onlyOneChild.query)">
         <!-- 横向导航不折叠，el-menu-item 的 #title 插槽不会渲染，文字必须放进默认插槽 -->
         <el-menu-item v-if="horizontal" :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }">
-          <svg-icon :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
+          <svg-icon v-if="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
+          <i v-else class="menu-dot"></i>
           <span class="menu-title" :title="hasTitle(onlyOneChild.meta.title)">{{ onlyOneChild.meta.title }}</span>
         </el-menu-item>
         <el-menu-item v-else :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }">
-          <svg-icon :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
+          <svg-icon v-if="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
+          <i v-else class="menu-dot"></i>
           <template #title>
             <span class="menu-title" :title="hasTitle(onlyOneChild.meta.title)">{{ onlyOneChild.meta.title }}</span>
           </template>
@@ -18,7 +20,8 @@
 
     <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)" teleported>
       <template v-if="item.meta" #title>
-        <svg-icon :icon-class="item.meta ? item.meta.icon : ''" />
+        <svg-icon v-if="item.meta && item.meta.icon" :icon-class="item.meta.icon" />
+        <i v-else class="menu-dot"></i>
         <span class="menu-title" :title="hasTitle(item.meta?.title)">{{ item.meta?.title }}</span>
       </template>
 

@@ -3,7 +3,7 @@
     <router-link class="sidebar-logo-link" to="/">
       <span class="logo-mark">
         <svg class="onion-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 1.7c.15 1.7.6 2.9 1.35 3.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+          <path d="M12 1.55v3.4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
           <path d="M12 4.9c4.3 0 8.3 3.4 8.3 8.8 0 5.6-3.7 8.7-8.3 8.7S3.7 19.3 3.7 13.7C3.7 8.3 7.7 4.9 12 4.9Z" fill="currentColor" />
           <path
             d="M9.2 7c-1.5 1.8-2.2 3.8-2.2 6.1 0 3.3 1.3 5.9 3 7.3"
@@ -76,7 +76,7 @@ defineProps({
   }
 
   .sidebar-logo-link:hover .logo-mark {
-    transform: translateY(-1px) rotate(-4deg);
+    transform: translateY(-1px);
   }
 
   .logo-text {

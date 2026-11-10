@@ -91,9 +91,9 @@ declare global {
   }
   declare interface LayoutSetting {
     /**
-     * 默认布局
+     * 默认布局（不持久化，由代码决定）
      */
-    navType: NavTypeEnum;
+    navType?: NavTypeEnum;
 
     /**
      * 是否显示多标签导航

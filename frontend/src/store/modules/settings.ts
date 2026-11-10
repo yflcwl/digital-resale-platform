@@ -7,7 +7,7 @@ import { NavTypeEnum } from '@/enums/NavTypeEnum';
 
 export const useSettingsStore = defineStore('setting', () => {
   // 换了 key，避免旧的 layout-setting（若依蓝 + 深色菜单）覆盖新主题
-  const storageSetting = useStorage<LayoutSetting>('sm-layout-setting-v2', {
+  const storageSetting = useStorage<LayoutSetting>('sm-layout-setting-v3', {
     tagsView: defaultSettings.tagsView,
     tagsIcon: defaultSettings.tagsIcon,
     fixedHeader: defaultSettings.fixedHeader,
@@ -15,7 +15,6 @@ export const useSettingsStore = defineStore('setting', () => {
     dynamicTitle: defaultSettings.dynamicTitle,
     sideTheme: defaultSettings.sideTheme,
     theme: defaultSettings.theme,
-    navType: defaultSettings.navType,
     radiusBase: defaultSettings.radiusBase
   });
   const title = ref<string>(defaultSettings.title);
@@ -29,7 +28,8 @@ export const useSettingsStore = defineStore('setting', () => {
   const dynamicTitle = ref<boolean>(storageSetting.value.dynamicTitle);
   const animationEnable = ref<boolean>(defaultSettings.animationEnable);
   const dark = ref<boolean>(defaultSettings.dark);
-  const navType = ref<NavTypeEnum>(storageSetting.value.navType || NavTypeEnum.LEFT);
+  // 布局形态由代码决定，不从本地存储读取：避免历史缓存把新布局覆盖掉
+  const navType = ref<NavTypeEnum>(defaultSettings.navType);
   const radiusBase = ref<number>(storageSetting.value.radiusBase ?? defaultSettings.radiusBase);
 
   const setTitle = (value: string) => {
