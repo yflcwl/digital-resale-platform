@@ -127,3 +127,102 @@ export const productStatusDict: Record<string, string> = {
   AUDITING: '审核中',
   REJECTED: '审核拒绝'
 };
+
+/**
+ * 收货地址 VO
+ */
+export interface AddressVO {
+  id: number;
+  receiver: string;
+  phone: string;
+  province: string;
+  city: string;
+  district?: string;
+  detail: string;
+  isDefault?: string;
+}
+
+/**
+ * 收货地址表单
+ */
+export interface AddressForm {
+  id?: number;
+  receiver: string;
+  phone: string;
+  province: string;
+  city: string;
+  district?: string;
+  detail: string;
+}
+
+/**
+ * 订单 VO
+ */
+export interface OrderVO {
+  id: number;
+  orderNo: string;
+  buyerId: number;
+  sellerId: number;
+  productId: number;
+  productSnapshot?: string;
+  price: number;
+  status: string;
+  addressSnapshot?: string;
+  expressCompany?: string;
+  expressNo?: string;
+  timeoutTime?: string;
+  payTime?: string;
+  shipTime?: string;
+  receiveTime?: string;
+  finishTime?: string;
+  cancelTime?: string;
+  createTime?: string;
+  statusLogs?: OrderStatusLogVO[];
+  buyerNickname?: string;
+  sellerNickname?: string;
+  productTitle?: string;
+  productImage?: string;
+}
+
+export interface OrderStatusLogVO {
+  id: number;
+  fromStatus?: string;
+  toStatus: string;
+  operatorType: string;
+  remark?: string;
+  createTime: string;
+}
+
+export interface OrderForm {
+  productId: number;
+  addressId: number;
+}
+
+export interface OrderQuery {
+  pageNum: number;
+  pageSize: number;
+  role?: string;
+  status?: string;
+}
+
+/**
+ * 订单状态字典
+ */
+export const orderStatusDict: Record<string, string> = {
+  PENDING_PAY: '待支付',
+  PAID: '已支付',
+  SHIPPED: '已发货',
+  RECEIVED: '已收货',
+  REVIEWED: '已评价',
+  FINISHED: '已完成',
+  CANCELED: '已取消'
+};
+
+export const orderStatusOptions = [
+  { label: '待支付', value: 'PENDING_PAY' },
+  { label: '已支付', value: 'PAID' },
+  { label: '已发货', value: 'SHIPPED' },
+  { label: '已收货', value: 'RECEIVED' },
+  { label: '已完成', value: 'FINISHED' },
+  { label: '已取消', value: 'CANCELED' }
+];

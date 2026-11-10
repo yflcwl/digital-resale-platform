@@ -38,10 +38,11 @@
           </div>
 
           <div class="action-bar">
+            <el-button type="danger" size="large" @click="openBuy">立即购买</el-button>
             <el-button type="primary" size="large" @click="handleFavorite">
               {{ product.favorite ? '已收藏' : '收藏' }}
             </el-button>
-            <el-button type="danger" size="large" @click="goChat">联系卖家</el-button>
+            <el-button size="large" @click="goChat">联系卖家</el-button>
           </div>
         </el-card>
 
@@ -58,6 +59,35 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <!-- 下单弹窗 -->
+    <el-dialog v-model="buyVisible" title="确认订单" width="520px" append-to-body>
+      <div v-if="buyProduct" class="buy-summary">
+        <el-image :src="buyProduct.images && buyProduct.images.length ? buyProduct.images[0].url : ''" fit="cover" class="buy-cover" />
+        <div>
+          <div class="buy-title">{{ buyProduct.title }}</div>
+          <div class="buy-price">¥{{ buyProduct.price }}</div>
+        </div>
+      </div>
+      <el-divider />
+      <h4>选择收货地址</h4>
+      <el-empty v-if="addressList.length === 0" description="还没有收货地址" :image-size="60">
+        <el-button type="primary" size="small" @click="goAddress">去添加地址</el-button>
+      </el-empty>
+      <el-radio-group v-model="selectedAddressId" v-else class="address-group">
+        <el-radio v-for="a in addressList" :key="a.id" :value="a.id" border class="address-radio">
+          <div class="addr-line">{{ a.receiver }} {{ a.phone }}</div>
+          <div class="addr-line sub">{{ a.province }}{{ a.city }}{{ a.district || '' }}{{ a.detail }}</div>
+          <el-tag v-if="a.isDefault === '1'" type="success" size="small">默认</el-tag>
+        </el-radio>
+      </el-radio-group>
+      <template #footer>
+        <el-button @click="buyVisible = false">取消</el-button>
+        <el-button type="danger" :loading="creating" :disabled="!selectedAddressId" @click="submitOrder">
+          提交订单(¥{{ buyProduct?.price }})
+        </el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -65,7 +95,9 @@
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getProduct, favoriteProduct, cancelFavoriteProduct } from '@/api/trade/product';
-import { conditionSelfOptions, ProductVO } from '@/api/trade/types';
+import { createOrder } from '@/api/trade/order';
+import { listAddress } from '@/api/trade/address';
+import { AddressVO, conditionSelfOptions, ProductVO } from '@/api/trade/types';
 import { ElMessage } from 'element-plus';
 
 const route = useRoute();
@@ -113,6 +145,41 @@ const handleFavorite = async () => {
 
 const goChat = () => {
   ElMessage.info('聊天模块开发中,敬请期待');
+};
+
+/* 立即购买 */
+const buyVisible = ref(false);
+const creating = ref(false);
+const addressList = ref<AddressVO[]>([]);
+const selectedAddressId = ref<number>();
+const buyProduct = ref<ProductVO>();
+
+const openBuy = async () => {
+  if (!product.value) return;
+  buyProduct.value = product.value;
+  buyVisible.value = true;
+  const res = await listAddress();
+  addressList.value = res.data;
+  const def = addressList.value.find((a) => a.isDefault === '1');
+  selectedAddressId.value = def ? def.id : addressList.value.length ? addressList.value[0].id : undefined;
+};
+
+const goAddress = () => {
+  buyVisible.value = false;
+  router.push('/trade/address');
+};
+
+const submitOrder = async () => {
+  if (!buyProduct.value || !selectedAddressId.value) return;
+  creating.value = true;
+  try {
+    const res = await createOrder({ productId: buyProduct.value.id, addressId: selectedAddressId.value });
+    ElMessage.success('下单成功,请支付');
+    buyVisible.value = false;
+    router.push('/trade/pay?id=' + res.data);
+  } finally {
+    creating.value = false;
+  }
 };
 
 onMounted(() => {
@@ -173,6 +240,50 @@ onMounted(() => {
         color: #e6a23c;
         font-size: 13px;
       }
+    }
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+.buy-summary {
+  display: flex;
+  gap: 12px;
+  .buy-cover {
+    width: 72px;
+    height: 72px;
+    border-radius: 6px;
+  }
+  .buy-title {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .buy-price {
+    margin-top: 8px;
+    color: #f56c6c;
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+.address-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.address-radio {
+  width: 100%;
+  margin-right: 0 !important;
+  height: auto;
+  padding: 10px 14px;
+  :deep(.el-radio__label) {
+    width: 100%;
+  }
+  .addr-line {
+    line-height: 1.6;
+    &.sub {
+      color: #909399;
+      font-size: 12px;
     }
   }
 }
