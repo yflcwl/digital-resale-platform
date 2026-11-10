@@ -1,0 +1,24 @@
+# Java / Maven
+target/
+*.class
+*.jar
+!.mvn/wrapper/*.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.flattened-pom.xml
+
+# Node
+node_modules/
+dist/
+*.local
+
+# Logs
+logs/
+*.log
+
+# OS
+Thumbs.db
+.DS_Store
