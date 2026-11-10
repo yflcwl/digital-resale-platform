@@ -13,6 +13,7 @@
         <module>sm-demo</module>
         <module>sm-generator</module>
         <module>sm-job</module>
+        <module>sm-message</module>
         <module>sm-system</module>
         <module>sm-trade</module>
         <module>sm-workflow</module>

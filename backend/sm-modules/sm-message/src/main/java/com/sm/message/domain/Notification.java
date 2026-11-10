@@ -1,4 +1,4 @@
-package com.sm.trade.domain;
+package com.sm.message.domain;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

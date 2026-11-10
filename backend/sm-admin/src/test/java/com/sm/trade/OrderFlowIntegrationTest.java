@@ -126,11 +126,10 @@ class OrderFlowIntegrationTest {
         assertTrue(total.intValue() > 0, "在售商品数量应大于 0");
 
         List<Map<String, Object>> rows = (List<Map<String, Object>>) page.getBody().get("rows");
-        Map<String, Object> candidate = rows.stream()
-            .filter(r -> !"1".equals(String.valueOf(((Map<?, ?>) r).get("sellerId"))))
-            .findFirst().orElse(null);
-        // 演示数据卖家均为 admin(userId=1),需选择任意在售商品下单;买家账号与卖家不同即可
-        Map<String, Object> pick = candidate != null ? candidate : rows.get(0);
+        // 选择卖家为 admin(userId=1)的在售商品,便于用 admin 账号完成发货
+        Map<String, Object> pick = rows.stream()
+            .filter(r -> "1".equals(String.valueOf(r.get("sellerId"))))
+            .findFirst().orElse(rows.get(0));
         productId = toLong(pick.get("id"));
         assertNotNull(pick.get("images"), "列表商品应带图片数据");
 

@@ -72,6 +72,12 @@
             <artifactId>sm-common-oss</artifactId>
         </dependency>
 
+        <!-- 消息域(发送站内通知) -->
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-message</artifactId>
+        </dependency>
+
         <!-- RocketMQ:订单延迟取消 -->
         <dependency>
             <groupId>org.apache.rocketmq</groupId>

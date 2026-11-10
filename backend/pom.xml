@@ -364,6 +364,13 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!--  消息域模块  -->
+            <dependency>
+                <groupId>com.sm</groupId>
+                <artifactId>sm-message</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

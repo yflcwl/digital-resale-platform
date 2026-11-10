@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.sm</groupId>
+        <artifactId>sm-modules</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>sm-message</artifactId>
+
+    <description>
+        sm-message 消息域模块(站内聊天/站内通知)
+    </description>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-doc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-mybatis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-satoken</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-websocket</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-idempotent</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

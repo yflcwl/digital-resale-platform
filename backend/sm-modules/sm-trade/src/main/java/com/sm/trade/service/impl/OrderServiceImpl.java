@@ -12,7 +12,6 @@ import com.sm.common.mybatis.core.page.TableDataInfo;
 import com.sm.common.satoken.utils.LoginHelper;
 import com.sm.trade.constant.OrderStatus;
 import com.sm.trade.constant.ProductStatus;
-import com.sm.trade.domain.Notification;
 import com.sm.trade.domain.Order;
 import com.sm.trade.domain.OrderReview;
 import com.sm.trade.domain.OrderStatusLog;
@@ -24,7 +23,6 @@ import com.sm.trade.domain.UserProfile;
 import com.sm.trade.domain.bo.OrderBo;
 import com.sm.trade.domain.vo.OrderVo;
 import com.sm.trade.domain.vo.SellerInfoVo;
-import com.sm.trade.mapper.NotificationMapper;
 import com.sm.trade.mapper.OrderMapper;
 import com.sm.trade.mapper.OrderReviewMapper;
 import com.sm.trade.mapper.OrderStatusLogMapper;
@@ -33,6 +31,7 @@ import com.sm.trade.mapper.ProductImageMapper;
 import com.sm.trade.mapper.ProductMapper;
 import com.sm.trade.mapper.UserAddressMapper;
 import com.sm.trade.mapper.UserProfileMapper;
+import com.sm.message.service.INotificationService;
 import com.sm.trade.service.IOrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -73,7 +72,7 @@ public class OrderServiceImpl implements IOrderService {
     private final OrderStatusLogMapper statusLogMapper;
     private final PaymentRecordMapper paymentMapper;
     private final OrderReviewMapper reviewMapper;
-    private final NotificationMapper notificationMapper;
+    private final INotificationService notificationService;
     private final ProductMapper productMapper;
     private final ProductImageMapper productImageMapper;
     private final UserAddressMapper addressMapper;
@@ -445,14 +444,6 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     private void notify(Long userId, String title, String content, Long orderId) {
-        Notification notification = new Notification();
-        notification.setUserId(userId);
-        notification.setType("ORDER");
-        notification.setTitle(title);
-        notification.setContent(content);
-        notification.setLink("/trade/order/detail?orderId=" + orderId);
-        notification.setIsRead("0");
-        notification.setCreateTime(new Date());
-        notificationMapper.insert(notification);
+        notificationService.send(userId, "ORDER", title, content, "/trade/orderDetail?id=" + orderId);
     }
 }

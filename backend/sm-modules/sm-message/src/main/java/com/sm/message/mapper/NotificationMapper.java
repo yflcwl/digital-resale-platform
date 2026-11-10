@@ -1,7 +1,7 @@
-package com.sm.trade.mapper;
+package com.sm.message.mapper;
 
 import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
-import com.sm.trade.domain.Notification;
+import com.sm.message.domain.Notification;
 
 /**
  * 站内通知Mapper接口

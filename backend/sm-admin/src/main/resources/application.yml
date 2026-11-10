@@ -102,6 +102,8 @@ sa-token:
   is-share: false
   # jwt秘钥
   jwt-secret-key: abcdefghijklmnopqrstuvwxyz
+  # 允许从请求参数读取 token(WebSocket 握手使用 ?token=xxx)
+  is-read-query: true
 
 # security配置
 security:

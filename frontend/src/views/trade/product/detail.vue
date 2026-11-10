@@ -96,6 +96,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getProduct, favoriteProduct, cancelFavoriteProduct } from '@/api/trade/product';
 import { createOrder } from '@/api/trade/order';
+import { openConversation } from '@/api/message/chat';
 import { listAddress } from '@/api/trade/address';
 import { AddressVO, conditionSelfOptions, ProductVO } from '@/api/trade/types';
 import { ElMessage } from 'element-plus';
@@ -143,8 +144,10 @@ const handleFavorite = async () => {
   }
 };
 
-const goChat = () => {
-  ElMessage.info('聊天模块开发中,敬请期待');
+const goChat = async () => {
+  if (!product.value) return;
+  const res = await openConversation(product.value.id);
+  router.push('/message/chat?conversationId=' + res.data);
 };
 
 /* 立即购买 */

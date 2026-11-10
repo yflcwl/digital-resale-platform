@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sm.message.mapper.ChatConversationMapper">
+
+    <select id="selectConversationList" resultType="com.sm.message.domain.vo.ConversationVo">
+        select c.id,
+               c.buyer_id                                                     as buyerId,
+               c.seller_id                                                    as sellerId,
+               c.product_id                                                   as productId,
+               c.last_message                                                 as lastMessage,
+               c.last_msg_time                                                as lastMsgTime,
+               case when c.buyer_id = #{userId} then c.buyer_unread else c.seller_unread end as unread,
+               case when c.buyer_id = #{userId} then c.seller_id else c.buyer_id end  as otherUserId,
+               case when c.buyer_id = #{userId} then coalesce(sp.nickname, su2.nick_name)
+                    else coalesce(bp.nickname, su1.nick_name) end             as otherNickname,
+               case when c.buyer_id = #{userId} then sp.avatar else bp.avatar end     as otherAvatar,
+               p.title                                                        as productTitle,
+               (select pi.url from sm_product_image pi where pi.product_id = p.id
+                order by pi.sort limit 1)                                     as productImage,
+               p.price                                                        as productPrice
+        from sm_chat_conversation c
+                 left join sm_product p on c.product_id = p.id
+                 left join sm_user_profile bp on c.buyer_id = bp.user_id
+                 left join sm_user_profile sp on c.seller_id = sp.user_id
+                 left join sys_user su1 on c.buyer_id = su1.user_id
+                 left join sys_user su2 on c.seller_id = su2.user_id
+        where (c.buyer_id = #{userId} or c.seller_id = #{userId})
+          and c.status = '0'
+        order by c.last_msg_time desc nulls last
+    </select>
+
+    <select id="selectProductSellerId" resultType="java.lang.Long">
+        select seller_id from sm_product where id = #{productId} and del_flag = '0'
+    </select>
+
+</mapper>
