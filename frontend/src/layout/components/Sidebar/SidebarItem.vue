@@ -2,7 +2,12 @@
   <div v-if="!item.hidden">
     <template v-if="hasOneShowingChild(item, item.children) && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !item.alwaysShow">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path, onlyOneChild.query)">
-        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }">
+        <!-- 横向导航不折叠，el-menu-item 的 #title 插槽不会渲染，文字必须放进默认插槽 -->
+        <el-menu-item v-if="horizontal" :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }">
+          <svg-icon :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
+          <span class="menu-title" :title="hasTitle(onlyOneChild.meta.title)">{{ onlyOneChild.meta.title }}</span>
+        </el-menu-item>
+        <el-menu-item v-else :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }">
           <svg-icon :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
           <template #title>
             <span class="menu-title" :title="hasTitle(onlyOneChild.meta.title)">{{ onlyOneChild.meta.title }}</span>
@@ -41,6 +46,13 @@ const props = defineProps({
     required: true
   },
   isNest: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * 是否用于顶部横向导航（横向菜单不折叠，标题需放进默认插槽）
+   */
+  horizontal: {
     type: Boolean,
     default: false
   },

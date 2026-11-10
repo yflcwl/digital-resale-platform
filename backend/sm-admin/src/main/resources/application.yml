@@ -120,7 +120,9 @@ security:
 # 多租户配置
 tenant:
   # 是否开启
-  enable: true
+  # 本项目为单平台（只有一个运营方），业务表 sm_* 均未设计 tenant_id 字段，
+  # 开启多租户会导致 MyBatis Plus 自动追加 tenant_id 条件而使全部业务查询报错，故关闭。
+  enable: false
   # 排除表
   excludes:
     - sys_menu

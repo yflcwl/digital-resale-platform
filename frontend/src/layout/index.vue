@@ -34,7 +34,7 @@ const settingsStore = useSettingsStore();
 const theme = computed(() => settingsStore.theme);
 const sidebar = computed(() => useAppStore().sidebar);
 const device = computed(() => useAppStore().device);
-const needTagsView = computed(() => settingsStore.tagsView);
+const needTagsView = computed(() => settingsStore.tagsView && settingsStore.navType !== NavTypeEnum.TOP);
 const fixedHeader = computed(() => settingsStore.fixedHeader);
 const layout = computed(() => settingsStore.navType);
 

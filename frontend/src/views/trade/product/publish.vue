@@ -105,7 +105,7 @@ const submit = async () => {
       await publishProduct(form);
       ElMessage.success('发布成功,请等待质检后上架');
     }
-    router.push('/trade/product/my');
+    router.push('/trade/my');
   } finally {
     submitting.value = false;
   }

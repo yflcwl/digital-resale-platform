@@ -1,5 +1,6 @@
 package com.sm.trade.domain.bo;
 
+import io.github.linpeilie.annotations.AutoMapper;
 import com.sm.common.core.validate.AddGroup;
 import com.sm.common.core.validate.EditGroup;
 import com.sm.trade.domain.Product;
@@ -17,6 +18,7 @@ import java.util.List;
  *
  * @author sm
  */
+@AutoMapper(target = Product.class)
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class ProductBo extends Product {

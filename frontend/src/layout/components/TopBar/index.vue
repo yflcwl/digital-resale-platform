@@ -1,12 +1,12 @@
 <template>
   <el-menu class="topbar-menu" :ellipsis="false" :default-active="activeMenu" :active-text-color="theme" mode="horizontal">
-    <sidebar-item :key="route.path + index" v-for="(route, index) in topMenus" :item="route" :base-path="route.path" />
+    <sidebar-item :key="route.path + index" v-for="(route, index) in topMenus" :item="route" :base-path="route.path" :horizontal="true" />
 
     <el-sub-menu index="more" class="el-sub-menu__hide-arrow" v-if="moreRoutes.length > 0">
       <template #title>
         <span>更多菜单</span>
       </template>
-      <sidebar-item :key="route.path + index" v-for="(route, index) in moreRoutes" :item="route" :base-path="route.path" />
+      <sidebar-item :key="route.path + index" v-for="(route, index) in moreRoutes" :item="route" :base-path="route.path" :horizontal="true" />
     </el-sub-menu>
   </el-menu>
 </template>
@@ -61,43 +61,104 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+/**
+ * 顶部横向菜单：胶囊化。
+ * 这份样式接管全部菜单项外观（原若依的 float/固定色/固定高度规则已移除）。
+ */
+.topbar-menu.el-menu--horizontal {
+  border-bottom: none !important;
+  background: transparent !important;
+  height: 100%;
+  display: flex;
+  align-items: center;
 
-/* menu item */
-#app .topbar-menu.el-menu--horizontal .el-sub-menu__title, #app .topbar-menu.el-menu--horizontal .el-menu-item {
-  padding: 0 10px !important;
-}
+  /* 菜单项被 div > a 两层包裹，必须按内容宽度排布 */
+  > div {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    flex: 0 0 auto;
+  }
 
-.topbar-menu.el-menu--horizontal > .el-menu-item {
-  float: left;
-  height: 50px !important;
-  line-height: 50px !important;
-  color: #303133 !important;
-  padding: 0 5px !important;
-  margin: 0 10px !important;
-}
+  > div > a {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    flex: 0 0 auto;
+  }
 
-.el-sub-menu.is-active .svg-icon, .el-menu-item.is-active .svg-icon + span, .el-sub-menu.is-active .svg-icon + span, .el-sub-menu.is-active .el-sub-menu__title span {
-  color: v-bind(theme);
-}
+  .el-menu-item,
+  .el-sub-menu__title {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 38px !important;
+    line-height: 1 !important;
+    margin: 0 2px !important;
+    padding: 0 15px !important;
+    border: none !important;
+    border-bottom: none !important;
+    border-radius: var(--sm-r-pill);
+    font-size: 13.5px !important;
+    font-weight: 600;
+    color: var(--sm-ink-2) !important;
+    background: transparent;
+    white-space: nowrap;
+    box-sizing: border-box;
+    transition:
+      background-color 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-/* sub-menu item */
-.topbar-menu.el-menu--horizontal > .el-sub-menu .el-sub-menu__title {
-  float: left;
-  line-height: 50px !important;
-  color: #303133 !important;
-  margin: 0 15px -3px!important;
-}
+    .svg-icon {
+      width: 16px !important;
+      height: 16px !important;
+      margin: 0 !important;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
 
-/* topbar more arrow */
-.topbar-menu .el-sub-menu .el-sub-menu__icon-arrow {
-  position: static;
-  margin-left: 8px;
-  margin-top: 0px;
-  display: block !important;
-}
+    span {
+      color: inherit !important;
+    }
 
-/* menu__title el-menu-item */
-.topbar-menu.el-menu--horizontal .el-sub-menu__title, .topbar-menu.el-menu--horizontal .el-menu-item {
-  height: 60px;
+    &:hover {
+      background: var(--sm-bg-2) !important;
+      color: var(--sm-ink) !important;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+
+  /* 选中：蓝色实体胶囊 */
+  .el-menu-item.is-active,
+  .el-sub-menu.is-active > .el-sub-menu__title {
+    background: var(--sm-brand) !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 0 var(--sm-brand-deep);
+
+    .svg-icon,
+    span {
+      color: #fff !important;
+    }
+
+    &:hover {
+      background: var(--sm-brand) !important;
+      color: #fff !important;
+    }
+  }
+
+  .el-sub-menu__icon-arrow {
+    position: static !important;
+    margin: 0 0 0 2px !important;
+    display: block !important;
+    color: currentColor;
+    font-size: 11px;
+  }
 }
 </style>

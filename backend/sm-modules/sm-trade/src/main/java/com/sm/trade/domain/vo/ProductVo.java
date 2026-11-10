@@ -1,5 +1,6 @@
 package com.sm.trade.domain.vo;
 
+import io.github.linpeilie.annotations.AutoMapper;
 import com.sm.trade.domain.Product;
 import com.sm.trade.domain.ProductImage;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.util.List;
  *
  * @author sm
  */
+@AutoMapper(target = Product.class)
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class ProductVo extends Product {

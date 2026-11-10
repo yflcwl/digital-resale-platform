@@ -113,15 +113,15 @@ const statusTagType = (status: string) => {
 };
 
 const goPublish = () => {
-  router.push('/trade/product/publish');
+  router.push('/trade/publish');
 };
 
 const goDetail = (row: ProductVO) => {
-  router.push('/trade/product/detail?id=' + row.id);
+  router.push('/trade/detail?id=' + row.id);
 };
 
 const goEdit = (row: ProductVO) => {
-  router.push('/trade/product/publish?editId=' + row.id);
+  router.push('/trade/publish?editId=' + row.id);
 };
 
 const handleOffShelf = async (row: ProductVO) => {

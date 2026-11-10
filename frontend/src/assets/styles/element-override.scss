@@ -23,6 +23,21 @@
   }
 }
 
+/* 基础键帽：所有实心按钮都带一层底部厚度（只改阴影与位移，颜色交给各类型自己） */
+.el-button:not(.is-text):not(.is-link):not(.is-circle) {
+  box-shadow: 0 var(--sm-key-1) 0 var(--sm-line);
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 var(--sm-key-2) 0 var(--sm-line);
+  }
+
+  &:active {
+    transform: translateY(var(--sm-key-1));
+    box-shadow: 0 0 0 var(--sm-line);
+  }
+}
+
 /* 主按钮：底部硬阴影 = 键帽厚度，按下整键下移 */
 .el-button--primary:not(.is-text):not(.is-link):not(.is-plain) {
   --el-button-bg-color: var(--sm-brand);
@@ -50,25 +65,16 @@
   }
 }
 
-/* 普通按钮：白键帽 + 细底座 */
-.el-button--default:not(.is-text):not(.is-link):not(.is-plain):not(.is-circle) {
+/* 普通按钮：白键帽 + 细底座
+   注意：EP 在 size=default 时也会加 .el-button--default 类，它表示尺寸而非类型，
+   所以不能用它做类型选择器，否则会把 primary 按钮刷成白色。 */
+.el-button:not(.el-button--primary):not(.el-button--success):not(.el-button--warning):not(.el-button--danger):not(.el-button--info):not(.is-text):not(.is-link):not(.is-plain):not(.is-circle) {
   --el-button-bg-color: var(--sm-paper);
   --el-button-border-color: var(--sm-line);
   --el-button-hover-bg-color: var(--sm-bg);
   --el-button-hover-border-color: #b9d3ee;
   --el-button-hover-text-color: var(--sm-ink);
   --el-button-active-bg-color: var(--sm-bg-2);
-  box-shadow: 0 var(--sm-key-1) 0 var(--sm-line);
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 var(--sm-key-2) 0 var(--sm-line);
-  }
-
-  &:active {
-    transform: translateY(var(--sm-key-1));
-    box-shadow: 0 0 0 var(--sm-line);
-  }
 }
 
 /* 文字/链接按钮：只做颜色与位移，不做键帽 */

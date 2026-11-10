@@ -245,15 +245,29 @@ watch(
   }
 
   /* 一级菜单：胶囊 */
-  :deep(.topbar-menu > a) {
-    display: flex;
+  /* 菜单项被 div > a 两层包裹，必须让它们按内容宽度排布，否则胶囊里的文字会被挤出去 */
+  :deep(.topbar-menu > div) {
+    display: inline-flex;
     align-items: center;
     height: 100%;
+    flex: 0 0 auto;
+  }
+
+  :deep(.topbar-menu > div > a) {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    flex: 0 0 auto;
   }
 
   /* 菜单项被 <a> 包裹，必须用后代选择器 */
   :deep(.el-menu--horizontal .el-menu-item),
   :deep(.el-menu--horizontal .el-sub-menu > .el-sub-menu__title) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    white-space: nowrap;
     height: 38px;
     line-height: 38px;
     margin: 11px 2px 0;

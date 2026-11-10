@@ -59,7 +59,7 @@ const getCover = (item: ProductVO) => {
 };
 
 const goDetail = (item: ProductVO) => {
-  router.push('/trade/product/detail?id=' + item.id);
+  router.push('/trade/detail?id=' + item.id);
 };
 
 const handleCancel = async (item: ProductVO) => {

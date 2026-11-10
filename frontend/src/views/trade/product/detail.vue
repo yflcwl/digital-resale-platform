@@ -62,13 +62,12 @@
 
 <script setup name="ProductDetail" lang="ts">
 import { onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { getProduct, favoriteProduct, cancelFavoriteProduct } from '@/api/trade/product';
 import { conditionSelfOptions, ProductVO } from '@/api/trade/types';
 import { ElMessage } from 'element-plus';
 
 const route = useRoute();
-const router = useRouter();
 const loading = ref(false);
 const product = ref<ProductVO>();
 
@@ -102,7 +101,7 @@ const handleFavorite = async () => {
 };
 
 const goChat = () => {
-  router.push('/message');
+  ElMessage.info('聊天模块开发中,敬请期待');
 };
 
 onMounted(() => {
