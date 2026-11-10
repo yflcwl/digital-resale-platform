@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * 覆盖:仪表盘统计、商品管理(强制下架/恢复)、分类增删、品牌增删、订单查询、质检报告查阅、普通用户越权拦截。
  */
 @Tag("dev")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AdminFlowIntegrationTest {
@@ -111,7 +113,11 @@ class AdminFlowIntegrationTest {
         List<Map<String, Object>> rows = (List<Map<String, Object>>) page.get("rows");
         assertNotNull(rows);
         assertTrue(rows.size() > 0, "应有在售商品");
-        Map<String, Object> pick = rows.get(rows.size() - 1);
+        // 选择 admin 自己的在售商品(下架后 owner 仍可查看详情并恢复上架)
+        Map<String, Object> pick = rows.stream()
+            .filter(r -> "1".equals(String.valueOf(r.get("sellerId"))))
+            .reduce((first, second) -> second)
+            .orElse(rows.get(rows.size() - 1));
         offShelfProductId = toLong(pick.get("id"));
 
         Map<String, Object> resp = call(adminToken, HttpMethod.POST,
@@ -122,13 +128,10 @@ class AdminFlowIntegrationTest {
         Map<String, Object> detail = call(adminToken, HttpMethod.GET, "/trade/product/" + offShelfProductId, null);
         assertEquals("OFF_SHELF", ((Map<String, Object>) detail.get("data")).get("status"));
 
-        // 恢复上架(卖家接口,admin 同时是该商品卖家时才可用;否则跳过恢复)
-        Long sellerId = toLong(((Map<String, Object>) detail.get("data")).get("sellerId"));
-        if (sellerId != null && sellerId == 1L) {
-            Map<String, Object> back = call(adminToken, HttpMethod.POST,
-                "/trade/product/" + offShelfProductId + "/on-shelf", null);
-            assertEquals(200, ((Number) back.get("code")).intValue(), "重新上架应成功");
-        }
+        // 恢复上架(admin 为该商品 owner)
+        Map<String, Object> back = call(adminToken, HttpMethod.POST,
+            "/trade/product/" + offShelfProductId + "/on-shelf", null);
+        assertEquals(200, ((Number) back.get("code")).intValue(), "重新上架应成功: " + back.get("msg"));
     }
 
     @Test

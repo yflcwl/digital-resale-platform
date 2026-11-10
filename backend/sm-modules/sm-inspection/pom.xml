@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.sm</groupId>
+        <artifactId>sm-modules</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>sm-inspection</artifactId>
+
+    <description>
+        sm-inspection 智能质检模块(感知工具 + 规则引擎 + 质检流程)
+    </description>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-doc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-mybatis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-satoken</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-websocket</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-common-idempotent</artifactId>
+        </dependency>
+
+        <!-- 消息域:发送质检通知 -->
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-message</artifactId>
+        </dependency>
+
+        <!-- RocketMQ:质检任务异步 -->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-spring-boot-starter</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+
+        <!-- 单元测试 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.11.4</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>

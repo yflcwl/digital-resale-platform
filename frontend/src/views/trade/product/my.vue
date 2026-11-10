@@ -51,6 +51,7 @@
           <template #default="scope">
             <el-button link type="primary" @click="goDetail(scope.row)">查看</el-button>
             <el-button v-if="['DRAFT', 'OFF_SHELF'].includes(scope.row.status)" link type="primary" @click="goEdit(scope.row)">编辑</el-button>
+            <el-button v-if="['DRAFT', 'OFF_SHELF'].includes(scope.row.status)" link type="success" @click="goInspection(scope.row)">去质检</el-button>
             <el-button v-if="scope.row.status === 'ON_SALE'" link type="warning" @click="handleOffShelf(scope.row)">下架</el-button>
             <el-button v-if="scope.row.status === 'OFF_SHELF'" link type="success" @click="handleOnShelf(scope.row)">上架</el-button>
             <el-button v-if="['DRAFT', 'OFF_SHELF'].includes(scope.row.status)" link type="danger" @click="handleDelete(scope.row)">删除</el-button>
@@ -118,6 +119,10 @@ const goPublish = () => {
 
 const goDetail = (row: ProductVO) => {
   router.push('/trade/detail?id=' + row.id);
+};
+
+const goInspection = (row: ProductVO) => {
+  router.push('/inspection/task?productId=' + row.id);
 };
 
 const goEdit = (row: ProductVO) => {

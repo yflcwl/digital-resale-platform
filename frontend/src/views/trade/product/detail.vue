@@ -46,6 +46,23 @@
           </div>
         </el-card>
 
+        <!-- 质检报告 -->
+        <el-card shadow="never" class="seller-card" v-if="qcReport">
+          <template #header>
+            <div class="qc-header">
+              <span>智能质检报告</span>
+              <el-tag type="warning" size="small">{{ qcReport.report.qualityGrade }} 级</el-tag>
+            </div>
+          </template>
+          <div class="qc-body">
+            <div class="qc-meta">
+              <span>识别机型:{{ qcReport.report.brandModel }}</span>
+              <span>参考价:¥{{ qcReport.report.priceMin }} ~ ¥{{ qcReport.report.priceMax }}</span>
+            </div>
+            <div class="qc-defects">{{ qcReport.report.defectSummary }}</div>
+            <el-button link type="primary" @click="goReport">查看完整报告</el-button>
+          </div>
+        </el-card>
         <!-- 卖家信息 -->
         <el-card shadow="never" class="seller-card">
           <template #header><span>卖家信息</span></template>
@@ -97,6 +114,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { getProduct, favoriteProduct, cancelFavoriteProduct } from '@/api/trade/product';
 import { createOrder } from '@/api/trade/order';
 import { openConversation } from '@/api/message/chat';
+import { getProductReport } from '@/api/inspection';
 import { listAddress } from '@/api/trade/address';
 import { AddressVO, conditionSelfOptions, ProductVO } from '@/api/trade/types';
 import { ElMessage } from 'element-plus';
@@ -105,14 +123,28 @@ const route = useRoute();
 const router = useRouter();
 const loading = ref(false);
 const product = ref<ProductVO>();
+const qcReport = ref<any>();
 
 const load = async () => {
   loading.value = true;
   try {
     const res = await getProduct(route.query.id as string);
     product.value = res.data;
+    getProductReport(route.query.id as string)
+      .then((r) => {
+        qcReport.value = r.data;
+      })
+      .catch(() => {
+        qcReport.value = null;
+      });
   } finally {
     loading.value = false;
+  }
+};
+
+const goReport = () => {
+  if (qcReport.value) {
+    router.push('/inspection/report?id=' + qcReport.value.report.id);
   }
 };
 

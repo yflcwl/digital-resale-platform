@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -32,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * 链路:买家发起会话 → 发消息 → 卖家未读 → 卖家查看并回复 → 买家未读 → 已读 → 通知中心
  */
 @Tag("dev")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class MessageFlowIntegrationTest {
@@ -151,14 +153,22 @@ class MessageFlowIntegrationTest {
             Map.of("msgType", "TEXT", "content", "在的,成色很好,可以聊"));
         assertEquals(200, ((Number) resp.get("code")).intValue(), "卖家回复应成功");
 
-        // 卖家已读
+        // 卖家已读:校验会话级未读清零(全局未读数受历史会话影响,不做全局断言)
         doPost(sellerToken, "/message/chat/conversation/" + conversationId + "/read", null);
-        int sellerUnread = ((Number) doGet(sellerToken, "/message/chat/unread-count").get("data")).intValue();
-        assertEquals(0, sellerUnread, "卖家已读后未读应为 0");
+        Map<String, Object> sellerListResp = doGet(sellerToken, "/message/chat/conversation/list");
+        Map<String, Object> sellerConv = ((List<Map<String, Object>>) sellerListResp.get("data")).stream()
+            .filter(c -> toLong(c.get("id")).equals(conversationId))
+            .findFirst().orElse(null);
+        assertNotNull(sellerConv, "卖家会话列表应包含该会话");
+        assertEquals(0, ((Number) sellerConv.get("unread")).intValue(), "卖家已读后该会话未读应为 0");
 
-        // 买家现在有 1 条未读
-        int buyerUnread = ((Number) doGet(buyerToken, "/message/chat/unread-count").get("data")).intValue();
-        assertTrue(buyerUnread >= 1, "买家应收到卖家的消息未读");
+        // 买家现在有该会话的未读
+        Map<String, Object> buyerListResp = doGet(buyerToken, "/message/chat/conversation/list");
+        Map<String, Object> buyerConv = ((List<Map<String, Object>>) buyerListResp.get("data")).stream()
+            .filter(c -> toLong(c.get("id")).equals(conversationId))
+            .findFirst().orElse(null);
+        assertNotNull(buyerConv, "买家会话列表应包含该会话");
+        assertTrue(((Number) buyerConv.get("unread")).intValue() >= 1, "买家应收到卖家的消息未读");
     }
 
     @Test
@@ -170,10 +180,14 @@ class MessageFlowIntegrationTest {
         List<Map<String, Object>> messages = (List<Map<String, Object>>) resp.get("data");
         assertTrue(messages.size() >= 2, "应至少有两轮消息");
 
-        // 已读
+        // 已读:校验该会话未读清零
         doPost(buyerToken, "/message/chat/conversation/" + conversationId + "/read", null);
-        int buyerUnread = ((Number) doGet(buyerToken, "/message/chat/unread-count").get("data")).intValue();
-        assertEquals(0, buyerUnread, "买家已读后未读应为 0");
+        Map<String, Object> listResp = doGet(buyerToken, "/message/chat/conversation/list");
+        Map<String, Object> target = ((List<Map<String, Object>>) listResp.get("data")).stream()
+            .filter(c -> toLong(c.get("id")).equals(conversationId))
+            .findFirst().orElse(null);
+        assertNotNull(target, "买家会话列表应包含该会话");
+        assertEquals(0, ((Number) target.get("unread")).intValue(), "买家已读后该会话未读应为 0");
     }
 
     @Test

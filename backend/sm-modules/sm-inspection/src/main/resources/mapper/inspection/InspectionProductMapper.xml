@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sm.inspection.mapper.InspectionProductMapper">
+
+    <select id="selectProductInfo" resultType="java.util.Map">
+        select id, seller_id as "sellerId", title, price, status, category_id as "categoryId"
+        from sm_product
+        where id = #{productId} and del_flag = '0'
+    </select>
+
+    <update id="updateProductStatusCas">
+        update sm_product
+        set status = #{to}, update_time = now()
+        where id = #{productId} and status = #{from} and del_flag = '0'
+    </update>
+
+    <update id="updateProductReport">
+        update sm_product
+        set quality_grade = #{grade}, latest_report_id = #{reportId}, update_time = now()
+        where id = #{productId}
+    </update>
+
+</mapper>

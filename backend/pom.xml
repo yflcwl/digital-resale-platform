@@ -371,6 +371,13 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!--  智能质检模块  -->
+            <dependency>
+                <groupId>com.sm</groupId>
+                <artifactId>sm-inspection</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

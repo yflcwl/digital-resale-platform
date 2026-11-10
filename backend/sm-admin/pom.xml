@@ -105,6 +105,12 @@
             <artifactId>sm-message</artifactId>
         </dependency>
 
+        <!--  智能质检模块  -->
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-inspection</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
