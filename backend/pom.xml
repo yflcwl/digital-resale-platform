@@ -357,6 +357,13 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!--  交易域模块  -->
+            <dependency>
+                <groupId>com.sm</groupId>
+                <artifactId>sm-trade-biz</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sm.trade.mapper.UserProfileMapper">
+
+    <select id="selectSellerInfo" resultType="com.sm.trade.domain.vo.SellerInfoVo">
+        select u.user_id,
+               coalesce(p.nickname, u.nick_name) as nickname,
+               p.avatar                                 as avatar,
+               p.seller_rating                          as seller_rating,
+               p.deal_count                             as deal_count
+        from sys_user u
+                 left join sm_user_profile p on u.user_id = p.user_id
+        where u.user_id = #{userId}
+          and u.del_flag = '0'
+    </select>
+
+</mapper>

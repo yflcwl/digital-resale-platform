@@ -133,6 +133,26 @@ tenant:
     - sys_client
     - sys_oss_config
     - flow_spel
+    - sm_category
+    - sm_brand
+    - sm_category_brand
+    - sm_product
+    - sm_product_image
+    - sm_product_favorite
+    - sm_product_browse
+    - sm_inspection_task
+    - sm_inspection_report
+    - sm_inspection_defect
+    - sm_inspection_feedback
+    - sm_order
+    - sm_order_status_log
+    - sm_payment_record
+    - sm_order_review
+    - sm_chat_conversation
+    - sm_chat_message
+    - sm_notification
+    - sm_carousel
+    - sm_report
 
 # MyBatisPlus配置
 # https://baomidou.com/config/

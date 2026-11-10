@@ -14,6 +14,7 @@
         <module>sm-generator</module>
         <module>sm-job</module>
         <module>sm-system</module>
+        <module>sm-trade</module>
         <module>sm-workflow</module>
     </modules>
 

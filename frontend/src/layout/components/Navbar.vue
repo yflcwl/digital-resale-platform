@@ -211,11 +211,12 @@ watch(
 }
 
 :deep(.el-select .el-input__wrapper) {
-  height: 30px;
+  height: 32px;
+  border-radius: var(--sm-r-pill);
 }
 
 :deep(.el-badge__content.is-fixed) {
-  top: 12px;
+  top: 8px;
 }
 
 .flex {
@@ -227,31 +228,42 @@ watch(
 }
 
 .navbar {
-  height: 50px;
+  height: var(--sm-navbar-h);
   overflow: hidden;
   position: relative;
-  background: var(--el-bg-color);
-  border-bottom: 1px solid var(--el-border-color-lighter);
+  background: transparent;
+  border-bottom: none;
   box-shadow: none;
   display: flex;
   align-items: center;
-  // padding: 0 8px;
+  padding: 0 8px 0 4px;
   box-sizing: border-box;
 
+  /* 汉堡键：圆角实体键，hover 上浮 */
   .hamburger-container {
-    line-height: 46px;
-    height: 100%;
-    //float: left;
+    line-height: 1;
+    height: 38px;
+    width: 38px;
+    justify-content: center;
     cursor: pointer;
-    transition: background 0.3s;
+    border-radius: var(--sm-r-sm);
+    color: var(--sm-ink-2);
+    transition:
+      transform var(--sm-dur) var(--sm-ease),
+      background-color var(--sm-dur) ease;
     -webkit-tap-highlight-color: transparent;
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    margin-right: 8px;
+    margin-right: 10px;
 
     &:hover {
-      background: var(--el-fill-color-lighter);
+      background: var(--sm-cream-deep);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: scale(0.92);
     }
   }
 
@@ -294,25 +306,37 @@ watch(
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0 8px;
-      height: 32px;
+      width: 38px;
+      height: 38px;
+      padding: 0;
       font-size: 18px;
-      color: var(--el-text-color-regular);
-      border-radius: var(--app-radius-md);
+      color: var(--sm-ink-2);
+      border-radius: var(--sm-r-sm);
+      transition:
+        transform var(--sm-dur) var(--sm-ease),
+        background-color var(--sm-dur) ease,
+        color var(--sm-dur) ease;
 
       &.hover-effect {
         cursor: pointer;
-        transition: background 0.2s ease, color 0.2s ease;
 
         &:hover {
-          background: var(--el-fill-color-light);
-          color: var(--el-color-primary);
+          background: var(--sm-tomato-soft);
+          color: var(--sm-tomato);
+          transform: translateY(-2px);
+        }
+
+        &:active {
+          transform: scale(0.92);
         }
       }
     }
 
     .avatar-container {
-      margin-right: 40px;
+      margin-right: 12px;
+      padding-left: 10px;
+      margin-left: 6px;
+      border-left: 1.5px solid var(--sm-line);
 
       .avatar-wrapper {
         margin-top: 0;
@@ -320,19 +344,36 @@ watch(
 
         .user-avatar {
           cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: var(--app-radius-md);
+          width: 38px;
+          height: 38px;
+          border-radius: var(--sm-r-sm);
           margin-top: 0;
           display: block;
+          box-shadow: 0 0 0 2px var(--sm-paper), 0 0 0 3.5px var(--sm-line);
+          transition:
+            transform var(--sm-dur) var(--sm-ease),
+            box-shadow var(--sm-dur) ease;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 0 2px var(--sm-paper), 0 0 0 3.5px var(--sm-tomato);
+          }
         }
 
         i {
           cursor: pointer;
           position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
+          right: -4px;
+          bottom: -4px;
+          font-size: 11px;
+          background: var(--sm-ink);
+          color: var(--sm-cream);
+          border-radius: var(--sm-r-pill);
+          width: 16px;
+          height: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }

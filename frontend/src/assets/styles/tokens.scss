@@ -1,0 +1,144 @@
+/**
+ * SM 设计令牌 —— 全站唯一色源 / 圆角源 / 动效源
+ *
+ * 设计主张：把麦当劳界面的「实体按压感」搬到后台系统。
+ * 按钮底部留硬阴影（像实体键），按下时整体下移、阴影归零；
+ * 所有可点击面用带 overshoot 的弹性曲线；圆角一律给大。
+ *
+ * 换肤只需改本文件的 --sm-* 变量，其余样式全部引用令牌，不写死颜色。
+ */
+
+:root {
+  /* ---------- 品牌色 ---------- */
+  --sm-ink: #171310; /* 墨黑（暖调，非纯黑） */
+  --sm-ink-2: #3d3532; /* 次级墨 */
+  --sm-ink-3: #6b615b; /* 三级文字 */
+  --sm-cream: #fbf7f0; /* 奶油白：页面底 */
+  --sm-cream-deep: #f4ede2; /* 奶油深：表头/分隔区 */
+  --sm-paper: #ffffff; /* 卡片面 */
+  --sm-tomato: #d93a22; /* 主红 */
+  --sm-tomato-deep: #9e2613; /* 深红：按钮硬阴影 */
+  --sm-tomato-soft: #fdece8; /* 淡红：选中底/标签 */
+  --sm-gold: #f5b819; /* 金：强调点缀 */
+  --sm-gold-soft: #fff5d9;
+  --sm-stone: #8c8279; /* 暖灰：次要信息 */
+  --sm-line: #e9e0d4; /* 暖色分割线 */
+  --sm-line-soft: #f2ebe1;
+
+  /* 语义色（与品牌色同一暖调体系） */
+  --sm-success: #2f8f5b;
+  --sm-warning: #d98a0b;
+  --sm-danger: #c8341d;
+  --sm-info: #8c8279;
+
+  /* ---------- 圆角：大而统一 ---------- */
+  --sm-r-xs: 8px;
+  --sm-r-sm: 12px;
+  --sm-r-md: 16px;
+  --sm-r-lg: 20px;
+  --sm-r-xl: 28px;
+  --sm-r-pill: 999px;
+
+  /* ---------- 阴影：贴地细线 + 远扩散，避免灰雾 ---------- */
+  --sm-shadow-1: 0 1px 0 rgba(23, 19, 16, 0.04), 0 6px 18px -10px rgba(23, 19, 16, 0.26);
+  --sm-shadow-2: 0 1px 0 rgba(23, 19, 16, 0.05), 0 14px 34px -14px rgba(23, 19, 16, 0.32);
+  --sm-shadow-3: 0 2px 0 rgba(23, 19, 16, 0.06), 0 28px 60px -20px rgba(23, 19, 16, 0.4);
+  /* 实体键的「厚度」 */
+  --sm-key-1: 2px;
+  --sm-key-2: 3px;
+
+  /* ---------- 动效曲线 ---------- */
+  --sm-ease: cubic-bezier(0.34, 1.56, 0.64, 1); /* 带 overshoot 的弹性 */
+  --sm-ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --sm-dur: 0.18s;
+  --sm-dur-lg: 0.28s;
+
+  /* ---------- 字体 ---------- */
+  --sm-font: 'HarmonyOS Sans SC', 'MiSans', 'PingFang SC', 'Source Han Sans SC', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --sm-font-num: 'Inter', 'SF Pro Display', 'DIN Alternate', system-ui, sans-serif;
+
+  /* ---------- 布局尺寸 ---------- */
+  --sm-sidebar-w: 232px;
+  --sm-sidebar-w-collapsed: 76px;
+  --sm-navbar-h: 60px;
+  --sm-tagsview-h: 42px;
+  --sm-gutter: 20px;
+}
+
+/**
+ * Element Plus 变量映射
+ * 让所有 Element 组件自动继承品牌设计，避免逐个组件硬改。
+ */
+:root {
+  --el-color-primary: var(--sm-tomato);
+  --el-color-primary-light-3: #e2664f;
+  --el-color-primary-light-5: #ea8b79;
+  --el-color-primary-light-7: #f3b3a6;
+  --el-color-primary-light-8: #f7c8bd;
+  --el-color-primary-light-9: var(--sm-tomato-soft);
+  --el-color-primary-dark-2: var(--sm-tomato-deep);
+
+  --el-color-success: var(--sm-success);
+  --el-color-warning: var(--sm-warning);
+  --el-color-danger: var(--sm-danger);
+  --el-color-error: var(--sm-danger);
+  --el-color-info: var(--sm-info);
+
+  --el-text-color-primary: var(--sm-ink);
+  --el-text-color-regular: var(--sm-ink-2);
+  --el-text-color-secondary: var(--sm-stone);
+  --el-text-color-placeholder: #b3a89e;
+  --el-text-color-disabled: #c6bcb3;
+
+  --el-border-color: var(--sm-line);
+  --el-border-color-light: var(--sm-line);
+  --el-border-color-lighter: var(--sm-line-soft);
+  --el-border-color-extra-light: #f8f3ec;
+  --el-border-color-hover: #d3c7b8;
+
+  --el-bg-color: var(--sm-paper);
+  --el-bg-color-page: var(--sm-cream);
+  --el-bg-color-overlay: var(--sm-paper);
+  --el-fill-color: var(--sm-cream-deep);
+  --el-fill-color-light: #fbf7f0;
+  --el-fill-color-lighter: #fdfaf5;
+  --el-fill-color-blank: var(--sm-paper);
+  --el-mask-color: rgba(23, 19, 16, 0.42);
+
+  --el-font-family: var(--sm-font);
+
+  --el-border-radius-base: var(--sm-r-sm);
+  --el-border-radius-small: var(--sm-r-xs);
+  --el-border-radius-round: var(--sm-r-pill);
+
+  --el-box-shadow-light: var(--sm-shadow-1);
+  --el-box-shadow: var(--sm-shadow-2);
+  --el-box-shadow-dark: var(--sm-shadow-3);
+
+  --el-font-size-base: 14px;
+  --el-transition-duration: var(--sm-dur);
+}
+
+/* 深色模式：保留可用性，同色系压暗 */
+html.dark {
+  --sm-ink: #f3ece4;
+  --sm-ink-2: #d8cfc6;
+  --sm-ink-3: #a79c93;
+  --sm-cream: #14100e;
+  --sm-cream-deep: #1d1815;
+  --sm-paper: #1c1714;
+  --sm-line: #302823;
+  --sm-line-soft: #251f1b;
+  --sm-tomato-soft: #3a1d17;
+
+  --el-bg-color: var(--sm-paper);
+  --el-bg-color-page: var(--sm-cream);
+  --el-fill-color-light: #221c18;
+  --el-fill-color-lighter: #1b1613;
+  --el-fill-color-blank: var(--sm-paper);
+  --el-text-color-primary: var(--sm-ink);
+  --el-text-color-regular: var(--sm-ink-2);
+  --el-border-color: var(--sm-line);
+  --el-border-color-light: var(--sm-line);
+  --el-border-color-lighter: var(--sm-line-soft);
+}

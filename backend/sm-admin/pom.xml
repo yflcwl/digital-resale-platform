@@ -93,6 +93,12 @@
             <artifactId>sm-workflow</artifactId>
         </dependency>
 
+        <!--  交易域模块  -->
+        <dependency>
+            <groupId>com.sm</groupId>
+            <artifactId>sm-trade-biz</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
