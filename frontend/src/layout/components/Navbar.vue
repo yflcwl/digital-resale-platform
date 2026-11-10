@@ -204,9 +204,96 @@ watch(
 </script>
 
 <style lang="scss" scoped>
+/* ============ 顶部导航模式 ============ */
 .navbar.navtop {
+  padding-left: 16px;
+  gap: 2px;
+
   .hamburger-container {
     display: none !important;
+  }
+
+  /* Logo 收进顶栏：横排、压缩高度 */
+  :deep(.sidebar-logo-container) {
+    height: 60px;
+    padding: 0 10px 0 0;
+    flex-shrink: 0;
+  }
+
+  :deep(.sidebar-logo-container .logo-text) {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 5px;
+  }
+
+  :deep(.sidebar-logo-container .logo-sub) {
+    display: none;
+  }
+
+  .topbar-container {
+    flex: 1;
+    min-width: 0;
+    margin-left: 8px;
+    overflow: hidden;
+  }
+
+  :deep(.topbar-menu),
+  :deep(.el-menu--horizontal) {
+    border-bottom: none !important;
+    background: transparent !important;
+    height: 100%;
+  }
+
+  /* 一级菜单：胶囊 */
+  :deep(.el-menu--horizontal > .el-menu-item),
+  :deep(.el-menu--horizontal > .el-sub-menu > .el-sub-menu__title) {
+    height: 38px;
+    line-height: 38px;
+    margin: 11px 2px 0;
+    padding: 0 15px !important;
+    border: none !important;
+    border-radius: var(--sm-r-pill);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--sm-ink-2);
+    transition:
+      background-color var(--sm-dur) ease,
+      color var(--sm-dur) ease,
+      transform var(--sm-dur) var(--sm-ease);
+
+    .svg-icon {
+      margin-right: 6px;
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background: var(--sm-bg-2) !important;
+      color: var(--sm-ink) !important;
+      transform: translateY(-1px);
+    }
+
+    &.is-active {
+      background: var(--sm-brand) !important;
+      color: #fff !important;
+      font-weight: 700;
+      box-shadow: 0 2px 0 var(--sm-brand-deep);
+
+      .svg-icon {
+        color: #fff;
+      }
+
+      &:hover {
+        background: var(--sm-brand) !important;
+        color: #fff !important;
+      }
+    }
+  }
+
+  :deep(.el-menu--horizontal > .el-sub-menu.is-active > .el-sub-menu__title) {
+    color: var(--sm-brand) !important;
+    background: var(--sm-brand-soft) !important;
+    box-shadow: none;
   }
 }
 

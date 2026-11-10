@@ -19,6 +19,11 @@
     margin-left: 0 !important;
   }
 
+  /* 顶部导航模式：没有侧边栏，内容区通栏 */
+  .navTop .main-container {
+    margin-left: 0 !important;
+  }
+
   /* ---------- 容器：透明的定位层 ---------- */
   .sidebar-container {
     width: var(--sm-sidebar-w) !important;

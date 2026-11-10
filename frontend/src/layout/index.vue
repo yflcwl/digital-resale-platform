@@ -1,7 +1,7 @@
 <template>
   <div :class="classObj" class="app-wrapper" :style="{ '--current-color': theme }">
     <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <side-bar v-if="!sidebar.hide" class="sidebar-container" />
+    <side-bar v-if="showSidebar" class="sidebar-container" />
     <div :class="{ hasTagsView: needTagsView, sidebarHide: sidebar.hide }" class="main-container">
       <!-- <el-scrollbar>
         <div :class="{ 'fixed-header': fixedHeader }">
@@ -48,7 +48,8 @@ const classObj = computed(() => ({
   hideSidebar: !sidebar.value.opened,
   openSidebar: sidebar.value.opened,
   withoutAnimation: sidebar.value.withoutAnimation,
-  mobile: device.value === 'mobile'
+  mobile: device.value === 'mobile',
+  navTop: layout.value === NavTypeEnum.TOP
 }));
 
 const { width } = useWindowSize();
@@ -136,6 +137,16 @@ const setLayout = () => {
 
 .sidebarHide .fixed-header {
   width: 100%;
+}
+
+/* 顶部导航模式：整条 header 通栏 + 毛玻璃，内容区不再让出侧边栏宽度 */
+.navTop .fixed-header {
+  width: 100%;
+  background: rgba(238, 246, 255, 0.76);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid var(--sm-line);
+  box-shadow: none;
 }
 
 .mobile .fixed-header {

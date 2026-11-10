@@ -33,7 +33,7 @@ const activeMenu = computed(() => {
   return path
 })
 
-const visibleNumber = ref(5)
+const visibleNumber = ref(7)
 const topMenus = computed(() => {
   return permissionStore.sidebarRouters.filter((f) => !f.hidden).slice(0, visibleNumber.value)
 })
