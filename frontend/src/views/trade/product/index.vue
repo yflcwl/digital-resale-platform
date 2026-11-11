@@ -82,7 +82,7 @@
 
 <script setup name="Market" lang="ts">
 import { getCurrentInstance, onMounted, reactive, ref, toRefs } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { listCategoryTree } from '@/api/trade/category';
 import { listOnSaleProduct } from '@/api/trade/product';
 import { getDicts } from '@/api/system/dict/data';
@@ -92,6 +92,7 @@ const { proxy } = getCurrentInstance() as any;
 const { product_condition: conditionDict } = toRefs<any>(proxy?.useDict('product_condition'));
 
 const router = useRouter();
+const route = useRoute();
 const loading = ref(false);
 const total = ref(0);
 const productList = ref<ProductVO[]>([]);
@@ -173,6 +174,16 @@ const goDetail = (item: ProductVO) => {
 };
 
 onMounted(() => {
+  // 支持从首页带参数进入:?keyword=xx / ?categoryId=xx
+  const kw = route.query.keyword as string;
+  const catId = route.query.categoryId as string;
+  if (kw) {
+    queryParams.title = kw;
+  }
+  if (catId) {
+    queryParams.categoryId = Number(catId);
+    categoryValue.value = [Number(catId)];
+  }
   loadCategory();
   loadBrandDict();
   getList();
