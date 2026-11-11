@@ -1,83 +1,121 @@
 <template>
-  <div class="app-container" v-loading="loading">
-    <el-button icon="ArrowLeft" @click="goBack" style="margin-bottom: 12px">返回</el-button>
-    <el-row :gutter="20" v-if="product">
-      <!-- 左侧轮播 -->
-      <el-col :span="10">
-        <el-card shadow="never">
-          <el-carousel v-if="product.images && product.images.length > 0" height="380px" trigger="click">
-            <el-carousel-item v-for="img in product.images" :key="img.id ?? img.url">
-              <el-image :src="img.url" fit="contain" style="width: 100%; height: 100%" />
-            </el-carousel-item>
-          </el-carousel>
-          <el-empty v-else description="暂无图片" :image-size="80" />
-        </el-card>
-      </el-col>
+  <div class="app-container detail" v-loading="loading">
+    <button type="button" class="back" @click="goBack">
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M13 8H4M7.5 4.5 4 8l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      返回
+    </button>
 
-      <!-- 右侧信息 -->
-      <el-col :span="14">
-        <el-card shadow="never">
-          <h2 class="detail-title">{{ product.title }}</h2>
-          <div class="price-box">
-            <span class="price">¥{{ product.price }}</span>
-            <span v-if="product.originalPrice" class="original-price">原价 ¥{{ product.originalPrice }}</span>
-            <el-tag v-if="product.qualityGrade" type="warning" size="large" style="margin-left: 12px">{{ product.qualityGrade }}级成色</el-tag>
-            <el-tag v-if="product.conditionSelf" type="info" size="large" style="margin-left: 8px">{{ conditionSelfLabel(product.conditionSelf) }}</el-tag>
-          </div>
+    <div v-if="product" class="sheet">
+      <!-- 左：图集 -->
+      <section class="gallery">
+        <div class="stage">
+          <img v-if="mainImage" :src="mainImage" :alt="product.title" />
+          <i v-else class="stage-letter">{{ (product.title || '·').slice(0, 1) }}</i>
+        </div>
+        <div v-if="product.images && product.images.length > 1" class="thumbs">
+          <button
+            v-for="(img, i) in product.images"
+            :key="img.id ?? img.url"
+            type="button"
+            :class="['thumb', { on: i === activeImg }]"
+            @click="activeImg = i"
+          >
+            <img :src="img.url" alt="" loading="lazy" />
+          </button>
+        </div>
+      </section>
 
-          <el-descriptions :column="2" border class="detail-desc">
-            <el-descriptions-item label="分类">{{ product.categoryName }}</el-descriptions-item>
-            <el-descriptions-item label="品牌">{{ product.brandName || '-' }}</el-descriptions-item>
-            <el-descriptions-item label="发布时间">{{ product.createTime }}</el-descriptions-item>
-            <el-descriptions-item label="浏览">{{ product.viewCount }}</el-descriptions-item>
-          </el-descriptions>
+      <!-- 右：信息 -->
+      <section class="info">
+        <h1 class="title">{{ product.title }}</h1>
 
-          <div class="description-block">
-            <h4>商品描述</h4>
-            <p>{{ product.description || '卖家很懒,没有写描述' }}</p>
-          </div>
+        <div class="price-row">
+          <span class="price"><b>¥</b>{{ formatPrice(product.price) }}</span>
+          <span v-if="product.originalPrice" class="origin">原价 ¥{{ formatPrice(product.originalPrice) }}</span>
+        </div>
 
-          <div class="action-bar">
-            <el-button type="danger" size="large" @click="openBuy">立即购买</el-button>
-            <el-button type="primary" size="large" @click="handleFavorite">
-              {{ product.favorite ? '已收藏' : '收藏' }}
-            </el-button>
-            <el-button size="large" @click="goChat">联系卖家</el-button>
-            <el-button size="large" text type="danger" @click="openReport">举报</el-button>
-          </div>
-        </el-card>
+        <div class="chips">
+          <span v-if="product.qualityGrade" class="chip chip-grade">{{ product.qualityGrade }} 级成色</span>
+          <span v-if="product.conditionSelf" class="chip">{{ conditionSelfLabel(product.conditionSelf) }}</span>
+          <span v-if="product.brandName" class="chip">{{ product.brandName }}</span>
+        </div>
 
-        <!-- 质检报告 -->
-        <el-card shadow="never" class="seller-card" v-if="qcReport">
-          <template #header>
-            <div class="qc-header">
-              <span>智能质检报告</span>
-              <el-tag type="warning" size="small">{{ qcReport.report.qualityGrade }} 级</el-tag>
-            </div>
-          </template>
-          <div class="qc-body">
-            <div class="qc-meta">
-              <span>识别机型:{{ qcReport.report.brandModel }}</span>
-              <span>参考价:¥{{ qcReport.report.priceMin }} ~ ¥{{ qcReport.report.priceMax }}</span>
-            </div>
-            <div class="qc-defects">{{ qcReport.report.defectSummary }}</div>
-            <el-button link type="primary" @click="goReport">查看完整报告</el-button>
+        <dl class="attrs">
+          <div class="attr">
+            <dt>分类</dt>
+            <dd>{{ product.categoryName || '—' }}</dd>
           </div>
-        </el-card>
-        <!-- 卖家信息 -->
-        <el-card shadow="never" class="seller-card">
-          <template #header><span>卖家信息</span></template>
-          <div class="seller-info">
-            <el-avatar :size="48" :src="product.sellerAvatar">{{ (product.sellerNickname || '卖').charAt(0) }}</el-avatar>
-            <div class="seller-meta">
-              <div class="seller-name">{{ product.sellerNickname || '卖家' }}</div>
-              <div class="seller-rating">综合评分:{{ product.sellerRating ?? 5.0 }}</div>
-              <el-button link type="primary" @click="goSeller">进入店铺</el-button>
-            </div>
+          <div class="attr">
+            <dt>发布时间</dt>
+            <dd>{{ product.createTime || '—' }}</dd>
           </div>
-        </el-card>
-      </el-col>
-    </el-row>
+          <div class="attr">
+            <dt>浏览</dt>
+            <dd>{{ product.viewCount ?? 0 }} 次</dd>
+          </div>
+        </dl>
+
+        <p class="desc">{{ product.description || '卖家没有写描述，可以先看看质检报告，或直接联系卖家问细节。' }}</p>
+
+        <div class="actions">
+          <button type="button" class="btn-primary" @click="openBuy">立即购买</button>
+          <button type="button" class="btn-ghost" @click="handleFavorite">
+            {{ product.favorite ? '已收藏' : '收藏' }}
+          </button>
+          <button type="button" class="btn-ghost" @click="goChat">联系卖家</button>
+          <button type="button" class="btn-text" @click="openReport">举报</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- 质检报告：本页的主张 -->
+    <section v-if="qcReport" class="qc">
+      <div class="qc-head">
+        <h2 class="qc-title">智能质检报告</h2>
+        <button type="button" class="qc-more" @click="goReport">
+          查看完整报告
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="qc-body">
+        <div class="qc-grade">
+          <span class="qc-letter">{{ qcReport.report.qualityGrade || '—' }}</span>
+          <span class="qc-caption">成色等级</span>
+        </div>
+
+        <div class="qc-facts">
+          <div class="fact">
+            <span class="k">识别机型</span>
+            <span class="v">{{ qcReport.report.brandModel || '—' }}</span>
+          </div>
+          <div class="fact">
+            <span class="k">参考区间</span>
+            <span class="v">
+              ¥{{ formatPrice(qcReport.report.priceMin) }} – ¥{{ formatPrice(qcReport.report.priceMax) }}
+            </span>
+          </div>
+          <div class="fact">
+            <span class="k">缺陷摘要</span>
+            <span class="v">{{ qcReport.report.defectSummary || '未记录明显缺陷' }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 卖家 -->
+    <section v-if="product" class="seller">
+      <el-avatar :size="44" :src="product.sellerAvatar">{{ (product.sellerNickname || '卖').charAt(0) }}</el-avatar>
+      <div class="seller-main">
+        <p class="seller-name">{{ product.sellerNickname || '卖家' }}</p>
+        <p class="seller-sub">综合评分 {{ product.sellerRating ?? 5.0 }}</p>
+      </div>
+      <button type="button" class="btn-ghost small" @click="goSeller">进入店铺</button>
+    </section>
 
     <!-- 举报弹窗 -->
     <el-dialog v-model="reportVisible" title="举报商品" width="440px" append-to-body>
@@ -104,28 +142,30 @@
     <!-- 下单弹窗 -->
     <el-dialog v-model="buyVisible" title="确认订单" width="520px" append-to-body>
       <div v-if="buyProduct" class="buy-summary">
-        <el-image :src="buyProduct.images && buyProduct.images.length ? buyProduct.images[0].url : ''" fit="cover" class="buy-cover" />
-        <div>
-          <div class="buy-title">{{ buyProduct.title }}</div>
-          <div class="buy-price">¥{{ buyProduct.price }}</div>
+        <img v-if="buyProduct.images && buyProduct.images.length" :src="buyProduct.images[0].url" alt="" class="buy-cover" />
+        <div class="buy-info">
+          <p class="buy-title">{{ buyProduct.title }}</p>
+          <p class="buy-price"><b>¥</b>{{ formatPrice(buyProduct.price) }}</p>
         </div>
       </div>
-      <el-divider />
-      <h4>选择收货地址</h4>
-      <el-empty v-if="addressList.length === 0" description="还没有收货地址" :image-size="60">
-        <el-button type="primary" size="small" @click="goAddress">去添加地址</el-button>
-      </el-empty>
+
+      <p class="buy-label">收货地址</p>
+      <p v-if="addressList.length === 0" class="buy-empty">
+        还没有收货地址。
+        <button type="button" class="link" @click="goAddress">去添加一个</button>
+      </p>
       <el-radio-group v-model="selectedAddressId" v-else class="address-group">
         <el-radio v-for="a in addressList" :key="a.id" :value="a.id" border class="address-radio">
           <div class="addr-line">{{ a.receiver }} {{ a.phone }}</div>
           <div class="addr-line sub">{{ a.province }}{{ a.city }}{{ a.district || '' }}{{ a.detail }}</div>
-          <el-tag v-if="a.isDefault === '1'" type="success" size="small">默认</el-tag>
+          <span v-if="a.isDefault === '1'" class="addr-default">默认</span>
         </el-radio>
       </el-radio-group>
+
       <template #footer>
         <el-button @click="buyVisible = false">取消</el-button>
-        <el-button type="danger" :loading="creating" :disabled="!selectedAddressId" @click="submitOrder">
-          提交订单(¥{{ buyProduct?.price }})
+        <el-button type="primary" :loading="creating" :disabled="!selectedAddressId" @click="submitOrder">
+          提交订单 ¥{{ formatPrice(buyProduct?.price) }}
         </el-button>
       </template>
     </el-dialog>
@@ -133,7 +173,7 @@
 </template>
 
 <script setup name="ProductDetail" lang="ts">
-import { getCurrentInstance, onMounted, ref, toRefs } from 'vue';
+import { getCurrentInstance, onMounted, computed, ref, toRefs } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getProduct, favoriteProduct, cancelFavoriteProduct } from '@/api/trade/product';
 import { createOrder } from '@/api/trade/order';
@@ -152,6 +192,15 @@ const router = useRouter();
 const loading = ref(false);
 const product = ref<ProductVO>();
 const qcReport = ref<any>();
+const activeImg = ref(0);
+
+const formatPrice = (v?: number) => (v == null ? '—' : Number(v).toLocaleString('zh-CN'));
+
+const mainImage = computed(() => {
+  const imgs = product.value?.images;
+  if (!imgs || !imgs.length) return '';
+  return imgs[Math.min(activeImg.value, imgs.length - 1)]?.url || '';
+});
 
 const load = async () => {
   loading.value = true;
@@ -236,7 +285,8 @@ const handleFavorite = async () => {
 const goChat = async () => {
   if (!product.value) return;
   const res = await openConversation(product.value.id);
-  router.push('/message/chat?conversationId=' + res.data);
+  // 消息菜单挂在 /trade 下，路由是 /trade/chat
+  router.push('/trade/chat?conversationId=' + res.data);
 };
 
 /* 立即购买 */
@@ -280,103 +330,580 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.detail-title {
-  margin: 0 0 12px;
-  font-size: 22px;
+.detail {
+  max-width: 1180px;
 }
-.price-box {
-  background: #fdf3f3;
-  padding: 14px;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  .price {
-    color: var(--sm-danger);
-    font-size: 28px;
-    font-weight: 700;
-  }
-  .original-price {
-    margin-left: 10px;
-    color: var(--sm-ink-3);
-    text-decoration: line-through;
-    font-size: 14px;
-  }
-}
-.detail-desc {
-  margin-bottom: 16px;
-}
-.description-block {
-  margin-bottom: 20px;
-  h4 {
-    margin: 0 0 8px;
-  }
-  p {
-    color: var(--sm-ink-2);
-    line-height: 1.8;
-  }
-}
-.action-bar {
-  margin-bottom: 16px;
-}
-.seller-card {
-  .seller-info {
-    display: flex;
-    align-items: center;
-    .seller-meta {
-      margin-left: 14px;
-      .seller-name {
-        font-size: 16px;
-        font-weight: 600;
-      }
-      .seller-rating {
-        margin-top: 4px;
-        color: var(--sm-warning);
-        font-size: 13px;
-      }
-    }
-  }
-}
-</style>
 
-<style lang="scss" scoped>
+/* ---------- 返回 ---------- */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 16px;
+  padding: 7px 13px 7px 9px;
+  border: 1px solid var(--sm-card-border);
+  border-radius: var(--sm-r-pill);
+  background: var(--sm-paper);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--sm-ink-2);
+  cursor: pointer;
+  transition:
+    border-color 0.16s ease,
+    color 0.16s ease;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  &:hover {
+    border-color: var(--sm-line);
+    color: var(--sm-ink);
+  }
+}
+
+/* ---------- 主区：图 + 信息 ---------- */
+.sheet {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+  padding: 24px;
+  border: 1px solid var(--sm-card-border);
+  border-radius: 22px;
+  background: var(--sm-paper);
+}
+
+.stage {
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--sm-brand-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+}
+
+.stage-letter {
+  font-style: normal;
+  font-size: 46px;
+  font-weight: 800;
+  color: var(--sm-brand-deep);
+  opacity: 0.4;
+}
+
+.thumbs {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.thumb {
+  flex: 0 0 62px;
+  width: 62px;
+  height: 62px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--sm-brand-tint);
+  cursor: pointer;
+  transition: border-color 0.16s ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &.on {
+    border-color: var(--sm-brand);
+  }
+}
+
+.info {
+  min-width: 0;
+  padding-top: 6px;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: var(--sm-ink);
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.price {
+  font-family: var(--sm-font-num);
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--sm-ink);
+  font-variant-numeric: tabular-nums;
+
+  b {
+    margin-right: 2px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--sm-stone);
+  }
+}
+
+.origin {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sm-stone);
+  text-decoration: line-through;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.chip {
+  padding: 4px 11px;
+  border-radius: var(--sm-r-pill);
+  background: var(--sm-bg);
+  border: 1px solid var(--sm-line-soft);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sm-ink-3);
+}
+
+.chip-grade {
+  background: var(--sm-brand-soft);
+  border-color: transparent;
+  color: var(--sm-brand-deep);
+}
+
+/* 属性：三行键值，不用带边框的表格 */
+.attrs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0 0;
+  padding: 16px 0;
+  border-top: 1px solid var(--sm-line-soft);
+  border-bottom: 1px solid var(--sm-line-soft);
+
+  .attr {
+    min-width: 0;
+  }
+
+  dt {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--sm-stone);
+  }
+
+  dd {
+    margin: 4px 0 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--sm-ink);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.desc {
+  margin: 18px 0 0;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.85;
+  color: var(--sm-ink-2);
+  white-space: pre-wrap;
+}
+
+/* ---------- 行动按钮 ---------- */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.btn-primary,
+.btn-ghost,
+.btn-text {
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    transform 0.16s var(--sm-ease),
+    box-shadow 0.16s var(--sm-ease),
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.btn-primary {
+  height: 44px;
+  padding: 0 30px;
+  border: none;
+  border-radius: var(--sm-r-pill);
+  background: var(--sm-brand);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 3px 0 var(--sm-brand-deep);
+
+  &:hover {
+    background: #3aa6f2;
+  }
+
+  &:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 var(--sm-brand-deep);
+  }
+}
+
+.btn-ghost {
+  height: 44px;
+  padding: 0 22px;
+  border: 1px solid var(--sm-line);
+  border-radius: var(--sm-r-pill);
+  background: var(--sm-paper);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--sm-ink-2);
+
+  &:hover {
+    border-color: var(--sm-brand);
+    color: var(--sm-brand-deep);
+  }
+
+  &.small {
+    height: 34px;
+    padding: 0 16px;
+    font-size: 12.5px;
+  }
+}
+
+.btn-text {
+  height: 44px;
+  padding: 0 8px;
+  border: none;
+  background: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sm-stone);
+
+  &:hover {
+    color: var(--sm-danger);
+  }
+}
+
+/* ---------- 质检报告 ---------- */
+.qc {
+  margin-top: 18px;
+  padding: 22px 24px 24px;
+  border: 1px solid var(--sm-line);
+  border-radius: 22px;
+  background: linear-gradient(120deg, #eef7ff 0%, #f7fbff 58%, #ffffff 100%);
+}
+
+.qc-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.qc-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--sm-ink);
+}
+
+.qc-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sm-brand-deep);
+  cursor: pointer;
+
+  svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s var(--sm-ease);
+  }
+
+  &:hover svg {
+    transform: translateX(3px);
+  }
+}
+
+.qc-body {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-top: 18px;
+}
+
+.qc-grade {
+  flex: 0 0 auto;
+  width: 92px;
+  height: 92px;
+  border-radius: 20px;
+  background: var(--sm-paper);
+  border: 1px solid var(--sm-line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.qc-letter {
+  font-family: var(--sm-font-num);
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--sm-brand-deep);
+}
+
+.qc-caption {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--sm-stone);
+}
+
+.qc-facts {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 16px 26px;
+  min-width: 0;
+  flex: 1;
+}
+
+.fact {
+  min-width: 0;
+}
+
+.fact .k {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--sm-stone);
+}
+
+.fact .v {
+  display: block;
+  margin-top: 3px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--sm-ink);
+}
+
+/* ---------- 卖家 ---------- */
+.seller {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 14px 20px;
+  border: 1px solid var(--sm-card-border);
+  border-radius: 18px;
+  background: var(--sm-paper);
+}
+
+.seller-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.seller-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--sm-ink);
+}
+
+.seller-sub {
+  margin: 2px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sm-stone);
+}
+
+/* ---------- 下单弹窗 ---------- */
 .buy-summary {
   display: flex;
+  align-items: center;
   gap: 12px;
-  .buy-cover {
-    width: 72px;
-    height: 72px;
-    border-radius: 6px;
-  }
-  .buy-title {
-    font-size: 14px;
-    font-weight: 500;
-  }
-  .buy-price {
-    margin-top: 8px;
-    color: var(--sm-danger);
-    font-size: 20px;
-    font-weight: 700;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--sm-bg);
+}
+
+.buy-cover {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.buy-info {
+  min-width: 0;
+}
+
+.buy-title {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--sm-ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.buy-price {
+  margin: 4px 0 0;
+  font-family: var(--sm-font-num);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--sm-ink);
+
+  b {
+    margin-right: 1px;
+    font-size: 12px;
+    color: var(--sm-stone);
   }
 }
+
+.buy-label {
+  margin: 18px 0 10px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--sm-ink);
+}
+
+.buy-empty {
+  margin: 0;
+  font-size: 13px;
+  color: var(--sm-stone);
+}
+
+.link {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sm-brand-deep);
+  cursor: pointer;
+}
+
 .address-group {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
 }
+
 .address-radio {
   width: 100%;
   margin-right: 0 !important;
   height: auto;
-  padding: 10px 14px;
+  padding: 11px 14px;
+  border-radius: 12px;
+
   :deep(.el-radio__label) {
     width: 100%;
   }
+
   .addr-line {
     line-height: 1.6;
+    font-weight: 600;
+    color: var(--sm-ink);
+
     &.sub {
-      color: var(--sm-ink-3);
+      color: var(--sm-stone);
       font-size: 12px;
+      font-weight: 500;
     }
+  }
+
+  .addr-default {
+    display: inline-block;
+    margin-top: 3px;
+    padding: 1px 7px;
+    border-radius: 5px;
+    background: var(--sm-accent-soft);
+    color: #1c7a52;
+    font-size: 10.5px;
+    font-weight: 700;
+  }
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 900px) {
+  .sheet {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 19px;
+  }
+
+  .price {
+    font-size: 28px;
+  }
+
+  .attrs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .qc-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .qc-facts {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
   }
 }
 </style>

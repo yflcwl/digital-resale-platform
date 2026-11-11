@@ -1,32 +1,37 @@
 <template>
   <div class="app-container">
-    <el-card shadow="never">
-      <template #header>
-        <div class="header-bar">
-          <span>收货地址</span>
-          <el-button type="primary" @click="openDialog()">新增地址</el-button>
-        </div>
-      </template>
+    <header class="sm-page-head">
+      <div>
+        <h1 class="sm-page-title">收货地址</h1>
+        <p class="sm-page-desc">下单时默认选中的地址，会优先展示在订单确认页。</p>
+      </div>
+      <el-button type="primary" @click="openDialog()">新增地址</el-button>
+    </header>
 
-      <el-empty v-if="!loading && list.length === 0" description="还没有收货地址" />
-      <el-row :gutter="16" v-loading="loading">
-        <el-col :span="8" v-for="item in list" :key="item.id" style="margin-bottom: 16px">
-          <el-card shadow="hover" :class="{ 'default-card': item.isDefault === '1' }">
-            <div class="addr-head">
-              <span class="receiver">{{ item.receiver }}</span>
-              <span class="phone">{{ item.phone }}</span>
-              <el-tag v-if="item.isDefault === '1'" type="success" size="small">默认</el-tag>
-            </div>
-            <div class="addr-detail">{{ item.province }}{{ item.city }}{{ item.district || '' }}{{ item.detail }}</div>
-            <div class="addr-actions">
-              <el-button v-if="item.isDefault !== '1'" link type="primary" @click="handleSetDefault(item)">设为默认</el-button>
-              <el-button link type="primary" @click="openDialog(item)">编辑</el-button>
-              <el-button link type="danger" @click="handleDelete(item)">删除</el-button>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-    </el-card>
+    <div v-loading="loading" class="grid">
+      <article v-for="item in list" :key="item.id" :class="['card', { default: item.isDefault === '1' }]">
+        <header class="c-head">
+          <span class="receiver">{{ item.receiver }}</span>
+          <span class="phone">{{ item.phone }}</span>
+          <span v-if="item.isDefault === '1'" class="badge">默认</span>
+        </header>
+
+        <p class="addr">{{ item.province }}{{ item.city }}{{ item.district || '' }}{{ item.detail }}</p>
+
+        <footer class="c-foot">
+          <button v-if="item.isDefault !== '1'" type="button" class="act" @click="handleSetDefault(item)">设为默认</button>
+          <button type="button" class="act" @click="openDialog(item)">编辑</button>
+          <button type="button" class="act is-danger" @click="handleDelete(item)">删除</button>
+        </footer>
+      </article>
+
+      <button v-if="!loading" type="button" class="add-card" @click="openDialog()">
+        <span class="plus">＋</span>
+        <span>新增收货地址</span>
+      </button>
+    </div>
+
+    <p v-if="!loading && list.length === 0" class="empty">还没有收货地址。填一个，下单时就不用再输。</p>
 
     <el-dialog v-model="dialogVisible" :title="form.id ? '编辑地址' : '新增地址'" width="520px" append-to-body>
       <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
@@ -207,34 +212,160 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.header-bar {
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+/* ---------- 地址卡 ---------- */
+.card {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  padding: 18px 20px 12px;
+  border: 1px solid var(--sm-card-border);
+  border-radius: 18px;
+  background: var(--sm-paper);
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+
+  &:hover {
+    border-color: var(--sm-line);
+    box-shadow: 0 8px 24px -14px rgba(16, 45, 80, 0.26);
+  }
+
+  /* 默认地址：左侧一道蓝色竖条，不用整块描边抢戏 */
+  &.default {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 18px;
+      bottom: 18px;
+      width: 3px;
+      border-radius: 0 3px 3px 0;
+      background: var(--sm-brand);
+    }
+  }
 }
-.default-card {
-  border-color: var(--el-color-success);
-}
-.addr-head {
+
+.c-head {
   display: flex;
   align-items: center;
   gap: 10px;
-  .receiver {
-    font-weight: 600;
-  }
-  .phone {
-    color: var(--sm-ink-3);
-  }
 }
-.addr-detail {
-  margin-top: 10px;
+
+.receiver {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--sm-ink);
+}
+
+.phone {
+  font-family: var(--sm-font-num);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sm-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.badge {
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: var(--sm-r-pill);
+  background: var(--sm-brand-soft);
+  color: var(--sm-brand-deep);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.addr {
+  flex: 1;
+  margin: 10px 0 0;
+  min-height: 42px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.65;
   color: var(--sm-ink-2);
-  line-height: 1.6;
-  min-height: 44px;
 }
-.addr-actions {
-  margin-top: 10px;
+
+.c-foot {
   display: flex;
-  gap: 4px;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--sm-line-soft);
+}
+
+.act {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sm-ink-3);
+  cursor: pointer;
+  transition: color 0.16s ease;
+
+  &:hover {
+    color: var(--sm-brand-deep);
+  }
+
+  &.is-danger:hover {
+    color: var(--sm-danger);
+  }
+}
+
+/* ---------- 新增卡：虚线框 ---------- */
+.add-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 148px;
+  border: 1.5px dashed var(--sm-line);
+  border-radius: 18px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sm-stone);
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease,
+    background-color 0.18s ease;
+
+  .plus {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  &:hover {
+    border-color: var(--sm-brand);
+    background: var(--sm-brand-tint);
+    color: var(--sm-brand-deep);
+  }
+}
+
+.empty {
+  margin: 0;
+  padding: 56px 0 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sm-stone);
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 </style>

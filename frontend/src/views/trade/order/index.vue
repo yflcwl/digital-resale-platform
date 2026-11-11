@@ -1,63 +1,71 @@
 <template>
-  <div class="app-container">
-    <el-card shadow="never">
-      <template #header>
-        <el-tabs v-model="role" @tab-change="handleTabChange">
-          <el-tab-pane label="我买到的" name="buyer" />
-          <el-tab-pane label="我卖出的" name="seller" />
-        </el-tabs>
-      </template>
+  <div class="app-container orders">
+    <header class="sm-page-head">
+      <div>
+        <h1 class="sm-page-title">我的订单</h1>
+        <p class="sm-page-desc">下单、支付、发货、收货都在这里推进。</p>
+      </div>
+    </header>
 
-      <el-form :inline="true" @submit.prevent>
-        <el-form-item>
-          <el-select v-model="queryParams.status" placeholder="全部状态" clearable style="width: 150px;">
-            <el-option v-for="s in orderStatusDict" :key="s.value" :label="s.label" :value="s.value" />
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handleQuery">查询</el-button>
-        </el-form-item>
-      </el-form>
-
-      <el-empty v-if="!loading && list.length === 0" description="暂无订单" />
-
-      <div v-loading="loading">
-        <el-card v-for="o in list" :key="o.id" shadow="hover" class="order-card">
-          <div class="order-head">
-            <span class="order-no">订单号:{{ o.orderNo }}</span>
-            <span class="order-time">{{ o.createTime }}</span>
-            <el-tag :type="statusTagType(o.status)" size="small">{{ statusLabel(o.status) }}</el-tag>
-          </div>
-          <div class="order-body" @click="goDetail(o)">
-            <el-image :src="o.productImage" fit="cover" class="order-cover">
-              <template #error><div class="cover-slot"><el-icon><picture /></el-icon></div></template>
-            </el-image>
-            <div class="order-info">
-              <div class="order-title">{{ o.productTitle }}</div>
-              <div class="order-price">¥{{ o.price }}</div>
-              <div class="order-parties">
-                <span>买家:{{ o.buyerNickname || '-' }}</span>
-                <span>卖家:{{ o.sellerNickname || '-' }}</span>
-              </div>
-            </div>
-          </div>
-          <div class="order-actions">
-            <template v-if="role === 'buyer'">
-              <el-button v-if="o.status === 'PENDING_PAY'" type="primary" size="small" @click="goPay(o)">去支付</el-button>
-              <el-button v-if="o.status === 'PENDING_PAY'" size="small" @click="handleCancel(o)">取消订单</el-button>
-              <el-button v-if="o.status === 'SHIPPED'" type="success" size="small" @click="handleReceive(o)">确认收货</el-button>
-              <el-button v-if="o.status === 'RECEIVED'" type="warning" size="small" @click="openReview(o)">评价</el-button>
-            </template>
-            <template v-else>
-              <el-button v-if="o.status === 'PAID'" type="primary" size="small" @click="openShip(o)">去发货</el-button>
-            </template>
-            <el-button size="small" link type="primary" @click="goDetail(o)">订单详情</el-button>
-          </div>
-        </el-card>
+    <div class="bar">
+      <div class="seg">
+        <button type="button" :class="['seg-btn', { on: role === 'buyer' }]" @click="switchRole('buyer')">我买到的</button>
+        <button type="button" :class="['seg-btn', { on: role === 'seller' }]" @click="switchRole('seller')">我卖出的</button>
       </div>
 
-      <pagination v-show="total > 0" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" :total="total" @pagination="getList" />
-    </el-card>
+      <el-select v-model="queryParams.status" placeholder="全部状态" clearable class="status-select" @change="handleQuery">
+        <el-option v-for="s in orderStatusDict" :key="s.value" :label="s.label" :value="s.value" />
+      </el-select>
+    </div>
+
+    <div v-loading="loading" class="list">
+      <article v-for="o in list" :key="o.id" class="order">
+        <header class="o-head">
+          <span class="o-no">{{ o.orderNo }}</span>
+          <span class="o-time">{{ o.createTime }}</span>
+          <span :class="['o-status', statusClass(o.status)]">{{ statusLabel(o.status) }}</span>
+        </header>
+
+        <div class="o-body" @click="goDetail(o)">
+          <div class="o-cover">
+            <img v-if="o.productImage" :src="o.productImage" alt="" loading="lazy" />
+            <i v-else class="o-letter">{{ (o.productTitle || '·').slice(0, 1) }}</i>
+          </div>
+
+          <div class="o-main">
+            <p class="o-title">{{ o.productTitle }}</p>
+            <p class="o-parties">
+              <span>买家 {{ o.buyerNickname || '—' }}</span>
+              <i></i>
+              <span>卖家 {{ o.sellerNickname || '—' }}</span>
+            </p>
+          </div>
+
+          <p class="o-price"><b>¥</b>{{ formatPrice(o.price) }}</p>
+        </div>
+
+        <footer class="o-foot">
+          <button type="button" class="act-text" @click="goDetail(o)">订单详情</button>
+          <div class="o-actions">
+            <template v-if="role === 'buyer'">
+              <button v-if="o.status === 'PENDING_PAY'" type="button" class="act-ghost" @click="handleCancel(o)">取消订单</button>
+              <button v-if="o.status === 'PENDING_PAY'" type="button" class="act-primary" @click="goPay(o)">去支付</button>
+              <button v-if="o.status === 'SHIPPED'" type="button" class="act-primary" @click="handleReceive(o)">确认收货</button>
+              <button v-if="o.status === 'RECEIVED'" type="button" class="act-primary" @click="openReview(o)">评价</button>
+            </template>
+            <template v-else>
+              <button v-if="o.status === 'PAID'" type="button" class="act-primary" @click="openShip(o)">去发货</button>
+            </template>
+          </div>
+        </footer>
+      </article>
+
+      <p v-if="!loading && list.length === 0" class="empty">
+        {{ role === 'buyer' ? '还没有买过东西。' : '还没有卖出过东西。' }}
+      </p>
+    </div>
+
+    <pagination v-show="total > 0" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" :total="total" @pagination="getList" />
 
     <!-- 发货弹窗 -->
     <el-dialog v-model="shipVisible" title="填写发货信息" width="440px" append-to-body>
@@ -104,12 +112,12 @@ import { getCurrentInstance, onMounted, reactive, ref, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { listMyOrder, cancelOrder, receiveOrder, shipOrder, reviewOrder } from '@/api/trade/order';
 import { OrderQuery, OrderVO } from '@/api/trade/types';
+import { ElMessage, ElMessageBox } from 'element-plus';
 
 const { proxy } = getCurrentInstance() as any;
 const { order_status: orderStatusDict } = toRefs<any>(proxy?.useDict('order_status'));
 
 const statusLabel = (v: string) => orderStatusDict.value?.find((d: any) => d.value === v)?.label || v;
-import { ElMessage, ElMessageBox } from 'element-plus';
 
 const router = useRouter();
 const role = ref('buyer');
@@ -123,6 +131,16 @@ const queryParams = reactive<OrderQuery>({
   role: 'buyer'
 });
 
+const formatPrice = (v?: number) => (v == null ? '—' : Number(v).toLocaleString('zh-CN'));
+
+/** 状态用语义色区分，而不是一水儿的灰标签 */
+const statusClass = (status: string) => {
+  if (status === 'PENDING_PAY') return 'is-wait';
+  if (status === 'PAID' || status === 'SHIPPED') return 'is-going';
+  if (status === 'RECEIVED' || status === 'COMPLETED') return 'is-done';
+  return 'is-idle';
+};
+
 const getList = async () => {
   loading.value = true;
   try {
@@ -135,7 +153,8 @@ const getList = async () => {
   }
 };
 
-const handleTabChange = () => {
+const switchRole = (r: string) => {
+  role.value = r;
   queryParams.pageNum = 1;
   queryParams.status = undefined;
   getList();
@@ -144,10 +163,6 @@ const handleTabChange = () => {
 const handleQuery = () => {
   queryParams.pageNum = 1;
   getList();
-};
-
-const statusTagType = (status: string) => {
-  return orderStatusDict.value?.find((d: any) => d.value === status)?.elTagType || 'info';
 };
 
 const goDetail = (o: OrderVO) => {
@@ -229,70 +244,313 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.order-card {
-  margin-bottom: 14px;
+.orders {
+  max-width: 1080px;
 }
-.order-head {
+
+/* ---------- 顶部：分段切换 + 状态筛选 ---------- */
+.bar {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--el-border-color-lighter);
-  .order-no {
-    font-weight: 600;
-  }
-  .order-time {
-    color: var(--sm-ink-3);
-    font-size: 12px;
-    flex: 1;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.seg {
+  display: inline-flex;
+  gap: 3px;
+  padding: 4px;
+  border-radius: var(--sm-r-pill);
+  background: var(--sm-bg-2);
+}
+
+.seg-btn {
+  padding: 7px 18px;
+  border: none;
+  border-radius: var(--sm-r-pill);
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sm-ink-2);
+  cursor: pointer;
+  transition:
+    background-color var(--sm-dur) ease,
+    color var(--sm-dur) ease;
+
+  &.on {
+    background: var(--sm-paper);
+    color: var(--sm-ink);
+    box-shadow: 0 1px 3px rgba(16, 45, 80, 0.14);
   }
 }
-.order-body {
+
+.status-select {
+  width: 150px;
+}
+
+/* ---------- 订单行 ---------- */
+.list {
   display: flex;
-  gap: 14px;
-  padding: 12px 0;
-  cursor: pointer;
-  .order-cover {
-    width: 84px;
-    height: 84px;
-    border-radius: 6px;
-    flex-shrink: 0;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 120px;
+}
+
+.order {
+  padding: 16px 20px 14px;
+  border: 1px solid var(--sm-card-border);
+  border-radius: 18px;
+  background: var(--sm-paper);
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+
+  &:hover {
+    border-color: var(--sm-line);
+    box-shadow: 0 6px 20px -12px rgba(16, 45, 80, 0.24);
   }
-  .cover-slot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+.o-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--sm-line-soft);
+}
+
+.o-no {
+  font-family: var(--sm-font-num);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--sm-ink-2);
+  letter-spacing: 0.01em;
+}
+
+.o-time {
+  flex: 1;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--sm-stone);
+}
+
+.o-status {
+  padding: 3px 10px;
+  border-radius: var(--sm-r-pill);
+  font-size: 11.5px;
+  font-weight: 700;
+
+  &.is-wait {
+    background: #fdf0dc;
+    color: #9a6300;
+  }
+
+  &.is-going {
+    background: var(--sm-brand-soft);
+    color: var(--sm-brand-deep);
+  }
+
+  &.is-done {
+    background: var(--sm-accent-soft);
+    color: #1c7a52;
+  }
+
+  &.is-idle {
+    background: var(--sm-bg-2);
+    color: var(--sm-ink-3);
+  }
+}
+
+.o-body {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  cursor: pointer;
+}
+
+.o-cover {
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--sm-brand-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
     width: 100%;
     height: 100%;
-    background: var(--sm-line-soft);
-    color: var(--sm-ink-3);
-  }
-  .order-info {
-    flex: 1;
-    .order-title {
-      font-size: 15px;
-      font-weight: 500;
-    }
-    .order-price {
-      margin-top: 8px;
-      color: var(--sm-danger);
-      font-size: 18px;
-      font-weight: 600;
-    }
-    .order-parties {
-      margin-top: 8px;
-      color: var(--sm-ink-3);
-      font-size: 12px;
-      display: flex;
-      gap: 18px;
-    }
+    object-fit: cover;
+    display: block;
   }
 }
-.order-actions {
+
+.o-letter {
+  font-style: normal;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--sm-brand-deep);
+  opacity: 0.4;
+}
+
+.o-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.o-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--sm-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.o-parties {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
   gap: 8px;
-  padding-top: 10px;
-  border-top: 1px solid var(--el-border-color-lighter);
+  margin: 6px 0 0;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--sm-stone);
+
+  i {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--sm-line);
+  }
+}
+
+.o-price {
+  flex: 0 0 auto;
+  margin: 0;
+  padding-left: 12px;
+  font-family: var(--sm-font-num);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--sm-ink);
+  font-variant-numeric: tabular-nums;
+
+  b {
+    margin-right: 1px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--sm-stone);
+  }
+}
+
+.o-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--sm-line-soft);
+}
+
+.o-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.act-text,
+.act-ghost,
+.act-primary {
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s var(--sm-ease),
+    box-shadow 0.16s var(--sm-ease);
+}
+
+.act-text {
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--sm-ink-3);
+
+  &:hover {
+    color: var(--sm-brand-deep);
+  }
+}
+
+.act-ghost {
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid var(--sm-line);
+  border-radius: var(--sm-r-pill);
+  background: var(--sm-paper);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--sm-ink-2);
+
+  &:hover {
+    border-color: var(--sm-brand);
+    color: var(--sm-brand-deep);
+  }
+}
+
+.act-primary {
+  height: 32px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--sm-r-pill);
+  background: var(--sm-brand);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  box-shadow: 0 2px 0 var(--sm-brand-deep);
+
+  &:hover {
+    background: #3aa6f2;
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 var(--sm-brand-deep);
+  }
+}
+
+.empty {
+  margin: 0;
+  padding: 60px 0;
+  text-align: center;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--sm-stone);
+}
+
+@media (max-width: 700px) {
+  .o-price {
+    font-size: 18px;
+  }
+
+  .o-cover {
+    flex-basis: 60px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .o-foot {
+    flex-wrap: wrap;
+  }
 }
 </style>

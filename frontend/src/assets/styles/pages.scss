@@ -1,0 +1,262 @@
+/**
+ * 业务页面外壳
+ *
+ * 若依时代每页各写一套：el-card 筛选区 + el-radio-group 排序 + 表格 + 分页，
+ * 视觉上互不相干。这里统一成一条节奏：
+ *
+ *   页头（可选 .sm-page-head）
+ *   筛选条 .search-card（扁平，不再是浮起的白卡）
+ *   排序条 .sort-bar（分段控件）
+ *   内容（表格 / 卡片流）
+ *   分页（右对齐）
+ *
+ * 只负责结构与间距，颜色一律引用令牌，换肤无需改本文件。
+ */
+
+/* ==================== 页面容器 ==================== */
+.app-container {
+  padding: 24px 28px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* 极简页头：标题 + 一句说明 + 右侧操作 */
+.sm-page-head {
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sm-page-title {
+  font-size: 24px;
+}
+
+/* ==================== 筛选条 ==================== */
+/* 页面里普遍写成 <el-card shadow="never" class="search-card">，把它拉平成一条工具带 */
+.el-card.search-card {
+  margin-bottom: 14px;
+  border: 1px solid var(--sm-card-border);
+  border-radius: 16px;
+  background: var(--sm-paper);
+  box-shadow: none;
+  transition: border-color var(--sm-dur) ease;
+
+  &:hover {
+    border-color: var(--sm-line);
+  }
+
+  .el-card__body {
+    padding: 14px 16px 2px;
+  }
+}
+
+/* 行内表单：让每个控件成为等高的方块，而不是高矮不齐的一排 */
+.el-form--inline {
+  .el-form-item {
+    margin-right: 12px;
+    margin-bottom: 12px;
+  }
+
+  .el-form-item__label {
+    padding-right: 8px;
+    font-weight: 600;
+    color: var(--sm-ink-3);
+  }
+
+  .el-input,
+  .el-select,
+  .el-cascader,
+  .el-input-number,
+  .el-date-editor {
+    vertical-align: middle;
+  }
+}
+
+/* ==================== 排序条：分段控件 ==================== */
+.sort-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+
+  .el-radio-group {
+    display: inline-flex;
+    gap: 3px;
+    padding: 4px;
+    border-radius: var(--sm-r-pill);
+    background: var(--sm-bg-2);
+  }
+
+  .el-radio-button__inner {
+    padding: 6px 15px;
+    border: none !important;
+    border-radius: var(--sm-r-pill) !important;
+    background: transparent;
+    box-shadow: none !important;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--sm-ink-2);
+    transition:
+      background-color var(--sm-dur) ease,
+      color var(--sm-dur) ease;
+  }
+
+  .el-radio-button__inner:hover {
+    color: var(--sm-ink);
+  }
+
+  .el-radio-button__original-radio:checked + .el-radio-button__inner {
+    background: var(--sm-paper) !important;
+    color: var(--sm-ink) !important;
+    box-shadow: 0 1px 3px rgba(16, 45, 80, 0.14) !important;
+  }
+}
+
+/* 排序条右侧的结果计数 */
+.sort-count {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--sm-stone);
+
+  b {
+    color: var(--sm-ink);
+    font-family: var(--sm-font-num);
+    font-size: 14px;
+  }
+}
+
+/* ==================== 表格页的工具条 ==================== */
+/* 若依习惯：右对齐的一排按钮，放在表格上方 */
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+
+  .toolbar-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--sm-ink);
+  }
+
+  .toolbar-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+/* ==================== 页面内的 el-card 统一成扁平面板 ==================== */
+/* 后台 CRUD 页普遍写成 <el-card shadow="never"><template #header>标题</template>…，
+   这里统一：去掉浮起阴影、收一档圆角、把 header 变成真正的区块标题。 */
+.app-container .el-card {
+  border: 1px solid var(--sm-card-border);
+  border-radius: 18px;
+  background: var(--sm-paper);
+  box-shadow: none;
+
+  /* 悬浮型卡片（列表条目）保留一点抬升，但更轻 */
+  &.is-hover-shadow:hover {
+    box-shadow: 0 10px 28px -18px rgba(16, 45, 80, 0.28);
+  }
+}
+
+.app-container .el-card__header {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--sm-line-soft);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--sm-ink);
+}
+
+.app-container .el-card__body {
+  padding: 18px 20px;
+}
+
+/* 卡片内直接放表格时，去掉重复的内边距 */
+.app-container .el-card__body > .el-table:only-child,
+.app-container .el-card__body > div > .el-table:only-child {
+  margin: -18px -20px;
+  width: calc(100% + 40px);
+  border-radius: 0 0 18px 18px;
+}
+
+/* ==================== 表格 ==================== */
+.app-container > .el-table,
+.app-container > .el-card > .el-table {
+  border-radius: 16px;
+}
+
+/* ==================== 分页 ==================== */
+.app-container .el-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* ==================== 空状态 ==================== */
+.el-empty {
+  padding: 40px 0;
+
+  .el-empty__description p {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sm-stone);
+  }
+
+  .el-empty__image {
+    opacity: 0.55;
+  }
+}
+
+/* ==================== 常用小件 ==================== */
+/* 成色徽章：和首页、列表页保持同一套视觉 */
+.sm-grade {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  padding: 2px 7px;
+  border-radius: 7px;
+  background: var(--sm-brand-soft);
+  color: var(--sm-brand-deep);
+  font-family: var(--sm-font-num);
+  font-size: 11.5px;
+  font-weight: 800;
+}
+
+/* 区块小标题 */
+.sm-block-title {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--sm-ink);
+}
+
+/* 描述型正文 */
+.sm-prose {
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.85;
+  color: var(--sm-ink-2);
+  white-space: pre-wrap;
+}
+
+/* ==================== 响应式 ==================== */
+@media (max-width: 900px) {
+  .app-container {
+    padding: 16px 14px 32px;
+  }
+
+  .sm-page-title {
+    font-size: 20px;
+  }
+}
