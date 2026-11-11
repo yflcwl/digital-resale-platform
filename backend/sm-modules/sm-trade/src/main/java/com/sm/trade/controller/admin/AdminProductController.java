@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 管理后台:商品管理
@@ -38,6 +42,17 @@ public class AdminProductController {
         return productService.adminPage(bo, pageQuery);
     }
 
+    /**
+     * 批量设置/取消首页精选
+     */
+    @PostMapping("/featured")
+    public R<Integer> setFeatured(@RequestBody Map<String, Object> body) {
+        @SuppressWarnings("unchecked")
+        List<Long> ids = ((List<Object>) body.getOrDefault("ids", List.of()))
+            .stream().map(o -> Long.valueOf(String.valueOf(o))).toList();
+        boolean featured = Boolean.parseBoolean(String.valueOf(body.getOrDefault("featured", true)));
+        return R.ok(productService.adminSetFeatured(ids, featured));
+    }
     /**
      * 强制下架
      */

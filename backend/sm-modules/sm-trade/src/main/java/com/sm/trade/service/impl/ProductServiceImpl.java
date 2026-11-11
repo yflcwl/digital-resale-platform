@@ -315,6 +315,32 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public List<ProductVo> selectFeatured(int limit) {
+        List<ProductVo> list = baseMapper.selectVoList(Wrappers.<Product>lambdaQuery()
+            .eq(Product::getIsFeatured, "1")
+            .eq(Product::getStatus, ProductStatus.ON_SALE)
+            .orderByDesc(Product::getUpdateTime)
+            .last("limit " + Math.max(1, limit)));
+        fillCategoryName(list);
+        return list;
+    }
+
+    @Override
+    public int adminSetFeatured(List<Long> ids, boolean featured) {
+        if (ids == null || ids.isEmpty()) {
+            throw new ServiceException("请先选择商品");
+        }
+        LambdaUpdateWrapper<Product> uw = Wrappers.lambdaUpdate();
+        uw.set(Product::getIsFeatured, featured ? "1" : "0");
+        uw.in(Product::getId, ids);
+        if (featured) {
+            // 仅允许在售商品加入首页精选
+            uw.eq(Product::getStatus, ProductStatus.ON_SALE);
+        }
+        return baseMapper.update(null, uw);
+    }
+
+    @Override
     public TableDataInfo<ProductVo> adminPage(ProductBo bo, PageQuery pageQuery) {
         LambdaQueryWrapper<Product> lqw = Wrappers.lambdaQuery();
         lqw.like(StringUtils.isNotBlank(bo.getTitle()), Product::getTitle, bo.getTitle());

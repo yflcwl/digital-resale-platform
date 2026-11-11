@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -48,6 +49,14 @@ public class ProductController {
         return productService.queryOnSalePage(bo, pageQuery);
     }
 
+    /**
+     * 首页精选商品(匿名)
+     */
+    @SaIgnore
+    @GetMapping("/featured")
+    public R<List<ProductVo>> featured(@RequestParam(defaultValue = "8") int limit) {
+        return R.ok(productService.selectFeatured(limit));
+    }
     /**
      * 商品详情(匿名可浏览)
      */

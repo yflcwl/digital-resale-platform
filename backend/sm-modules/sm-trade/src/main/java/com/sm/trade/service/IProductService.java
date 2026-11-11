@@ -88,4 +88,16 @@ public interface IProductService {
      * 管理端:删除商品(仅草稿/已下架)
      */
     void adminRemove(Long id);
+
+    /**
+     * 首页精选商品(在售 + is_featured=1)
+     */
+    List<ProductVo> selectFeatured(int limit);
+
+    /**
+     * 管理端:批量设置/取消首页精选
+     *
+     * @return 实际更新行数
+     */
+    int adminSetFeatured(List<Long> ids, boolean featured);
 }

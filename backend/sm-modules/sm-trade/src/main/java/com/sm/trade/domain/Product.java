@@ -69,6 +69,9 @@ public class Product extends BaseEntity {
     /** 最新有效质检报告ID */
     private Long latestReportId;
 
+    /** 是否首页精选(0否 1是) */
+    private String isFeatured;
+
     /** 删除标志(0正常 2删除) */
     @TableLogic
     private String delFlag;

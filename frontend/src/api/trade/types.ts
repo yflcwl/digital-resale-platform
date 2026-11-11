@@ -43,6 +43,7 @@ export interface ProductVO {
   viewCount?: number;
   favoriteCount?: number;
   latestReportId?: number;
+  isFeatured?: string;
   createTime?: string;
   images?: ProductImageVO[];
   categoryName?: string;

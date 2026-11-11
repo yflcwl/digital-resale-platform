@@ -33,6 +33,10 @@ export const adminOffShelf = (id: number | string): AxiosPromise<void> => {
   return request({ url: `/admin/product/${id}/off-shelf`, method: 'post' });
 };
 
+export const adminSetFeatured = (ids: number[], featured: boolean): AxiosPromise<number> => {
+  return request({ url: '/admin/product/featured', method: 'post', data: { ids, featured } });
+};
+
 export const adminDelProduct = (id: number | string): AxiosPromise<void> => {
   return request({ url: `/admin/product/${id}`, method: 'delete' });
 };

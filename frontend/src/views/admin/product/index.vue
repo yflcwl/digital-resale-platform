@@ -15,7 +15,14 @@
         </el-form-item>
       </el-form>
 
-      <el-table v-loading="loading" :data="list">
+      <div class="batch-bar">
+        <el-button type="primary" plain :disabled="selectedIds.length === 0" @click="handleSetFeatured(true)">加入首页精选</el-button>
+        <el-button plain :disabled="selectedIds.length === 0" @click="handleSetFeatured(false)">取消精选</el-button>
+        <span class="batch-tip">已选 {{ selectedIds.length }} 件(精选仅支持在售商品)</span>
+      </div>
+
+      <el-table v-loading="loading" :data="list" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="46" align="center" />
         <el-table-column label="图片" width="80" align="center">
           <template #default="scope">
             <el-image :src="cover(scope.row)" fit="cover" style="width: 50px; height: 50px; border-radius: 4px" />
@@ -32,6 +39,12 @@
         <el-table-column label="状态" width="100" align="center">
           <template #default="scope">
             <el-tag :type="tagType(scope.row.status)" size="small">{{ productStatusDict[scope.row.status] || scope.row.status }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="精选" width="80" align="center">
+          <template #default="scope">
+            <el-tag v-if="scope.row.isFeatured === '1'" type="danger" size="small" effect="plain">精选</el-tag>
+            <span v-else style="color: var(--sm-stone)">-</span>
           </template>
         </el-table-column>
         <el-table-column prop="sellerId" label="卖家ID" width="90" align="center" />
@@ -53,7 +66,7 @@
 <script setup name="AdminProduct" lang="ts">
 import { onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { pageAdminProduct, adminOffShelf, adminDelProduct } from '@/api/admin';
+import { pageAdminProduct, adminOffShelf, adminDelProduct, adminSetFeatured } from '@/api/admin';
 import { productStatusDict, productStatusOptions, ProductVO } from '@/api/trade/types';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
@@ -61,6 +74,7 @@ const router = useRouter();
 const loading = ref(false);
 const total = ref(0);
 const list = ref<ProductVO[]>([]);
+const selectedIds = ref<number[]>([]);
 
 const queryParams = reactive<Record<string, any>>({
   pageNum: 1,
@@ -69,6 +83,19 @@ const queryParams = reactive<Record<string, any>>({
   status: undefined
 });
 
+const handleSelectionChange = (rows: ProductVO[]) => {
+  selectedIds.value = rows.map((r) => r.id);
+};
+
+const handleSetFeatured = async (featured: boolean) => {
+  if (selectedIds.value.length === 0) {
+    ElMessage.warning('请先选择商品');
+    return;
+  }
+  await adminSetFeatured(selectedIds.value, featured);
+  ElMessage.success(featured ? '已加入首页精选' : '已取消精选');
+  getList();
+};
 const getList = async () => {
   loading.value = true;
   try {

@@ -100,7 +100,7 @@
 
 <script setup name="Index" lang="ts">
 import { Search } from '@element-plus/icons-vue';
-import { listOnSaleProduct } from '@/api/trade/product';
+import { listOnSaleProduct, listFeaturedProduct } from '@/api/trade/product';
 import { listCategoryTree } from '@/api/trade/category';
 import { listCarousel, CarouselVO } from '@/api/trade/carousel';
 import type { CategoryTreeVO, ProductVO } from '@/api/trade/types';
@@ -162,12 +162,21 @@ const searchWord = (w: string) => {
 onMounted(async () => {
   loading.value = true;
   const [goodsRes, catsRes, carouselRes] = await Promise.allSettled([
-    listOnSaleProduct({ pageNum: 1, pageSize: 8 } as any),
+    listFeaturedProduct(8),
     listCategoryTree(),
     listCarousel()
   ]);
   if (goodsRes.status === 'fulfilled') {
-    goods.value = goodsRes.value.rows || [];
+    goods.value = goodsRes.value.data || [];
+  }
+  // 管理员尚未设置精选时,回落展示最新上架
+  if (goods.value.length === 0) {
+    try {
+      const fallback = await listOnSaleProduct({ pageNum: 1, pageSize: 8 } as any);
+      goods.value = fallback.rows || [];
+    } catch {
+      goods.value = [];
+    }
   }
   if (catsRes.status === 'fulfilled') {
     categories.value = (catsRes.value.data || []).slice(0, 8);

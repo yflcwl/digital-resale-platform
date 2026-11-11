@@ -138,3 +138,14 @@ export const listBrowseHistory = (): AxiosPromise<ProductVO[]> => {
     method: 'get'
   });
 };
+
+/**
+ * 首页精选商品
+ */
+export const listFeaturedProduct = (limit = 8): AxiosPromise<ProductVO[]> => {
+  return request({
+    url: '/trade/product/featured',
+    method: 'get',
+    params: { limit }
+  });
+};
