@@ -161,8 +161,9 @@
             <span v-else>{{ proxy.$t('login.logging') }}</span>
           </el-button>
 
-          <p v-if="register" class="register-row">
-            <router-link class="link-type" :to="'/register'">{{ proxy.$t('login.switchRegisterPage') }}</router-link>
+          <p class="register-row">
+            <router-link v-if="register" class="link-type" :to="'/register'">{{ proxy.$t('login.switchRegisterPage') }}</router-link>
+            <router-link class="link-type" :to="'/forgot-password'" style="margin-left: 12px">忘记密码?</router-link>
           </p>
         </el-form>
 

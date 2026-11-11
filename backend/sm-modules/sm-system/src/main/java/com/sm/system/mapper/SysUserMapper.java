@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import com.sm.common.mybatis.annotation.DataColumn;
 import com.sm.common.mybatis.annotation.DataPermission;
 import com.sm.common.mybatis.core.mapper.BaseMapperPlus;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 import com.sm.system.domain.SysUser;
 import com.sm.system.domain.vo.SysUserExportVo;
 import com.sm.system.domain.vo.SysUserVo;
@@ -20,6 +22,12 @@ import java.util.List;
  * @author Lion Li
  */
 public interface SysUserMapper extends BaseMapperPlus<SysUser, SysUserVo> {
+
+    /**
+     * 重置密码(匿名接口专用:注解 SQL,不触发创建/更新人自动填充)
+     */
+    @Update("update sys_user set password = #{password}, update_time = now() where user_id = #{userId}")
+    int updatePassword(@Param("userId") Long userId, @Param("password") String password);
 
     /**
      * 分页查询用户列表，并进行数据权限控制

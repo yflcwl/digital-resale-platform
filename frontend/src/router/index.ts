@@ -53,6 +53,11 @@ export const constantRoutes: RouteRecordRaw[] = [
     hidden: true
   },
   {
+    path: '/forgot-password',
+    component: () => import('@/views/forgot.vue'),
+    hidden: true
+  },
+  {
     path: '/:pathMatch(.*)*',
     component: () => import('@/views/error/404.vue'),
     hidden: true

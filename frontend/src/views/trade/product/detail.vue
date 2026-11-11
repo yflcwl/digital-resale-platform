@@ -71,6 +71,7 @@
             <div class="seller-meta">
               <div class="seller-name">{{ product.sellerNickname || '卖家' }}</div>
               <div class="seller-rating">综合评分:{{ product.sellerRating ?? 5.0 }}</div>
+              <el-button link type="primary" @click="goSeller">进入店铺</el-button>
             </div>
           </div>
         </el-card>
@@ -142,6 +143,12 @@ const load = async () => {
       });
   } finally {
     loading.value = false;
+  }
+};
+
+const goSeller = () => {
+  if (product.value?.sellerId) {
+    router.push('/trade/seller?sellerId=' + product.value.sellerId);
   }
 };
 

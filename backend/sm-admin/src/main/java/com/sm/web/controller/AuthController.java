@@ -42,6 +42,7 @@ import com.sm.web.domain.vo.LoginVo;
 import com.sm.web.domain.vo.TenantListVo;
 import com.sm.web.service.IAuthStrategy;
 import com.sm.web.service.SysLoginService;
+import com.sm.web.service.ForgotPasswordService;
 import com.sm.web.service.SysRegisterService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -70,6 +71,7 @@ public class AuthController {
     private final SocialProperties socialProperties;
     private final SysLoginService loginService;
     private final SysRegisterService registerService;
+    private final ForgotPasswordService forgotPasswordService;
     private final ISysConfigService configService;
     private final ISysTenantService tenantService;
     private final ISysSocialService socialUserService;
@@ -197,7 +199,25 @@ public class AuthController {
     }
 
     /**
-     * 登录页面租户下拉框
+     * 找回密码:发送邮箱验证码(本地未配置邮件时返回验证码便于演示)
+     */
+    @PostMapping("/forgot/send-code")
+    public R<String> sendResetCode(@RequestBody Map<String, String> body) {
+        // 注意:若依 R.ok(String) 重载会将字符串作为 msg,这里显式放入 data
+        return R.ok("验证码已发送", forgotPasswordService.sendResetCode(body.get("email")));
+    }
+
+    /**
+     * 找回密码:校验验证码并重置密码
+     */
+    @PostMapping("/forgot/reset")
+    public R<Void> resetPassword(@RequestBody Map<String, String> body) {
+        forgotPasswordService.resetPassword(body.get("email"), body.get("code"), body.get("password"));
+        return R.ok();
+    }
+
+    /**
+     * 登录页获取租户列表
      *
      * @return 租户列表
      */

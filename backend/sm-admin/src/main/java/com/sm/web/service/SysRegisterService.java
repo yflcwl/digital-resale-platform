@@ -20,7 +20,9 @@ import com.sm.common.tenant.helper.TenantHelper;
 import com.sm.common.web.config.properties.CaptchaProperties;
 import com.sm.system.domain.SysUser;
 import com.sm.system.domain.bo.SysUserBo;
+import com.sm.system.domain.SysUserRole;
 import com.sm.system.mapper.SysUserMapper;
+import com.sm.system.mapper.SysUserRoleMapper;
 import com.sm.system.service.ISysUserService;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,7 @@ public class SysRegisterService {
 
     private final ISysUserService userService;
     private final SysUserMapper userMapper;
+    private final SysUserRoleMapper userRoleMapper;
     private final CaptchaProperties captchaProperties;
 
     /**
@@ -69,6 +72,19 @@ public class SysRegisterService {
         if (!regFlag) {
             throw new UserException("user.register.error");
         }
+        // 毕设扩展:注册用户默认绑定"普通用户"角色(role_id=100),否则登录后无菜单
+        TenantHelper.dynamic(tenantId, () -> {
+            SysUser created = userMapper.selectOne(new LambdaQueryWrapper<SysUser>()
+                .eq(SysUser::getUserName, username)
+                .last("limit 1"));
+            if (created != null) {
+                SysUserRole userRole = new SysUserRole();
+                userRole.setUserId(created.getUserId());
+                userRole.setRoleId(100L);
+                userRoleMapper.insert(userRole);
+            }
+            return null;
+        });
         recordLogininfor(tenantId, username, Constants.REGISTER, MessageUtils.message("user.register.success"));
     }
 

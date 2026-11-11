@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sm.trade.mapper.OrderReviewMapper">
+
+    <select id="selectSellerReviews" resultType="com.sm.trade.domain.vo.ReviewVo">
+        select r.id,
+               r.order_id           as orderId,
+               r.rating,
+               r.content,
+               r.create_time        as createTime,
+               coalesce(p.nickname, u.nick_name)                                          as reviewerNickname,
+               p.avatar                                                                    as reviewerAvatar
+        from sm_order_review r
+                 left join sm_user_profile p on r.reviewer_id = p.user_id
+                 left join sys_user u on r.reviewer_id = u.user_id
+        where r.reviewee_id = #{sellerId}
+        order by r.create_time desc
+        offset #{offset} limit #{limit}
+    </select>
+
+    <select id="selectSellerReviewCount" resultType="long">
+        select count(*) from sm_order_review where reviewee_id = #{sellerId}
+    </select>
+
+</mapper>

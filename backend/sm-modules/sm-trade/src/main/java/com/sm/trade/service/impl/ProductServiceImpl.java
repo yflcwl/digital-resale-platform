@@ -69,6 +69,7 @@ public class ProductServiceImpl implements IProductService {
         LambdaQueryWrapper<Product> lqw = Wrappers.lambdaQuery();
         lqw.eq(Product::getStatus, ProductStatus.ON_SALE);
         lqw.like(StringUtils.isNotBlank(bo.getTitle()), Product::getTitle, bo.getTitle());
+        lqw.eq(bo.getSellerId() != null, Product::getSellerId, bo.getSellerId());
         lqw.eq(bo.getCategoryId() != null, Product::getCategoryId, bo.getCategoryId());
         lqw.eq(StringUtils.isNotBlank(bo.getBrandName()), Product::getBrandName, bo.getBrandName());
         lqw.eq(StringUtils.isNotBlank(bo.getConditionSelf()), Product::getConditionSelf, bo.getConditionSelf());
@@ -318,9 +319,9 @@ public class ProductServiceImpl implements IProductService {
         LambdaQueryWrapper<Product> lqw = Wrappers.lambdaQuery();
         lqw.like(StringUtils.isNotBlank(bo.getTitle()), Product::getTitle, bo.getTitle());
         lqw.eq(StringUtils.isNotBlank(bo.getStatus()), Product::getStatus, bo.getStatus());
+        lqw.eq(bo.getSellerId() != null, Product::getSellerId, bo.getSellerId());
         lqw.eq(bo.getCategoryId() != null, Product::getCategoryId, bo.getCategoryId());
         lqw.eq(StringUtils.isNotBlank(bo.getBrandName()), Product::getBrandName, bo.getBrandName());
-        lqw.eq(bo.getSellerId() != null, Product::getSellerId, bo.getSellerId());
         lqw.orderByDesc(Product::getCreateTime);
         Page<ProductVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
         fillCategoryName(result.getRecords());
