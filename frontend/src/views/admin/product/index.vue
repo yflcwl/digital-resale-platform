@@ -31,7 +31,9 @@
         <el-table-column prop="title" label="标题" min-width="200" show-overflow-tooltip />
         <el-table-column prop="categoryName" label="分类" width="100" align="center" />
         <el-table-column prop="price" label="价格" width="100" align="center">
-          <template #default="scope"><span style="color: var(--sm-danger)">¥{{ scope.row.price }}</span></template>
+          <template #default="scope"
+            ><span style="color: var(--sm-danger)">¥{{ scope.row.price }}</span></template
+          >
         </el-table-column>
         <el-table-column label="成色" width="80" align="center">
           <template #default="scope">{{ scope.row.qualityGrade || '-' }}</template>

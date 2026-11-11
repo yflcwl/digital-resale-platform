@@ -19,7 +19,9 @@
         <el-table-column prop="orderNo" label="订单号" width="200" />
         <el-table-column prop="productTitle" label="商品" min-width="180" show-overflow-tooltip />
         <el-table-column prop="price" label="金额" width="100" align="center">
-          <template #default="scope"><span style="color: var(--sm-danger)">¥{{ scope.row.price }}</span></template>
+          <template #default="scope"
+            ><span style="color: var(--sm-danger)">¥{{ scope.row.price }}</span></template
+          >
         </el-table-column>
         <el-table-column prop="buyerNickname" label="买家" width="110" align="center" />
         <el-table-column prop="sellerNickname" label="卖家" width="110" align="center" />

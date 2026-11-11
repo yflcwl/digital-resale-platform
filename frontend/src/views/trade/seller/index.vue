@@ -8,10 +8,18 @@
           <h2>{{ home.nickname }}</h2>
           <p class="bio">{{ home.bio || '卖家还没有填写简介' }}</p>
           <div class="stats">
-            <span>综合评分 <b>{{ home.sellerRating ?? 5.0 }}</b></span>
-            <span>收到评价 <b>{{ home.ratingCount ?? 0 }}</b></span>
-            <span>成交 <b>{{ home.dealCount ?? 0 }}</b> 笔</span>
-            <span>在售 <b>{{ home.onSaleCount ?? 0 }}</b> 件</span>
+            <span
+              >综合评分 <b>{{ home.sellerRating ?? 5.0 }}</b></span
+            >
+            <span
+              >收到评价 <b>{{ home.ratingCount ?? 0 }}</b></span
+            >
+            <span
+              >成交 <b>{{ home.dealCount ?? 0 }}</b> 笔</span
+            >
+            <span
+              >在售 <b>{{ home.onSaleCount ?? 0 }}</b> 件</span
+            >
           </div>
         </div>
       </div>
@@ -27,7 +35,10 @@
               <el-card shadow="hover" class="product-card" @click="goProduct(item)">
                 <div class="product-cover">
                   <el-image :src="cover(item)" fit="cover" class="cover-img">
-                    <template #error><div class="image-slot"><el-icon><picture /></el-icon></div></template>
+                    <template #error
+                      ><div class="image-slot">
+                        <el-icon><picture /></el-icon></div
+                    ></template>
                   </el-image>
                   <el-tag v-if="item.qualityGrade" size="small" class="grade-tag" type="warning">{{ item.qualityGrade }}级</el-tag>
                 </div>
@@ -36,7 +47,13 @@
               </el-card>
             </el-col>
           </el-row>
-          <pagination v-show="productTotal > 0" v-model:page="productPage.pageNum" v-model:limit="productPage.pageSize" :total="productTotal" @pagination="loadProducts" />
+          <pagination
+            v-show="productTotal > 0"
+            v-model:page="productPage.pageNum"
+            v-model:limit="productPage.pageSize"
+            :total="productTotal"
+            @pagination="loadProducts"
+          />
         </el-tab-pane>
 
         <el-tab-pane :label="`评价(${reviewTotal})`" name="reviews">
@@ -52,7 +69,13 @@
               <div class="review-content">{{ r.content || '买家未填写评价内容' }}</div>
             </div>
           </div>
-          <pagination v-show="reviewTotal > 0" v-model:page="reviewPage.pageNum" v-model:limit="reviewPage.pageSize" :total="reviewTotal" @pagination="loadReviews" />
+          <pagination
+            v-show="reviewTotal > 0"
+            v-model:page="reviewPage.pageNum"
+            v-model:limit="reviewPage.pageSize"
+            :total="reviewTotal"
+            @pagination="loadReviews"
+          />
         </el-tab-pane>
       </el-tabs>
     </el-card>

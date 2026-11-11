@@ -91,7 +91,7 @@ const getTree = async () => {
 
 const openDialog = (item?: CategoryTreeVO, parent?: CategoryTreeVO) => {
   form.id = item?.id;
-  form.parentId = item ? item.parentId : parent?.id ?? 0;
+  form.parentId = item ? item.parentId : (parent?.id ?? 0);
   form.name = item?.name || '';
   form.icon = item?.icon || '';
   form.sort = item?.sort ?? 0;

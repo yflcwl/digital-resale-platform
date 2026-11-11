@@ -59,9 +59,7 @@ import { ProductForm, CategoryTreeVO } from '@/api/trade/types';
 import { ElMessage, FormInstance, FormRules } from 'element-plus';
 
 const { proxy } = getCurrentInstance() as any;
-const { product_condition: conditionDict, product_brand: brandDict } = toRefs<any>(
-  proxy?.useDict('product_condition', 'product_brand')
-);
+const { product_condition: conditionDict, product_brand: brandDict } = toRefs<any>(proxy?.useDict('product_condition', 'product_brand'));
 
 const route = useRoute();
 const router = useRouter();

@@ -10,13 +10,7 @@
     <!-- 筛选条 -->
     <div class="filter">
       <div class="filter-row">
-        <el-input
-          v-model="queryParams.title"
-          class="f-search"
-          placeholder="搜索商品关键词"
-          clearable
-          @keyup.enter="handleQuery"
-        >
+        <el-input v-model="queryParams.title" class="f-search" placeholder="搜索商品关键词" clearable @keyup.enter="handleQuery">
           <template #prefix>
             <el-icon><Search /></el-icon>
           </template>
@@ -60,7 +54,9 @@
         <el-radio-button value="asc">价格从低到高</el-radio-button>
         <el-radio-button value="desc">价格从高到低</el-radio-button>
       </el-radio-group>
-      <span class="sort-count">共 <b>{{ total }}</b> 件在售</span>
+      <span class="sort-count"
+        >共 <b>{{ total }}</b> 件在售</span
+      >
     </div>
 
     <!-- 商品卡 -->
@@ -94,13 +90,7 @@
       换个关键词，或把价格区间放宽一点试试。
     </p>
 
-    <pagination
-      v-show="total > 0"
-      v-model:page="queryParams.pageNum"
-      v-model:limit="queryParams.pageSize"
-      :total="total"
-      @pagination="getList"
-    />
+    <pagination v-show="total > 0" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" :total="total" @pagination="getList" />
   </div>
 </template>
 

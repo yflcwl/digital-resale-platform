@@ -77,7 +77,14 @@
         <button type="button" class="qc-more" @click="goReport">
           查看完整报告
           <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </button>
       </div>
@@ -95,9 +102,7 @@
           </div>
           <div class="fact">
             <span class="k">参考区间</span>
-            <span class="v">
-              ¥{{ formatPrice(qcReport.report.priceMin) }} – ¥{{ formatPrice(qcReport.report.priceMax) }}
-            </span>
+            <span class="v"> ¥{{ formatPrice(qcReport.report.priceMin) }} – ¥{{ formatPrice(qcReport.report.priceMax) }} </span>
           </div>
           <div class="fact">
             <span class="k">缺陷摘要</span>

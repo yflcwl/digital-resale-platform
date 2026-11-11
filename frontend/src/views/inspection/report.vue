@@ -57,7 +57,9 @@
 
       <!-- 缺陷明细 -->
       <section class="defects">
-        <h2 class="sec-title">缺陷明细<span class="count">{{ defects.length }}</span></h2>
+        <h2 class="sec-title">
+          缺陷明细<span class="count">{{ defects.length }}</span>
+        </h2>
 
         <p v-if="defects.length === 0" class="no-defect">未检出明显外观缺陷。</p>
 
@@ -87,7 +89,14 @@
 
     <!-- 反馈弹窗 -->
     <el-dialog v-model="feedbackVisible" title="报告反馈" width="440px" append-to-body>
-      <el-input v-model="feedbackContent" type="textarea" :rows="3" placeholder="如:某处缺陷描述不准确、机型识别有误等" maxlength="500" show-word-limit />
+      <el-input
+        v-model="feedbackContent"
+        type="textarea"
+        :rows="3"
+        placeholder="如:某处缺陷描述不准确、机型识别有误等"
+        maxlength="500"
+        show-word-limit
+      />
       <template #footer>
         <el-button @click="feedbackVisible = false">取消</el-button>
         <el-button type="primary" :loading="submitting" @click="submitFeedback">提交</el-button>
@@ -114,8 +123,7 @@ const feedbackVisible = ref(false);
 const feedbackContent = ref('');
 const submitting = ref(false);
 
-const formatPrice = (v?: number) =>
-  v == null ? '—' : Number(v).toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const formatPrice = (v?: number) => (v == null ? '—' : Number(v).toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
 
 const defectTypeName = (type: string) => {
   const map: Record<string, string> = {
