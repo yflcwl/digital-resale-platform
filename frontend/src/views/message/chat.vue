@@ -122,8 +122,7 @@
                 </template>
                 <div class="emoji-panel">
                   <button v-for="e in emojis" :key="e" type="button" class="emoji-item" @click="appendEmoji(e)">{{ e }}</button>
-                </div>
-              </el-popover>
+                </div>              </el-popover>
 
               <el-upload :show-file-list="false" :http-request="handleImageUpload" accept="image/*" class="tool-upload">
                 <button type="button" class="tool-btn" title="发送图片" :disabled="uploading">
@@ -1026,6 +1025,37 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 4px;
   padding-bottom: 6px;
+}
+
+/* 表情面板：重置 button 默认样式，干净的等距网格 */
+.emoji-panel {
+  display: grid;
+  grid-template-columns: repeat(8, 36px);
+  gap: 4px;
+
+  .emoji-item {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+      background-color 0.12s ease,
+      transform 0.12s var(--sm-ease);
+
+    &:hover {
+      background: var(--sm-bg-2);
+      transform: scale(1.14);
+    }
+
+    &:active {
+      transform: scale(0.92);
+    }
+  }
 }
 
 .tool-btn {
