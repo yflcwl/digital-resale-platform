@@ -20,18 +20,14 @@ const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const route = useRoute();
 const tagsViewStore = useTagsViewStore();
 
-// 随机动画集合
-const animate = ref<string>('');
+// 页面入场：单一、克制。随机动画是廉价感的来源，固定一种
+const animate = ref<string>('page-in');
 const animationEnable = ref(useSettingsStore().animationEnable);
 watch(
   () => useSettingsStore().animationEnable,
   (val: boolean) => {
     animationEnable.value = val;
-    if (val) {
-      animate.value = proxy?.animate.animateList[Math.round(Math.random() * proxy?.animate.animateList.length)] as string;
-    } else {
-      animate.value = proxy?.animate.defaultAnimate as string;
-    }
+    animate.value = val ? 'page-in' : '';
   },
   { immediate: true }
 );

@@ -1,5 +1,20 @@
 // global transition css
 
+/**
+ * 页面切换入场：全站唯一一种。
+ * 位移小、时长短 —— 高级感的动效是"几乎察觉不到，但就是顺"。
+ */
+.page-in-enter-active {
+  transition:
+    opacity 0.16s ease-out,
+    transform 0.16s ease-out;
+}
+
+.page-in-enter-from {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
 /* fade */
 .fade-enter-active,
 .fade-leave-active {

@@ -464,6 +464,34 @@
   }
 }
 
+/* 加载态：白纱 + 模糊，转圈只留品牌蓝一笔 */
+.el-loading-mask {
+  background: rgba(245, 249, 254, 0.62);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+
+  .el-loading-spinner {
+    .path {
+      stroke: var(--sm-brand);
+    }
+
+    .el-loading-text {
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--sm-stone);
+    }
+  }
+}
+
+/* 弹层（表情面板等）：跟下拉菜单同一套玻璃 */
+.el-popover.el-popper {
+  border: 1px solid var(--sm-line) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--sm-shadow-2) !important;
+  padding: 10px !important;
+}
+
 /* ============ 标签 / 徽标 ============ */
 .el-tag {
   border-radius: var(--sm-r-pill);
