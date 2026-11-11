@@ -78,3 +78,31 @@ export const pageAdminReport = (query: Record<string, any>): AxiosPromise<TableD
 export const getAdminReport = (id: number | string): AxiosPromise<any> => {
   return request({ url: `/admin/inspection/report/${id}`, method: 'get' });
 };
+
+/* ---------- 举报处理 ---------- */
+
+export const pageAdminReportList = (query: Record<string, any>): AxiosPromise<TableDataInfo<any>> => {
+  return request({ url: '/admin/report/page', method: 'get', params: query });
+};
+
+export const handleAdminReport = (id: number | string, data: { status: string; remark?: string; offShelf?: boolean }): AxiosPromise<void> => {
+  return request({ url: '/admin/report/' + id + '/handle', method: 'post', data });
+};
+
+/* ---------- 轮播图管理 ---------- */
+
+export const adminCarouselList = (): AxiosPromise<any[]> => {
+  return request({ url: '/admin/carousel/list', method: 'get' });
+};
+
+export const adminAddCarousel = (data: Record<string, any>): AxiosPromise<number> => {
+  return request({ url: '/admin/carousel', method: 'post', data });
+};
+
+export const adminEditCarousel = (data: Record<string, any>): AxiosPromise<void> => {
+  return request({ url: '/admin/carousel', method: 'put', data });
+};
+
+export const adminDelCarousel = (id: number | string): AxiosPromise<void> => {
+  return request({ url: '/admin/carousel/' + id, method: 'delete' });
+};

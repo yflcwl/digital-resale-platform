@@ -43,6 +43,7 @@
               {{ product.favorite ? '已收藏' : '收藏' }}
             </el-button>
             <el-button size="large" @click="goChat">联系卖家</el-button>
+            <el-button size="large" text type="danger" @click="openReport">举报</el-button>
           </div>
         </el-card>
 
@@ -77,6 +78,28 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <!-- 举报弹窗 -->
+    <el-dialog v-model="reportVisible" title="举报商品" width="440px" append-to-body>
+      <el-form label-width="80px">
+        <el-form-item label="举报原因">
+          <el-select v-model="reportReason" style="width: 100%">
+            <el-option label="售假" value="售假" />
+            <el-option label="虚假描述" value="虚假描述" />
+            <el-option label="违禁品" value="违禁品" />
+            <el-option label="价格欺诈" value="价格欺诈" />
+            <el-option label="其他" value="其他" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="补充说明">
+          <el-input v-model="reportContent" type="textarea" :rows="3" placeholder="请描述问题(可选)" maxlength="500" show-word-limit />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="reportVisible = false">取消</el-button>
+        <el-button type="danger" :loading="reportSubmitting" @click="submitProductReport">提交举报</el-button>
+      </template>
+    </el-dialog>
 
     <!-- 下单弹窗 -->
     <el-dialog v-model="buyVisible" title="确认订单" width="520px" append-to-body>
@@ -116,6 +139,7 @@ import { getProduct, favoriteProduct, cancelFavoriteProduct } from '@/api/trade/
 import { createOrder } from '@/api/trade/order';
 import { openConversation } from '@/api/message/chat';
 import { getProductReport } from '@/api/inspection';
+import { submitReport } from '@/api/trade/report';
 import { listAddress } from '@/api/trade/address';
 import { AddressVO, ProductVO } from '@/api/trade/types';
 import { ElMessage } from 'element-plus';
@@ -146,6 +170,29 @@ const load = async () => {
   }
 };
 
+/* 举报 */
+const reportVisible = ref(false);
+const reportSubmitting = ref(false);
+const reportReason = ref('售假');
+const reportContent = ref('');
+
+const openReport = () => {
+  reportContent.value = '';
+  reportVisible.value = true;
+};
+
+const submitProductReport = async () => {
+  if (!product.value) return;
+  reportSubmitting.value = true;
+  try {
+    await submitReport(product.value.id, reportReason.value, reportContent.value);
+    ElMessage.success('举报已提交,管理员会尽快处理');
+    reportVisible.value = false;
+  } finally {
+    reportSubmitting.value = false;
+  }
+};
+
 const goSeller = () => {
   if (product.value?.sellerId) {
     router.push('/trade/seller?sellerId=' + product.value.sellerId);
@@ -154,7 +201,7 @@ const goSeller = () => {
 
 const goReport = () => {
   if (qcReport.value) {
-    router.push('/inspection/report?id=' + qcReport.value.report.id);
+    router.push('/trade/inspectionReport?id=' + qcReport.value.report.id);
   }
 };
 
