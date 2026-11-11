@@ -1,11 +1,26 @@
 <template>
   <div class="dash">
-    <!-- 问候 -->
+    <!-- 问候 + 搜索 -->
     <section class="hero">
       <div class="hero-main">
         <p class="hero-eyebrow">工作台</p>
         <h1 class="hero-title">{{ greeting }}，{{ nickname }}</h1>
         <p class="hero-sub">今天平台有 {{ stats.onSale }} 件商品在售，共 {{ stats.categories }} 个分类。想上新？先拍照做一次质检。</p>
+
+        <div class="hero-search">
+          <el-input
+            v-model="keyword"
+            placeholder="搜索商品：iPhone、MacBook、相机…"
+            size="large"
+            clearable
+            class="search-input"
+            @keyup.enter="handleSearch"
+            @clear="resetSearch"
+          >
+            <template #prefix><el-icon><Search /></el-icon></template>
+          </el-input>
+          <el-button type="primary" size="large" @click="handleSearch">搜索</el-button>
+        </div>
       </div>
       <div class="hero-actions">
         <el-button type="primary" size="large" @click="go('/trade/publish')">发布商品</el-button>
@@ -32,35 +47,41 @@
       </article>
     </section>
 
-    <!-- 主体两栏 -->
+    <!-- 商品 + 快捷入口 -->
     <section class="panels">
       <article class="panel">
         <header class="panel-head">
-          <h2 class="panel-title">最近上架</h2>
-          <button type="button" class="panel-link" @click="go('/trade/market')">查看全部</button>
+          <h2 class="panel-title">
+            {{ searched ? `搜索“${activeKeyword}”的结果` : '在售好物' }}
+            <em class="panel-count" v-if="searched">{{ goodsTotal }} 件</em>
+          </h2>
+          <div class="panel-head-actions">
+            <button v-if="searched" type="button" class="panel-link" @click="resetSearch">清除搜索</button>
+            <button type="button" class="panel-link" @click="go('/trade/market')">去市场看全部</button>
+          </div>
         </header>
 
-        <ul v-if="recent.length" class="recent">
-          <li v-for="p in recent" :key="p.id" class="recent-row" @click="go('/trade/detail?id=' + p.id)">
-            <span class="thumb">
+        <div v-loading="loading" class="goods">
+          <div v-for="p in goods" :key="p.id" class="good" @click="go('/trade/detail?id=' + p.id)">
+            <div class="good-cover">
               <img v-if="p.images && p.images.length" :src="p.images[0].url" alt="" />
               <i v-else class="thumb-letter">{{ (p.title || '·').slice(0, 1) }}</i>
-            </span>
-            <span class="recent-main">
-              <span class="recent-title">{{ p.title }}</span>
-              <span class="recent-meta">
-                <em v-if="p.qualityGrade" class="grade">{{ p.qualityGrade }}</em>
-                {{ p.categoryName || '未分类' }} · {{ p.conditionSelf || '未标注' }}
-              </span>
-            </span>
-            <span class="recent-price">¥{{ formatPrice(p.price) }}</span>
-          </li>
-        </ul>
+              <span v-if="p.qualityGrade" class="good-grade">{{ p.qualityGrade }}级</span>
+            </div>
+            <div class="good-title">{{ p.title }}</div>
+            <div class="good-meta">
+              <span class="good-price">¥{{ formatPrice(p.price) }}</span>
+              <span class="good-cat">{{ p.categoryName || '未分类' }}</span>
+            </div>
+          </div>
 
-        <div v-else class="empty">
-          <p class="empty-title">还没有在售商品</p>
-          <p class="empty-desc">发布第一件商品，拍照后 AI 会帮你定成色和参考价。</p>
-          <el-button type="primary" @click="go('/trade/publish')">去发布</el-button>
+          <div v-if="!loading && goods.length === 0" class="empty">
+            <p class="empty-title">{{ searched ? '没有找到相关商品' : '还没有在售商品' }}</p>
+            <p class="empty-desc">{{ searched ? '换个关键词试试，或去二手市场看看。' : '发布第一件商品，拍照后 AI 会帮你定成色和参考价。' }}</p>
+            <el-button type="primary" @click="searched ? resetSearch() : go('/trade/publish')">
+              {{ searched ? '查看全部商品' : '去发布' }}
+            </el-button>
+          </div>
         </div>
       </article>
 
@@ -92,6 +113,7 @@
 </template>
 
 <script setup name="Index" lang="ts">
+import { Search } from '@element-plus/icons-vue';
 import { listOnSaleProduct, listMyProduct } from '@/api/trade/product';
 import { listCategoryTree } from '@/api/trade/category';
 import { useUserStore } from '@/store/modules/user';
@@ -112,7 +134,12 @@ const greeting = computed(() => {
 });
 
 const stats = reactive({ onSale: 0, mine: 0, categories: 0 });
-const recent = ref<ProductVO[]>([]);
+const goods = ref<ProductVO[]>([]);
+const goodsTotal = ref(0);
+const loading = ref(false);
+const keyword = ref('');
+const activeKeyword = ref('');
+const searched = ref(false);
 
 const shortcuts = [
   { title: '发布商品', desc: '拍照 → 质检 → 定价', path: '/trade/publish', color: 'var(--sm-brand)' },
@@ -130,23 +157,61 @@ const go = (path: string) => router.push(path);
 const total = (res: any): number => res?.total ?? res?.data?.total ?? 0;
 const rows = (res: any): ProductVO[] => res?.rows ?? res?.data?.rows ?? [];
 
+/** 加载在售商品(keyword 为空时展示最新上架) */
+const loadGoods = async (title?: string) => {
+  loading.value = true;
+  try {
+    const res = await listOnSaleProduct({
+      pageNum: 1,
+      pageSize: 8,
+      ...(title ? { title } : {})
+    } as any);
+    goods.value = rows(res);
+    goodsTotal.value = total(res);
+  } finally {
+    loading.value = false;
+  }
+};
+
+const handleSearch = async () => {
+  const kw = keyword.value.trim();
+  if (!kw) {
+    resetSearch();
+    return;
+  }
+  activeKeyword.value = kw;
+  searched.value = true;
+  await loadGoods(kw);
+};
+
+const resetSearch = async () => {
+  keyword.value = '';
+  activeKeyword.value = '';
+  searched.value = false;
+  await loadGoods();
+};
+
 onMounted(async () => {
-  const [onSale, mine, cats] = await Promise.allSettled([
-    listOnSaleProduct({ pageNum: 1, pageSize: 5 } as any),
+  const [mine, cats] = await Promise.allSettled([
     listMyProduct({ pageNum: 1, pageSize: 1 } as any),
     listCategoryTree()
   ]);
-
-  if (onSale.status === 'fulfilled') {
-    stats.onSale = total(onSale.value);
-    recent.value = rows(onSale.value);
-  }
   if (mine.status === 'fulfilled') {
     stats.mine = total(mine.value);
   }
   if (cats.status === 'fulfilled') {
     const list = (cats.value as any)?.data ?? cats.value;
     stats.categories = Array.isArray(list) ? list.length : 0;
+  }
+  // 在售商品与总数(默认最新上架 8 件)
+  loading.value = true;
+  try {
+    const res = await listOnSaleProduct({ pageNum: 1, pageSize: 8 } as any);
+    goods.value = rows(res);
+    goodsTotal.value = total(res);
+    stats.onSale = total(res);
+  } finally {
+    loading.value = false;
   }
 });
 </script>
@@ -208,6 +273,20 @@ onMounted(async () => {
   font-weight: 500;
   color: var(--sm-ink-3);
   max-width: 46em;
+}
+
+.hero-search {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  max-width: 520px;
+
+  :deep(.el-input__wrapper) {
+    border-radius: var(--sm-r-pill);
+    padding-left: 16px;
+  }
 }
 
 .hero-actions {
@@ -291,7 +370,7 @@ onMounted(async () => {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 6px;
+  margin-bottom: 14px;
 }
 
 .panel-title {
@@ -300,6 +379,19 @@ onMounted(async () => {
   font-weight: 800;
   letter-spacing: -0.01em;
   color: var(--sm-ink);
+
+  .panel-count {
+    margin-left: 8px;
+    font-style: normal;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--sm-stone);
+  }
+}
+
+.panel-head-actions {
+  display: flex;
+  gap: 14px;
 }
 
 .panel-link {
@@ -317,40 +409,39 @@ onMounted(async () => {
   }
 }
 
-/* 最近上架 */
-.recent {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* ---------- 商品网格 ---------- */
+.goods {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  min-height: 120px;
 }
 
-.recent-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 11px 8px;
-  margin: 0 -8px;
-  border-radius: var(--sm-r-sm);
+.good {
   cursor: pointer;
-  transition: background-color var(--sm-dur) ease;
-
-  & + & {
-    border-top: 1px solid var(--sm-line-soft);
-  }
+  border-radius: var(--sm-r-sm);
+  transition: transform var(--sm-dur) var(--sm-ease);
 
   &:hover {
-    background: var(--sm-brand-tint);
+    transform: translateY(-2px);
+
+    .good-cover img {
+      transform: scale(1.04);
+    }
+
+    .good-title {
+      color: var(--sm-brand-deep);
+    }
   }
 }
 
-.thumb {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+.good-cover {
+  position: relative;
+  height: 110px;
+  border-radius: var(--sm-r-sm);
   overflow: hidden;
-  flex-shrink: 0;
   background: var(--sm-brand-soft);
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -358,69 +449,65 @@ onMounted(async () => {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform var(--sm-dur-lg) var(--sm-ease-out);
   }
 }
 
-.thumb-letter {
-  font-style: normal;
-  font-size: 15px;
+.good-grade {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-family: var(--sm-font-num);
+  font-size: 10.5px;
   font-weight: 800;
   color: var(--sm-brand-deep);
-  background: var(--sm-brand-soft);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: var(--sm-r-pill);
+  padding: 1px 8px;
 }
 
-.recent-main {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.recent-title {
-  font-size: 13.5px;
+.good-title {
+  margin-top: 8px;
+  font-size: 12.5px;
   font-weight: 700;
   color: var(--sm-ink);
+  line-height: 1.4;
+  height: 35px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  transition: color var(--sm-dur) ease;
+}
+
+.good-meta {
+  margin-top: 6px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.good-price {
+  font-family: var(--sm-font-num);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--sm-danger);
+  font-variant-numeric: tabular-nums;
+}
+
+.good-cat {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--sm-stone);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.recent-meta {
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--sm-stone);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.grade {
-  font-style: normal;
-  font-family: var(--sm-font-num);
-  font-weight: 800;
-  font-size: 10.5px;
-  color: var(--sm-brand-deep);
-  background: var(--sm-brand-soft);
-  border-radius: var(--sm-r-pill);
-  padding: 1px 7px;
-}
-
-.recent-price {
-  font-family: var(--sm-font-num);
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--sm-ink);
-  font-variant-numeric: tabular-nums;
-}
-
 /* 空状态 */
 .empty {
+  grid-column: 1 / -1;
   padding: 26px 8px 12px;
   text-align: center;
 }
@@ -539,6 +626,10 @@ onMounted(async () => {
   .panels {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  .goods {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 860px) {
@@ -558,6 +649,10 @@ onMounted(async () => {
 
   .stats {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .goods {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 </style>
