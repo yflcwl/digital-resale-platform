@@ -2,7 +2,10 @@ package com.sm.inspection.config;
 
 import com.sm.inspection.perception.DashScopeVisionClient;
 import com.sm.inspection.perception.MockVisionClient;
+import com.sm.inspection.perception.ScriptedReActModel;
 import com.sm.inspection.perception.VisionClient;
+import io.agentscope.core.model.Model;
+import io.agentscope.extensions.model.dashscope.DashScopeChatModel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +26,29 @@ public class PerceptionConfig {
     @ConditionalOnProperty(name = "inspection.mock", havingValue = "true", matchIfMissing = true)
     public VisionClient mockVisionClient() {
         return new MockVisionClient();
+    }
+
+    /**
+     * 智能体决策模型:
+     * mock 模式使用离线 ReAct 模型(真实运行 Thought→Action→Observation 循环),
+     * 非 mock 模式接入通义千问(DashScope)进行编排决策。
+     */
+    @Bean
+    @ConditionalOnProperty(name = "inspection.mock", havingValue = "true", matchIfMissing = true)
+    public Model scriptedReActModel() {
+        return new ScriptedReActModel();
+    }
+
+    @Bean
+    @ConditionalOnProperty(name = "inspection.mock", havingValue = "false")
+    public Model dashScopeReActModel(
+        @Value("${inspection.dashscope.api-key:}") String apiKey,
+        @Value("${inspection.dashscope.agent-model:qwen-plus}") String agentModel) {
+        return DashScopeChatModel.builder()
+            .apiKey(apiKey)
+            .modelName(agentModel)
+            .stream(false)
+            .build();
     }
 
     @Bean

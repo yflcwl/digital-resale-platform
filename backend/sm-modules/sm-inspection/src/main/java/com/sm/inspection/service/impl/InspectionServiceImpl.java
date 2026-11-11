@@ -17,7 +17,10 @@ import com.sm.inspection.mapper.InspectionFeedbackMapper;
 import com.sm.inspection.mapper.InspectionProductMapper;
 import com.sm.inspection.mapper.InspectionReportMapper;
 import com.sm.inspection.mapper.InspectionTaskMapper;
+import com.sm.inspection.perception.InspectionAgent;
+import com.sm.inspection.perception.QcTools;
 import com.sm.inspection.perception.VisionClient;
+import io.agentscope.core.model.Model;
 import com.sm.inspection.rule.GradeRuleEngine;
 import com.sm.inspection.service.IInspectionService;
 import com.sm.message.service.INotificationService;
@@ -53,8 +56,6 @@ public class InspectionServiceImpl implements IInspectionService {
 
     /** 质检任务 Topic */
     public static final String TOPIC_INSPECTION_TASK = "sm_inspection_task";
-    /** 工具失败重试次数 */
-    private static final int TOOL_RETRY = 1;
     /** 可提交质检的商品状态 */
     private static final List<String> SUBMITTABLE_STATUS = List.of("DRAFT", "OFF_SHELF", "WAITING_QC");
 
@@ -65,6 +66,7 @@ public class InspectionServiceImpl implements IInspectionService {
     private final InspectionProductMapper productMapper;
     private final INotificationService notificationService;
     private final VisionClient visionClient;
+    private final Model agentModel;
     private final RocketMQTemplate rocketMQTemplate;
     private final TransactionTemplate transactionTemplate;
 
@@ -159,26 +161,44 @@ public class InspectionServiceImpl implements IInspectionService {
         try {
             List<String> photos = parsePhotos(task.getPhotoUrls());
 
-            // ① 拍照合规校验
-            VisionClient.ComplianceResult compliance = retry(() -> visionClient.checkCompliance(task.getProductId(), photos));
+            // ReAct 智能体编排:由模型自主决定调用哪些工具、顺序与是否补拍
+            InspectionAgent.Result agentResult = InspectionAgent.run(
+                visionClient, agentModel, task.getProductId(), photos);
+            QcTools tools = agentResult.tools();
+
+            // ① 合规校验结果(智能体第一步;未执行视为异常)
+            VisionClient.ComplianceResult compliance = tools.getCompliance();
+            if (compliance == null) {
+                handleFailed(task, sellerId, "智能体未完成拍照合规校验");
+                return;
+            }
             if (!compliance.passed()) {
                 handleReshootNeeded(task, sellerId, compliance);
                 return;
             }
 
-            // ② 机型识别
-            VisionClient.ModelIdentifyResult modelInfo = retry(() -> visionClient.recognizeModel(task.getProductId(), photos));
-
-            // ③ 缺陷分析(模型看)
-            List<GradeRuleEngine.DefectItem> defects = retry(() -> visionClient.analyzeDefects(task.getProductId(), photos));
-
-            // ④⑤ 规则裁决(规则判):成色分级 + 参考定价
-            BigDecimal basePrice = null;
-            if (modelInfo.marketPriceMin() != null && modelInfo.marketPriceMax() != null) {
-                basePrice = modelInfo.marketPriceMin().add(modelInfo.marketPriceMax())
-                    .divide(BigDecimal.valueOf(2), 2, RoundingMode.HALF_UP);
+            // ②③ 感知结果
+            VisionClient.ModelIdentifyResult modelInfo = tools.getModelInfo();
+            if (modelInfo == null) {
+                modelInfo = new VisionClient.ModelIdentifyResult("未知品牌", "未识别机型", null, null, 0.5);
             }
-            GradeRuleEngine.GradeResult grade = GradeRuleEngine.gradeAndPrice(defects, basePrice);
+            List<GradeRuleEngine.DefectItem> defects = tools.getDefects();
+            if (defects == null) {
+                handleFailed(task, sellerId, "智能体未完成缺陷分析");
+                return;
+            }
+
+            // ④⑤ 成色分级与定价:优先采用智能体调用的规则引擎工具结果;
+            // 若智能体未调用,则由服务端用同一规则引擎兜底(裁决逻辑始终在代码侧)
+            GradeRuleEngine.GradeResult grade = tools.getGrade();
+            if (grade == null) {
+                BigDecimal basePrice = null;
+                if (modelInfo.marketPriceMin() != null && modelInfo.marketPriceMax() != null) {
+                    basePrice = modelInfo.marketPriceMin().add(modelInfo.marketPriceMax())
+                        .divide(BigDecimal.valueOf(2), 2, RoundingMode.HALF_UP);
+                }
+                grade = GradeRuleEngine.gradeAndPrice(defects, basePrice);
+            }
 
             Long reportId = saveSuccess(task, modelInfo, defects, grade, sellerId,
                 System.currentTimeMillis() - start);
@@ -198,19 +218,6 @@ public class InspectionServiceImpl implements IInspectionService {
             return List.of();
         }
         return JsonUtils.parseArray(photoUrls, String.class);
-    }
-
-    private <T> T retry(java.util.function.Supplier<T> supplier) {
-        RuntimeException last = null;
-        for (int i = 0; i <= TOOL_RETRY; i++) {
-            try {
-                return supplier.get();
-            } catch (RuntimeException e) {
-                last = e;
-                log.warn("感知工具调用失败,第 {} 次重试", i + 1, e);
-            }
-        }
-        throw last == null ? new IllegalStateException("感知工具调用失败") : last;
     }
 
     private void handleReshootNeeded(InspectionTask task, Long sellerId, VisionClient.ComplianceResult compliance) {
