@@ -1,22 +1,31 @@
 package com.sm.inspection.perception;
 
-import io.agentscope.core.ReActAgent;
+import io.agentscope.core.agent.RuntimeContext;
 import io.agentscope.core.message.ContentBlock;
 import io.agentscope.core.message.Msg;
 import io.agentscope.core.message.MsgRole;
 import io.agentscope.core.message.TextBlock;
 import io.agentscope.core.model.Model;
+import io.agentscope.core.state.InMemoryAgentStateStore;
 import io.agentscope.core.tool.Toolkit;
+import io.agentscope.harness.agent.HarnessAgent;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 
 /**
- * 质检智能体(AgentScope ReAct)
+ * 质检智能体(AgentScope HarnessAgent)
  *
  * <p>单一智能体 + 四工具(check_compliance / recognize_model / analyze_defects / grade_and_price),
  * 由模型在 ReAct 循环中自主决定调用顺序与是否补拍;分级定价固定由规则引擎工具裁决。</p>
+ *
+ * <p>系统提示词、任务模板与视觉提示词均外置于 classpath:prompts/ 目录,由 {@link PromptLoader} 加载。</p>
  *
  * @author sm
  */
@@ -27,23 +36,8 @@ public final class InspectionAgent {
     private static final int MAX_ITERS = 8;
     /** 单任务执行超时 */
     private static final Duration TIMEOUT = Duration.ofSeconds(180);
-
-    private static final String SYS_PROMPT = """
-        你是二手数码商品质检智能体,负责编排一次完整的质检流程。
-
-        可用工具:
-        1. check_compliance:拍照合规校验(角度是否齐全、清晰度是否达标)。
-        2. recognize_model:机型识别(品牌/型号/配置/二手行情价区间)。
-        3. analyze_defects:外观缺陷分析(类型/位置/严重度/置信度)。
-        4. grade_and_price:按系统规则引擎计算成色分、等级(S/A/B/C/D)与参考价区间,入参 defects_json 为缺陷数组。
-
-        执行规则:
-        - 第一步必须调用 check_compliance。
-        - 若 check_compliance 返回 passed=false,直接输出需要补拍的原因与建议,不再调用其他工具。
-        - 合规通过后,依次调用 recognize_model、analyze_defects;调用 grade_and_price 时把 analyze_defects 返回的缺陷数组作为 defects_json 传入。
-        - 成色等级与价格只能由 grade_and_price 裁决,你不得自行推断或修改数值。
-        - 全部工具完成后,用一句话总结本次质检结论。
-        """;
+    /** Harness 工作目录(构建产物目录下,避免污染项目根目录) */
+    private static final Path WORKSPACE = Path.of("target", "agentscope-workspace");
 
     private InspectionAgent() {
     }
@@ -52,26 +46,47 @@ public final class InspectionAgent {
      * 执行一次质检任务
      */
     public static Result run(VisionClient visionClient, Model model, Long productId, List<String> photos) {
+        prepareWorkspace();
         QcTools tools = new QcTools(visionClient, productId, photos);
         Toolkit toolkit = new Toolkit();
         toolkit.registerTool(tools);
 
-        ReActAgent agent = ReActAgent.builder()
+        HarnessAgent agent = HarnessAgent.builder()
             .name("QcInspector")
-            .sysPrompt(SYS_PROMPT)
+            .description("二手数码商品质检智能体")
+            .sysPrompt(PromptLoader.load("inspection-system"))
             .model(model)
             .toolkit(toolkit)
             .maxIters(MAX_ITERS)
+            .workspace(WORKSPACE)
+            .stateStore(new InMemoryAgentStateStore())
+            .disableSessionPersistence()
+            .disableFilesystemTools()
+            .disableShellTool()
+            .disableWebTools()
+            .disableSubagents()
+            .disableMemoryTools()
+            .disableMemoryHooks()
+            .disableWorkspaceContext()
+            .disableAtPathExpansion()
+            .disableDefaultWorkspaceSkills()
+            .disableDynamicSkills()
+            .disableDynamicSubagents()
+            .disableToolsConfig()
             .build();
 
         Msg input = Msg.builder()
             .name("user")
             .role(MsgRole.USER)
-            .textContent("请对商品 #" + productId + " 的 " + (photos == null ? 0 : photos.size())
-                + " 张照片执行质检流程,并给出最终结论。")
+            .textContent(PromptLoader.format("inspection-task",
+                Map.of("productId", String.valueOf(productId),
+                    "photoCount", String.valueOf(photos == null ? 0 : photos.size()))))
             .build();
 
-        Msg reply = agent.call(input).block(TIMEOUT);
+        Msg reply = agent.call(input, RuntimeContext.builder()
+            .userId("inspection")
+            .sessionId("qc-" + productId + "-" + System.nanoTime())
+            .build()).block(TIMEOUT);
         String finalText = extractText(reply);
         log.info("[InspectionAgent] task finished productId={}, compliance={}, defects={}, grade={}, reply={}",
             productId,
@@ -80,6 +95,14 @@ public final class InspectionAgent {
             tools.getGrade() == null ? null : tools.getGrade().grade(),
             finalText);
         return new Result(tools, finalText);
+    }
+
+    private static void prepareWorkspace() {
+        try {
+            Files.createDirectories(WORKSPACE);
+        } catch (IOException e) {
+            throw new UncheckedIOException("质检工作目录创建失败: " + WORKSPACE.toAbsolutePath(), e);
+        }
     }
 
     private static String extractText(Msg reply) {

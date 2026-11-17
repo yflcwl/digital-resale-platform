@@ -45,9 +45,7 @@ public class DashScopeVisionClient implements VisionClient {
 
     @Override
     public ComplianceResult checkCompliance(Long productId, List<String> photos) {
-        String prompt = "你是二手数码质检员。请核对照片是否覆盖:正面、背面、侧面、屏幕点亮、序列号标签,"
-            + "并评估清晰度(0~1)。仅输出 JSON:"
-            + "{\"passed\":true,\"missing\":[],\"clarity\":0.9,\"suggestion\":\"\"}";
+        String prompt = PromptLoader.load("vision-compliance");
         Map<String, Object> json = callWithImages(prompt, photos);
         boolean passed = Boolean.TRUE.equals(json.get("passed"));
         List<String> missing = new ArrayList<>();
@@ -62,8 +60,7 @@ public class DashScopeVisionClient implements VisionClient {
 
     @Override
     public ModelIdentifyResult recognizeModel(Long productId, List<String> photos) {
-        String prompt = "你是机型鉴定专家。结合外观与标签文字识别品牌、型号、配置,并给出二手行情价区间。"
-            + "仅输出 JSON:{\"brand\":\"Apple\",\"model\":\"iPhone 13 128G\",\"priceMin\":3500,\"priceMax\":3900,\"confidence\":0.92}";
+        String prompt = PromptLoader.load("vision-recognize");
         Map<String, Object> json = callWithImages(prompt, photos);
         BigDecimal min = toDecimal(json.get("priceMin"));
         BigDecimal max = toDecimal(json.get("priceMax"));
@@ -75,9 +72,7 @@ public class DashScopeVisionClient implements VisionClient {
 
     @Override
     public List<GradeRuleEngine.DefectItem> analyzeDefects(Long productId, List<String> photos) {
-        String prompt = "你是二手数码外观质检员。逐项检测缺陷,类型仅限:SCRATCH/CRACK/DENT/PAINT_LOSS/WATER_DAMAGE/OTHER,"
-            + "严重度仅限:MILD/MODERATE/SEVERE。未发现即不输出。仅输出 JSON:"
-            + "{\"defects\":[{\"type\":\"SCRATCH\",\"position\":\"屏幕\",\"severity\":\"MILD\",\"confidence\":0.9}]}";
+        String prompt = PromptLoader.load("vision-defects");
         Map<String, Object> json = callWithImages(prompt, photos);
         List<GradeRuleEngine.DefectItem> result = new ArrayList<>();
         Object defectsObj = json.get("defects");
