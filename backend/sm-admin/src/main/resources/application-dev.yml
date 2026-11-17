@@ -288,12 +288,11 @@ captcha:
 
 # 智能质检配置
 inspection:
-  # 演示模式:无多模态 API Key 时使用 Mock 感知(返回稳定感知结果,规则裁决仍真实执行)
-  mock: true
   # 单商品质检次数上限
   max-rounds: 3
   dashscope:
-    # 通义千问 VL API Key(环境变量 DASHSCOPE_API_KEY);配置后可将 mock 置为 false 接入真实模型
+    # 通义千问 API Key(环境变量 DASHSCOPE_API_KEY)
     api-key: ${DASHSCOPE_API_KEY:}
     base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
     model: qwen-vl-max
+

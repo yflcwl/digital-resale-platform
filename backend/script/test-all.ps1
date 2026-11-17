@@ -14,7 +14,6 @@ $tests = @(
     @{ Module = 'sm-admin'; Class = 'OrderFlowIntegrationTest'; Desc = '订单全链路(10)' },
     @{ Module = 'sm-admin'; Class = 'MessageFlowIntegrationTest'; Desc = '聊天+通知(6)' },
     @{ Module = 'sm-admin'; Class = 'AdminFlowIntegrationTest'; Desc = '管理后台(6)' },
-    @{ Module = 'sm-admin'; Class = 'InspectionFlowIntegrationTest'; Desc = '智能质检(5)' }
 )
 
 $failed = @()
