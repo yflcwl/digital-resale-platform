@@ -141,7 +141,7 @@ const poll = async () => {
       stopPolling();
       ElMessage.success('质检完成');
       if (res.data.reportId) {
-        router.push('/inspection/report?id=' + res.data.reportId);
+        router.push('/trade/inspectionReport?id=' + res.data.reportId);
       }
     } else if (taskStatus.value === 'NEED_RESHOOT' || taskStatus.value === 'FAILED') {
       stopPolling();

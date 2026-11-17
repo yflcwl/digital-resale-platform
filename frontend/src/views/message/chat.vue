@@ -102,6 +102,12 @@
 
         <!-- 输入区 -->
         <footer class="input-bar">
+          <div v-if="messages.length < 3" class="quick-row">
+            <button v-for="q in quickReplies" :key="q" type="button" class="quick" @click="useQuick(q)">
+              {{ q }}
+            </button>
+          </div>
+
           <div v-if="quoteMessage" class="quote-preview">
             <span class="quote-preview-text">引用 {{ quoteMessage.nickname }}：{{ quoteMessage.preview }}</span>
             <button type="button" class="quote-cancel" @click="quoteMessage = null">取消</button>
@@ -237,6 +243,12 @@ const emojis = [
   '😇',
   '😅'
 ];
+
+/** 二手交易场景的快捷回复：只在新会话前几条消息时出现 */
+const quickReplies = ['你好，还在吗？', '成色和报告一致吗？', '可以小刀吗？', '支持验货吗？'];
+const useQuick = (t: string) => {
+  inputText.value = t;
+};
 
 const myId = computed(() => Number(userStore.userId));
 const activeConversation = computed(() => conversations.value.find((c) => c.id === activeId.value));
@@ -486,6 +498,7 @@ onBeforeUnmount(() => {
   border: 1px solid var(--sm-card-border);
   border-radius: 20px;
   background: var(--sm-paper);
+  box-shadow: 0 24px 60px -30px rgba(16, 45, 80, 0.28);
   overflow: hidden;
 }
 
@@ -494,8 +507,10 @@ onBeforeUnmount(() => {
   flex: 0 0 288px;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--sm-line-soft);
-  background: var(--sm-bg);
+  background: var(--sm-ink);
+
+  /* 右缘一道极细的高光，把暗轨和亮区分开 */
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .conv-head {
@@ -509,7 +524,7 @@ onBeforeUnmount(() => {
   font-size: 15px;
   font-weight: 800;
   letter-spacing: -0.01em;
-  color: var(--sm-ink);
+  color: #eaf3fd;
 }
 
 .conv-count {
@@ -517,14 +532,14 @@ onBeforeUnmount(() => {
   height: 20px;
   padding: 0 6px;
   border-radius: var(--sm-r-pill);
-  background: var(--sm-bg-2);
+  background: rgba(255, 255, 255, 0.12);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: var(--sm-font-num);
   font-size: 11.5px;
   font-weight: 800;
-  color: var(--sm-ink-3);
+  color: rgba(214, 232, 250, 0.85);
 }
 
 .conv-empty {
@@ -533,7 +548,7 @@ onBeforeUnmount(() => {
   font-size: 12.5px;
   font-weight: 600;
   line-height: 1.9;
-  color: var(--sm-stone);
+  color: rgba(163, 187, 212, 0.55);
 }
 
 .conv-list {
@@ -555,15 +570,19 @@ onBeforeUnmount(() => {
   transition: background-color 0.15s ease;
 
   &:hover {
-    background: var(--sm-brand-tint);
+    background: rgba(255, 255, 255, 0.06);
   }
 
-  /* 选中：淡蓝底 + 左侧蓝条，一眼锁定 */
+  /* 选中：品牌蓝透出的暗色胶囊 */
   &.active {
-    background: var(--sm-brand-soft);
+    background: rgba(43, 156, 240, 0.22);
 
     .conv-name {
-      color: var(--sm-brand-deep);
+      color: #fff;
+    }
+
+    .conv-preview {
+      color: rgba(214, 232, 250, 0.75);
     }
   }
 }
@@ -575,7 +594,7 @@ onBeforeUnmount(() => {
   height: 42px;
   border-radius: 14px;
   overflow: hidden;
-  background: var(--sm-bg-2);
+  background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -591,8 +610,8 @@ onBeforeUnmount(() => {
     font-style: normal;
     font-size: 16px;
     font-weight: 800;
-    color: var(--sm-brand-deep);
-    opacity: 0.55;
+    color: #63b8f7;
+    opacity: 0.9;
   }
 }
 
@@ -604,7 +623,7 @@ onBeforeUnmount(() => {
   height: 17px;
   padding: 0 5px;
   border-radius: var(--sm-r-pill);
-  background: var(--sm-danger);
+  background: var(--sm-brand);
   color: #fff;
   font-family: var(--sm-font-num);
   font-size: 10px;
@@ -612,7 +631,7 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 0 2px var(--sm-paper);
+  box-shadow: 0 0 0 2px var(--sm-ink);
 }
 
 .conv-main {
@@ -630,7 +649,7 @@ onBeforeUnmount(() => {
 .conv-name {
   font-size: 13.5px;
   font-weight: 700;
-  color: var(--sm-ink);
+  color: rgba(234, 243, 253, 0.92);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -641,7 +660,7 @@ onBeforeUnmount(() => {
   font-family: var(--sm-font-num);
   font-size: 11px;
   font-weight: 500;
-  color: var(--sm-stone);
+  color: rgba(163, 187, 212, 0.5);
 }
 
 .conv-preview {
@@ -649,7 +668,7 @@ onBeforeUnmount(() => {
   margin-top: 3px;
   font-size: 12px;
   font-weight: 500;
-  color: var(--sm-ink-3);
+  color: rgba(163, 187, 212, 0.6);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -814,6 +833,20 @@ onBeforeUnmount(() => {
   flex: 1;
   overflow-y: auto;
   padding: 18px 20px 12px;
+  background: linear-gradient(180deg, #f7fbff 0%, var(--sm-bg) 30%);
+}
+
+/* 新消息入场：只作用于新挂载的节点（key 相同的旧节点不会重播） */
+@keyframes msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .msg-day {
@@ -830,15 +863,17 @@ onBeforeUnmount(() => {
   align-items: flex-end;
   gap: 8px;
   margin-bottom: 12px;
+  animation: msg-in 0.22s var(--sm-ease-out) both;
 
   &.mine {
     flex-direction: row-reverse;
 
     .bubble {
-      background: var(--sm-brand);
-      color: #fff;
+      background: linear-gradient(135deg, #2f9ef2, #1e86d8);
       border-color: transparent;
+      color: #fff;
       border-bottom-right-radius: 6px;
+      box-shadow: 0 8px 18px -10px rgba(43, 156, 240, 0.55);
     }
 
     .quote-btn {
@@ -889,6 +924,7 @@ onBeforeUnmount(() => {
   line-height: 1.65;
   color: var(--sm-ink);
   word-break: break-word;
+  box-shadow: 0 2px 10px -6px rgba(16, 45, 80, 0.16);
 }
 
 .msg-image {
@@ -980,6 +1016,40 @@ onBeforeUnmount(() => {
 .input-bar {
   border-top: 1px solid var(--sm-line-soft);
   padding: 10px 16px 14px;
+}
+
+/* 快捷回复：新会话时的一行建议，点击填入输入框 */
+.quick-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 9px;
+}
+
+.quick {
+  padding: 6px 13px;
+  border: 1px solid var(--sm-line);
+  border-radius: var(--sm-r-pill);
+  background: var(--sm-paper);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sm-ink-3);
+  cursor: pointer;
+  transition:
+    border-color 0.16s ease,
+    color 0.16s ease,
+    background-color 0.16s ease;
+
+  &:hover {
+    border-color: var(--sm-brand);
+    background: var(--sm-brand-tint);
+    color: var(--sm-brand-deep);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
 }
 
 .quote-preview {
