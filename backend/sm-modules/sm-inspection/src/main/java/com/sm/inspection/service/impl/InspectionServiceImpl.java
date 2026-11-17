@@ -450,7 +450,7 @@ public class InspectionServiceImpl implements IInspectionService {
         if (sellerId == null) {
             return;
         }
-        String link = reportId == null ? "/trade/my" : "/inspection/report?id=" + reportId;
+        String link = reportId == null ? "/trade/my" : "/trade/inspectionReport?id=" + reportId;
         try {
             notificationService.send(sellerId, "INSPECTION", title, content, link);
         } catch (Exception e) {

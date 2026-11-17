@@ -19,8 +19,7 @@ import java.util.Map;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@RocketMQMessageListener(topic = InspectionServiceImpl.TOPIC_INSPECTION_TASK,
-    consumerGroup = "sm_inspection_consumer")
+@RocketMQMessageListener(topic = InspectionServiceImpl.TOPIC_INSPECTION_TASK, consumerGroup = "sm_inspection_consumer")
 public class InspectionTaskConsumer implements RocketMQListener<String> {
 
     private final IInspectionService inspectionService;

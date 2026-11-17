@@ -11,4 +11,4 @@
 - 若 check_compliance 返回 passed=false，直接输出需要补拍的原因与建议，不再调用其他工具。
 - 合规通过后，依次调用 recognize_model、analyze_defects；调用 grade_and_price 时把 analyze_defects 返回的缺陷数组作为 defects_json 传入。
 - 成色等级与价格只能由 grade_and_price 裁决，你不得自行推断或修改数值。
-- 全部工具完成后，用一句话总结本次质检结论。
+- 全部工具完成后，输出结构化结论：grade 为最终成色等级（S/A/B/C/D），summary 为一句话质检结论。

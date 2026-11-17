@@ -1,10 +1,8 @@
 package com.sm.inspection.perception;
 
 import io.agentscope.core.agent.RuntimeContext;
-import io.agentscope.core.message.ContentBlock;
 import io.agentscope.core.message.Msg;
 import io.agentscope.core.message.MsgRole;
-import io.agentscope.core.message.TextBlock;
 import io.agentscope.core.model.Model;
 import io.agentscope.core.state.InMemoryAgentStateStore;
 import io.agentscope.core.tool.Toolkit;
@@ -25,7 +23,8 @@ import java.util.Map;
  * <p>单一智能体 + 四工具(check_compliance / recognize_model / analyze_defects / grade_and_price),
  * 由模型在 ReAct 循环中自主决定调用顺序与是否补拍;分级定价固定由规则引擎工具裁决。</p>
  *
- * <p>系统提示词、任务模板与视觉提示词均外置于 classpath:prompts/ 目录,由 {@link PromptLoader} 加载。</p>
+ * <p>系统提示词、任务模板与视觉提示词均外置于 classpath:prompts/ 目录,由 {@link PromptLoader} 加载;
+ * 最终结论通过结构化输出(call 的 structuredOutputClass 重载)绑定为 Java POJO。</p>
  *
  * @author sm
  */
@@ -83,18 +82,20 @@ public final class InspectionAgent {
                     "photoCount", String.valueOf(photos == null ? 0 : photos.size()))))
             .build();
 
-        Msg reply = agent.call(input, RuntimeContext.builder()
+        Msg reply = agent.call(List.of(input), QcOutputs.Conclusion.class, RuntimeContext.builder()
             .userId("inspection")
             .sessionId("qc-" + productId + "-" + System.nanoTime())
             .build()).block(TIMEOUT);
-        String finalText = extractText(reply);
-        log.info("[InspectionAgent] task finished productId={}, compliance={}, defects={}, grade={}, reply={}",
+
+        QcOutputs.Conclusion conclusion = reply == null
+            ? null : reply.getStructuredData(QcOutputs.Conclusion.class);
+        log.info("[InspectionAgent] task finished productId={}, compliance={}, defects={}, grade={}, conclusion={}",
             productId,
             tools.getCompliance() == null ? null : tools.getCompliance().passed(),
             tools.getDefects() == null ? 0 : tools.getDefects().size(),
             tools.getGrade() == null ? null : tools.getGrade().grade(),
-            finalText);
-        return new Result(tools, finalText);
+            conclusion == null ? null : conclusion.summary);
+        return new Result(tools, conclusion);
     }
 
     private static void prepareWorkspace() {
@@ -105,22 +106,9 @@ public final class InspectionAgent {
         }
     }
 
-    private static String extractText(Msg reply) {
-        if (reply == null || reply.getContent() == null) {
-            return "";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (ContentBlock block : reply.getContent()) {
-            if (block instanceof TextBlock text) {
-                sb.append(text.getText());
-            }
-        }
-        return sb.toString();
-    }
-
     /**
-     * 执行结果:工具实例(含各阶段结构化结果)+ 智能体最终结论
+     * 执行结果:工具实例(含各阶段结构化结果)+ 结构化最终结论
      */
-    public record Result(QcTools tools, String finalText) {
+    public record Result(QcTools tools, QcOutputs.Conclusion conclusion) {
     }
 }
